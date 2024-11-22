@@ -1,6 +1,6 @@
 import React from "react";
 import labassist_logo from "../../assets/labassist-logo.svg";
-import "./logo.css";
+import "./Logo.css";
 
 export const Logo = () => {
   return (
