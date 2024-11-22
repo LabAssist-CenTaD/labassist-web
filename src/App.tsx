@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import './styles/variables.css';  // Import global variables
 import './styles/fonts.css';      // Import custom fonts
 
