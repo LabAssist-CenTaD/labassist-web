@@ -1,0 +1,6 @@
+.toolbar {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+    position: relative;
+}

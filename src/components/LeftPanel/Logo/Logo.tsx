@@ -1,14 +1,14 @@
 // import React from "react";
-import labassist_logo from "../../assets/labassist-logo.svg";
+import labassistLogo from "../../../assets/labassist-logo.svg";
 import "./Logo.css";
 
-export const Logo = () => {
+export const Logo = (): JSX.Element => {
   return (
-    <div className="frame">
+    <div className="logo">
       <img
         className="labassist-logo"
         alt="Labassist logo"
-        src={labassist_logo}
+        src={labassistLogo}
       />
 
       <div className="AI-powered-titration">
@@ -21,5 +21,3 @@ export const Logo = () => {
     </div>
   );
 };
-
-export default Logo;

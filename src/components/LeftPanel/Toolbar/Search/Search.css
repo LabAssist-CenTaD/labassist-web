@@ -1,0 +1,28 @@
+.search {
+  align-items: center;
+  background-color: var(--blue-2);
+  border-radius: 8px;
+  display: flex;
+  gap: 8px;
+  height: 40px;
+  padding: 0px 12px;
+  position: relative;
+}
+
+.search .search-input {
+  background-color: transparent; /* Matches the search bar background */
+  border: none; /* Removes default input border */
+  color: var(--foreground); /* Text colour */
+  font-family: "Aeonik-Regular", Helvetica, Arial, sans-serif; /* Fallback fonts */
+  font-size: 12px; /* Font size for input text */
+  font-weight: 400; /* Regular weight */
+  letter-spacing: 0; /* No extra letter spacing */
+  line-height: normal; /* Default line height */
+  outline: none; /* Removes focus outline */
+  width: 100%; /* Fills the remaining space inside the search bar */
+}
+
+.search .search-input::placeholder {
+  color: var(--blue-grey); /* Matches your text colour */
+  /* opacity: 0.6; Dimmed for better contrast */
+}

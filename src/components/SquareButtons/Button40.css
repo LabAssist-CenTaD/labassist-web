@@ -1,0 +1,17 @@
+.button-40 {
+    align-items: center;
+    background-color: var(--blue-1);
+    border-radius: 8px;
+    display: inline-flex;
+    gap: 8px;
+    height: 40px;
+    justify-content: center;
+    padding: 0px 12px;
+    position: relative;
+}
+
+.button-40 .vuesax-bold-video {
+    height: 16px !important;
+    position: relative !important;
+    width: 16px !important;
+}
