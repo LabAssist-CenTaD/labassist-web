@@ -2,7 +2,7 @@
 import "./Toolbar.css";
 import { Search } from "./Search/Search";
 import { SelectButton } from "./SelectButton/SelectButton";
-import { Button40 } from "../../SquareButtons/Button40";
+import { Button40 } from "../../../SquareButtons/Button40/Button40";
 import { FolderAdd, VideoAdd } from "iconsax-react";
 
 export const Toolbar = (): JSX.Element => {
