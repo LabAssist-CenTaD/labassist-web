@@ -1,50 +1,69 @@
-# React + TypeScript + Vite
+# LabAssist
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+LabAssist is an AI-powered laboratory assistant designed to help students perform chemistry experiments more accurately while reducing teacher workload. The system uses computer vision to detect and provide real-time feedback on common mistakes during laboratory procedures, with an initial focus on titration experiments.
 
-Currently, two official plugins are available:
+## 🔬 Problem Statement
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+In school laboratories, teachers face significant challenges:
 
-## Expanding the ESLint configuration
+- Managing and monitoring 30+ students simultaneously
+- Keeping track of multiple experiment procedures throughout the year
+- Catching minute but important procedural errors
+- Ensuring safety compliance while providing individual attention
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 🎯 Key Features
 
-- Configure the top-level `parserOptions` property like this:
+- **Real-time Error Detection**: Uses advanced AI to identify common mistakes during laboratory procedures
+- **Dual AI System**:
+  - Object Detection using YOLOv10m for identifying laboratory equipment and safety gear
+  - Action Detection using X3D_M framework for analyzing procedure execution (e.g., proper swirling technique)
+- **Comprehensive UI**:
+  - Timeline view for chronological error tracking
+  - Summary dashboard for performance overview
+  - One-click navigation to specific error instances
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 🤖 Technical Architecture
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### Backend
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+- **Object Detection Model**
+  - Built on YOLOv10m architecture
+  - Trained on 4,500+ manually labeled images
+  - Dataset augmented to 22,500 images
+  - Detects 9 key objects: beaker, burette, pipette, conical flask, volumetric flask, funnel, white tile, face, and lab goggles
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+### Frontend
+
+- **User Interface**
+  - Built with Python and Tkinter
+  - Interactive timeline for error navigation
+  - Performance summary dashboard
+  - Intuitive experiment playback controls
+
+## 📊 Current Performance
+
+The object detection model shows promising results with:
+
+- > 90% mAP50 accuracy for most object classes
+- Strong performance in distinguishing similar laboratory equipment (including transparent objects)
+- Reliable safety equipment detection (lab goggles etc.)
+
+## 🚀 Future Development
+
+Planned improvements include:
+
+- Expanding the training dataset for enhanced object detection
+- Implementing the action detection model
+- Completing the frontend user interface with **React**
+- Integrating frontend and backend systems with **Flask**
+- Writing detailed documentation for user guidance
+- Expanding to other experiment types besides titration
+
+## 🔗 References
+
+Based on research from:
+Gligorea I, et al. (2023). Adaptive Learning Using Artificial Intelligence in e-Learning: A Literature Review. Education Sciences, 13(12):1216.
+
+## 🤝 Contributing
+
+This project is currently under development. For more information or to contribute, please contact the development team.
