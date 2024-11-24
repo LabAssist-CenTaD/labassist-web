@@ -1,0 +1,25 @@
+.status-count-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.status-count-wrapper .status-count {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.status-count-wrapper .status-count .status-icon {
+  width: 12px;
+  height: 12px;
+}
+
+.status-count-wrapper .status-count .status-text {
+  color: var(--foreground);
+  font-family: Aeonik;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
