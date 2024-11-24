@@ -15,6 +15,7 @@ export const SelectButton = (): JSX.Element => {
     <button
       className={`select-button ${isClicked && "clicked"}`}
       onClick={handleClick}
+      title="Select files"
     >
       {isClicked ? (
         <LogoutCurve size={16} variant="Bold" color="rgba(201, 232, 255, 1)" />

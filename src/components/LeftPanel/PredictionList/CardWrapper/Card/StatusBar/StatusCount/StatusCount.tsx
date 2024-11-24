@@ -16,37 +16,36 @@ export const StatusCount = ({
   status_counts,
 }: StatusCountProps): JSX.Element => {
   return (
-    <div className="status-count-wrapper">
+    <div
+      className="status-count-wrapper"
+      title={`Correct(s): ${status_counts.correct}`}
+    >
       {/* Correct Count */}
       <div className="status-count">
         <img
           className="status-icon"
           alt="Correct count icon"
           src={greenCircle}
-          title={`Correct(s): ${status_counts.correct}`} // Display the count dynamically
         />
         <div className="status-text">{status_counts.correct}</div>
       </div>
 
       {/* Warning Count */}
-      <div className="status-count">
+      <div
+        className="status-count"
+        title={`Warning(s): ${status_counts.warning}`}
+      >
         <img
           className="status-icon"
           alt="Warning count icon"
           src={yellowCircle}
-          title={`Warning(s): ${status_counts.warning}`} // Display the count dynamically
         />
         <div className="status-text">{status_counts.warning}</div>
       </div>
 
       {/* Error Count */}
-      <div className="status-count">
-        <img
-          className="status-icon"
-          alt="Error count icon"
-          src={redCircle}
-          title={`Error(s): ${status_counts.error}`} // Display the count dynamically
-        />
+      <div className="status-count" title={`Error(s): ${status_counts.error}`}>
+        <img className="status-icon" alt="Error count icon" src={redCircle} />
         <div className="status-text">{status_counts.error}</div>
       </div>
     </div>

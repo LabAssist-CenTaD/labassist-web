@@ -7,7 +7,7 @@ export const RemoveButton = (): JSX.Element => {
   };
 
   return (
-    <button className="remove-button" onClick={handleClick}>
+    <button className="remove-button" onClick={handleClick} title="Remove file">
       <Trash size={16} variant="Bold" color="rgba(0, 23, 31, 1)" />
     </button>
   );

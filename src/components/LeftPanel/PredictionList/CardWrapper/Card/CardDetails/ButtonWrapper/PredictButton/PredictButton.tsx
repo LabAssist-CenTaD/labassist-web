@@ -14,6 +14,7 @@ export const PredictButton = (): JSX.Element => {
     <button
       className={`predict-button ${isClicked ? "clicked" : ""}`}
       onClick={handleClick}
+      title="Begin/queue file for prediction"
     >
       {isClicked ? (
         <ExportCurve size={16} variant="Bold" color="rgba(98, 120, 136, 1)" />

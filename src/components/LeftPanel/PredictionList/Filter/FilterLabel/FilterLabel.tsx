@@ -21,7 +21,12 @@ export const FilterLabel = ({
   // Handle click event
   const handleClick = () => {
     setIsClicked(!isClicked);
-    console.log("Filter label (", label, ") clicked, state is now: ", !isClicked);
+    console.log(
+      "Filter label (",
+      label,
+      ") clicked, state is now: ",
+      !isClicked
+    );
   };
 
   return (
@@ -35,6 +40,7 @@ export const FilterLabel = ({
         } as React.CSSProperties
       }
       onClick={handleClick}
+      title={`Filter by "${label}"`}
     >
       <Icon
         size={12}

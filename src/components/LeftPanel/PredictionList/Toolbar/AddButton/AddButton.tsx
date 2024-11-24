@@ -7,7 +7,7 @@ export const AddButton = (): JSX.Element => {
   };
 
   return (
-    <button className="add-button" onClick={handleClick}>
+    <button className="add-button" onClick={handleClick} title="Add files">
       <AddCircle size={16} variant="Bold" color="rgba(0, 23, 31, 1)" />
     </button>
   );
