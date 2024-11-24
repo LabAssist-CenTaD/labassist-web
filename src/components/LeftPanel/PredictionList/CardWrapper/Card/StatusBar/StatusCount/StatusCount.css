@@ -16,7 +16,7 @@
 }
 
 .status-count-wrapper .status-count .status-text {
-  color: var(--foreground);
+  color: var(--Foreground);
   font-family: Aeonik;
   font-size: 12px;
   font-style: normal;

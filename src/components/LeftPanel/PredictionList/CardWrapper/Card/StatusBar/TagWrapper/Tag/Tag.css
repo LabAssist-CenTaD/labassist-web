@@ -7,11 +7,11 @@
   gap: 4px;
   width: fit-content;
   border-radius: 4px;
-  background: var(--blue-1);
+  background: var(--Blue-1);
 }
 
 .tag .tag-text {
-  color: var(--blue-2);
+  color: var(--Blue-2);
   font-family: Aeonik;
   font-size: 8px;
   font-style: normal;

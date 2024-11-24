@@ -7,7 +7,7 @@
   height: 40px;
   padding: 0px 12px;
   transition: background-color 0.3s ease, color 0.3s ease, filter 0.3s ease;
-  background-color: var(--foreground);
+  background-color: var(--Foreground);
   border: 2px solid transparent;
   border-radius: 8px;
   min-width: 90px;
@@ -19,8 +19,8 @@
 }
 
 .select-button.clicked {
-  background-color: var(--background);
-  border: 2px solid var(--foreground);
+  background-color: var(--Background);
+  border: 2px solid var(--Foreground);
 }
 
 .select-button .select-button-text {
@@ -30,11 +30,11 @@
   font-family: "Aeonik-Medium", Helvetica;
   font-weight: 500;
   line-height: normal;
-  color: var(--background);
+  color: var(--Background);
   letter-spacing: 0;
   white-space: nowrap;
 }
 
 .select-button.clicked .select-button-text {
-  color: var(--foreground);
+  color: var(--Foreground);
 }
