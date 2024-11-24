@@ -1,0 +1,40 @@
+.predict-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+  padding: 0px 8px;
+  transition: background-color 0.3s ease, color 0.3s ease, filter 0.3s ease;
+  background: var(--Blue-1, #007aff);
+  border: 2px solid transparent;
+  border-radius: 8px;
+}
+
+.predict-button:hover {
+  filter: brightness(0.85);
+}
+
+.predict-button .predict-button-text {
+  font-size: 12px;
+  font-family: Aeonik;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--Background, #00171f);
+}
+
+.predict-button.clicked {
+  border-radius: 8px;
+  border: 2px solid var(--Blue-grey, #627888);
+  background-color: transparent;
+}
+
+.predict-button.clicked .predict-button-text {
+  color: var(--Blue-grey, #627888);
+  font-family: Aeonik;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
