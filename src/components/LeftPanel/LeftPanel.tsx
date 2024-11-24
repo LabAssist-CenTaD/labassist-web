@@ -1,4 +1,4 @@
-import "./LeftPanel.css"
+import "./LeftPanel.css";
 import { Logo } from "./Logo/Logo";
 import { PredictionList } from "./PredictionList/PredictionList";
 
