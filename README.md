@@ -63,7 +63,3 @@ Planned improvements include:
 
 Based on research from:
 Gligorea I, et al. (2023). Adaptive Learning Using Artificial Intelligence in e-Learning: A Literature Review. Education Sciences, 13(12):1216.
-
-## 🤝 Contributing
-
-This project is currently under development. For more information or to contribute, please contact the development team.
