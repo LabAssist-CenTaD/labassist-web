@@ -1,6 +1,7 @@
-import { Toolbar } from "./Toolbar/Toolbar";
 import "./PredictionList.css";
+import { Toolbar } from "./Toolbar/Toolbar";
 import { Filter } from "./Filter/Filter";
+import { CardWrapper } from "./CardWrapper/CardWrapper";
 
 export const PredictionList = (): JSX.Element => {
   return (
@@ -8,6 +9,7 @@ export const PredictionList = (): JSX.Element => {
       <div className="header">Prediction List</div>
       <Toolbar />
       <Filter />
+      <CardWrapper />
     </div>
   );
 };
