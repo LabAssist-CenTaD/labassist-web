@@ -9,6 +9,17 @@
   background-color: var(--blue-1);
   border: 0;
   border-radius: 8px;
+  transition: background-color 0.3s ease, color 0.3s ease, filter 0.3s ease; /* Smooth transition for hover effect */
+  border: 2px solid transparent;
+}
+
+.button-40:hover {
+  filter: brightness(0.85);
+}
+
+.button-40:active {
+  background-color: var(--background);
+  border: 2px solid var(--blue-1);
 }
 
 .button-40 .vuesax-bold-video {

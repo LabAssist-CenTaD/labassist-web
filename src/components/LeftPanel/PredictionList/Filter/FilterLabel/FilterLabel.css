@@ -4,18 +4,22 @@
   align-items: center;
   gap: 4px;
   flex: 1 0 0;
-  box-sizing: border-box; /* Include border in the element’s size */;
+  box-sizing: border-box; /* Include border in the element’s size */
   height: 24px;
-  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for hover effect */;
+  transition: background-color 0.3s ease, color 0.3s ease, filter 0.3s ease; /* Smooth transition for hover effect */
   background-color: var(--bg-color);
   cursor: pointer;
-  border: 2px solid transparent; /* Ensure border is already set */;
+  border: 2px solid transparent; /* Ensure border is already set */
   border-radius: 4px;
 }
 
 .filter-label:hover {
+  filter: brightness(0.85); /* Darken the background on hover */
+}
+
+.filter-label:active {
   background-color: var(--Blue-2);
-  border-color: var(--bg-color); /* Change border color */;
+  border-color: var(--bg-color); /* Change border color */
 }
 
 .filter-label .filter-label-text {
@@ -27,6 +31,6 @@
   color: var(--text-color);
 }
 
-.filter-label:hover .filter-label-text {
+.filter-label:active .filter-label-text {
   color: var(--bg-color);
 }

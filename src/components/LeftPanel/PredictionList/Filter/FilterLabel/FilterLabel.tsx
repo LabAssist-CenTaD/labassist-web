@@ -16,11 +16,11 @@ export const FilterLabel = ({
   bg_color,
   border = "none", // Default border to none if not passed
 }: FilterLabelProps): JSX.Element => {
-  const [isHovered, setIsHovered] = useState(false); // Track hover state
+  const [isPressed, setIsPressed] = useState(false); // Track if mouse is pressed
 
-  // Handle hover enter and leave
-  const handleMouseEnter = () => setIsHovered(true);
-  const handleMouseLeave = () => setIsHovered(false);
+  // Handle mouse down and up events
+  const handleMouseDown = () => setIsPressed(true);
+  const handleMouseUp = () => setIsPressed(false);
 
   return (
     <button
@@ -32,13 +32,13 @@ export const FilterLabel = ({
           "--border": border,
         } as React.CSSProperties
       }
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
     >
       <Icon
         size={12}
         variant="Bold"
-        color={isHovered ? "var(--bg-color)" : "rgba(0, 33, 57, 1)"} // Change icon colour on hover
+        color={isPressed ? "var(--bg-color)" : "rgba(0, 33, 57, 1)"} // Change icon colour on mouse down
       />
       <div className="filter-label-text">{label}</div>
     </button>
