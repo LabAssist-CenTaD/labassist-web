@@ -17,11 +17,19 @@ export const Button40 = ({ Icon, iconProps }: Button40Props): JSX.Element => {
   const handleMouseDown = () => setIsPressed(true);
   const handleMouseUp = () => setIsPressed(false);
 
+  const [isClicked, setIsClicked] = useState(false); // Track if mouse is clicked
+
+  const handleClick = () => {
+    setIsClicked(!isClicked);
+    console.log("Button clicked");
+  };
+
   return (
     <button
       className="button-40"
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
+      onClick={handleClick}
     >
       <Icon
         size={16}
