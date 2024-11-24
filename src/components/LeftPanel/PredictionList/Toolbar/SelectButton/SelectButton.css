@@ -10,13 +10,15 @@
   background-color: var(--foreground);
   border: 2px solid transparent;
   border-radius: 8px;
+  min-width: 90px;
+  max-width: 90px;
 }
 
 .select-button:hover {
   filter: brightness(0.85);
 }
 
-.select-button:active {
+.select-button.clicked {
   background-color: var(--background);
   border: 2px solid var(--foreground);
 }
@@ -33,6 +35,6 @@
   white-space: nowrap;
 }
 
-.select-button:active .text-wrapper {
+.select-button.clicked .text-wrapper {
   color: var(--foreground);
 }

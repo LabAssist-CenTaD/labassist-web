@@ -1,25 +1,29 @@
 import { useState } from "react";
-import { TickCircle } from "iconsax-react";
+import { TickCircle, LogoutCurve } from "iconsax-react"; // Import both icons
 import "./SelectButton.css";
 
 export const SelectButton = (): JSX.Element => {
-  const [isPressed, setIsPressed] = useState(false);
+  const [isClicked, setIsClicked] = useState(false); // Track if mouse is clicked
 
-  const handleMouseDown = () => setIsPressed(true);
-  const handleMouseUp = () => setIsPressed(false);
+  // Handle click event
+  const handleClick = () => {
+    setIsClicked(!isClicked);
+    console.log("Select button clicked, state is now: ", !isClicked);
+  };
 
   return (
     <button
-      className="select-button"
-      onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUp}
+      className={`select-button ${isClicked && "clicked"}`}
+      onClick={handleClick}
     >
-      <TickCircle
-        size={16}
-        variant="Bold"
-        color={isPressed ? "rgba(201, 232, 255, 1)" : "rgba(0, 23, 31, 1)"}
-      />
-      <div className="text-wrapper">Select</div>
+      {isClicked ? (
+        <LogoutCurve size={16} variant="Bold" color="rgba(201, 232, 255, 1)" />
+      ) : (
+        <TickCircle size={16} variant="Bold" color="rgba(0, 23, 31, 1)" />
+      )}
+      <div className="text-wrapper">
+        {isClicked ? "Cancel" : "Select"} {/* Change text based on isClicked */}
+      </div>
     </button>
   );
 };

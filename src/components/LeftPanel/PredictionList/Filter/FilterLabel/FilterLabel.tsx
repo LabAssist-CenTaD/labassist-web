@@ -19,11 +19,14 @@ export const FilterLabel = ({
   const [isClicked, setIsClicked] = useState(false); // Track if mouse is clicked
 
   // Handle click event
-  const handleClick = () => setIsClicked(!isClicked);
+  const handleClick = () => {
+    setIsClicked(!isClicked);
+    console.log("Filter label (", label, ") clicked, state is now: ", !isClicked);
+  };
 
   return (
     <button
-      className={`filter-label ${isClicked ? "clicked" : ""}`}
+      className={`filter-label ${isClicked && "clicked"}`}
       style={
         {
           "--bg-color": bg_color,
