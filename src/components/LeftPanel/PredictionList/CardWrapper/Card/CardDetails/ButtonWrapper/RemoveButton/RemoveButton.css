@@ -1,10 +1,19 @@
 .remove-button {
   display: flex;
-  height: 32px;
-  padding: 0px 8px;
   justify-content: center;
   align-items: center;
   gap: 8px;
-  border-radius: 8px;
+  width: 32px;
+  min-width: 32px;
+  max-width: 32px;
+  height: 32px;
+  padding: 0px 8px;
+  transition: background-color 0.3s ease, color 0.3s ease, filter 0.3s ease;
   background: var(--Red, #ef476f);
+  border: none;
+  border-radius: 8px;
+}
+
+.remove-button:hover {
+  filter: brightness(0.85);
 }
