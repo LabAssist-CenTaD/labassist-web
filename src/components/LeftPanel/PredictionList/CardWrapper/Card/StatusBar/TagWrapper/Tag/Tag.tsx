@@ -9,7 +9,7 @@ import {
 } from "iconsax-react"; // Import required icons
 import "./Tag.css";
 
-type TagStatus =
+export type TagStatus =
   | "perfect"
   | "warnings-present"
   | "errors-present"
