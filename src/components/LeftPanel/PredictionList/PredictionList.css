@@ -13,5 +13,5 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-  color: var(--Foreground, #c9e8ff);
+  color: var(--foreground, #c9e8ff);
 }

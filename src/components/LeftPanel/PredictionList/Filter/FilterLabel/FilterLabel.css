@@ -18,7 +18,7 @@
 }
 
 .filter-label.clicked {
-  background-color: var(--Blue-2);
+  background-color: var(--blue-2);
   border-color: var(--bg-color); /* Change border color */
 }
 

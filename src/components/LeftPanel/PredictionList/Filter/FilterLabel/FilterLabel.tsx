@@ -30,7 +30,7 @@ export const FilterLabel = ({
       style={
         {
           "--bg-color": bg_color,
-          "--text-color": text_color || "var(--Blue-2)", // Default text color if not passed
+          "--text-color": text_color || "var(--blue-2)", // Default text color if not passed
           "--border": border,
         } as React.CSSProperties
       }
