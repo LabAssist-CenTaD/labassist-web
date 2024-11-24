@@ -1,19 +1,32 @@
 .filter-label {
   display: flex;
-  height: 24px;
   justify-content: center;
   align-items: center;
   gap: 4px;
   flex: 1 0 0;
+  box-sizing: border-box; /* Include border in the element’s size */;
+  height: 24px;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for hover effect */;
+  background-color: var(--bg-color);
+  cursor: pointer;
+  border: 2px solid transparent; /* Ensure border is already set */;
   border-radius: 4px;
-  /* width: 100%; */
 }
 
-.filter-label .text-wrapper {
-  color: var(--Blue-2, #002139);
-  font-family: Aeonik;
+.filter-label:hover {
+  background-color: var(--Blue-2);
+  border-color: var(--bg-color); /* Change border color */;
+}
+
+.filter-label .filter-label-text {
   font-size: 10px;
+  font-family: Aeonik;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  color: var(--text-color);
+}
+
+.filter-label:hover .filter-label-text {
+  color: var(--bg-color);
 }

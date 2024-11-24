@@ -1,38 +1,38 @@
 .logo {
-  align-items: flex-start;
   display: inline-flex;
+  align-items: flex-start;
   gap: 18px;
   position: relative;
 }
 
 .logo .labassist-logo {
-  height: 40px;
   position: relative;
   width: 155px;
+  height: 40px;
 }
 
 .logo .AI-powered-titration {
-  align-items: center;
   display: inline-flex;
-  flex: 0 0 auto;
-  height: 40px;
   justify-content: center;
+  align-items: center;
+  flex: 0 0 auto;
   position: relative;
+  height: 40px;
 }
 
 .logo .div {
-  color: var(--blue-1);
-  font-family: "Aeonik-Medium", Helvetica;
-  font-size: 16px;
-  font-weight: 400;
-  letter-spacing: 0;
-  line-height: normal;
   position: relative;
-  white-space: nowrap;
   width: fit-content;
+  font-size: 16px;
+  font-family: "Aeonik-Medium", Helvetica;
+  font-weight: 400;
+  line-height: normal;
+  color: var(--blue-1);
+  letter-spacing: 0;
+  white-space: nowrap;
 }
 
-.logo .text-wrapper {
+.logo .description {
   font-weight: 500;
 }
 

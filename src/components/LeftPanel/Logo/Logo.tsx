@@ -13,7 +13,7 @@ export const Logo = (): JSX.Element => {
 
       <div className="AI-powered-titration">
         <p className="div">
-          <span className="text-wrapper">AI-powered Titration Analysis </span>
+          <span className="description">AI-powered Titration Analysis </span>
 
           <span className="span">V2</span>
         </p>

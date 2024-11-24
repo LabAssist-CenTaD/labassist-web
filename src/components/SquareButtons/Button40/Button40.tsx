@@ -13,13 +13,13 @@ interface Button40Props {
 
 export const Button40 = ({ Icon, iconProps }: Button40Props): JSX.Element => {
   return (
-    <div className="button-40">
+    <button className="button-40">
       <Icon
         size={16}
         variant="Bold"
         color="rgba(0, 23, 31, 1)"
         {...iconProps}
       />
-    </div>
+    </button>
   );
 };
