@@ -23,7 +23,7 @@
   border: 2px solid var(--foreground);
 }
 
-.select-button .text-wrapper {
+.select-button .select-button-text {
   position: relative;
   width: fit-content;
   font-size: 12px;
@@ -35,6 +35,6 @@
   white-space: nowrap;
 }
 
-.select-button.clicked .text-wrapper {
+.select-button.clicked .select-button-text {
   color: var(--foreground);
 }
