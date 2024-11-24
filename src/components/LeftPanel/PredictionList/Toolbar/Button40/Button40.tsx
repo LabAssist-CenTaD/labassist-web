@@ -35,6 +35,7 @@ export const Button40 = ({ Icon, iconProps }: Button40Props): JSX.Element => {
         size={16}
         variant="Bold"
         color={isPressed ? "rgba(0, 122, 255, 1)" : "rgba(0, 23, 31, 1)"}
+        className="button-40-icon"
         {...iconProps}
       />
     </button>

@@ -4,8 +4,12 @@
   align-items: center;
   gap: 8px;
   position: relative;
+  box-sizing: border-box;
+  width: 40px;
+  min-width: 40px;
+  max-width: 40px;
   height: 40px;
-  padding: 0px 12px;
+  padding: 0;
   background-color: var(--Blue-1);
   border: 0;
   border-radius: 8px;
@@ -21,9 +25,9 @@
   background-color: var(--Background);
   border: 2px solid var(--Blue-1);
 }
-
-.button-40 .vuesax-bold-video {
+/* 
+.button-40 .button-40-icon {
   position: relative !important;
   width: 16px !important;
   height: 16px !important;
-}
+} */
