@@ -35,7 +35,7 @@ In school laboratories, teachers face significant challenges:
 ### Frontend
 
 - **User Interface**
-  - Built with Python and Tkinter
+  - Built with **React**
   - Interactive timeline for error navigation
   - Performance summary dashboard
   - Intuitive experiment playback controls
