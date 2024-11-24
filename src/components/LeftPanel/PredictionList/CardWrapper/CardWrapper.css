@@ -4,5 +4,28 @@
   align-items: flex-start;
   gap: 12px;
   flex: 1 0 0;
+  height: 100%;
+  overflow-y: auto;
   width: 100%;
+  padding-right: 16px;
+}
+
+/* Style the scrollbar (WebKit browsers only) */
+.card-wrapper::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+  display: flex; /* Simulates flex properties */
+  flex-direction: column; /* Scrollbar items in a column */
+  background: var(--Blue-2, #002139); /* Background colour */
+  border-radius: 4px; /* Round the scrollbar edges */
+}
+
+/* Style the scrollbar thumb */
+.card-wrapper::-webkit-scrollbar-thumb {
+  background: var(--Blue-grey); /* Colour of the thumb */
+  border-radius: 4px; /* Round corners of the thumb */
+}
+
+/* Thumb hover effect */
+.card-wrapper::-webkit-scrollbar-thumb:hover {
+  background: var(--Blue-1); /* Change thumb colour on hover */
 }
