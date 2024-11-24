@@ -16,15 +16,14 @@ export const FilterLabel = ({
   bg_color,
   border = "none", // Default border to none if not passed
 }: FilterLabelProps): JSX.Element => {
-  const [isPressed, setIsPressed] = useState(false); // Track if mouse is pressed
+  const [isClicked, setIsClicked] = useState(false); // Track if mouse is clicked
 
-  // Handle mouse down and up events
-  const handleMouseDown = () => setIsPressed(true);
-  const handleMouseUp = () => setIsPressed(false);
+  // Handle click event
+  const handleClick = () => setIsClicked(!isClicked);
 
   return (
     <button
-      className="filter-label"
+      className={`filter-label ${isClicked ? "clicked" : ""}`}
       style={
         {
           "--bg-color": bg_color,
@@ -32,13 +31,12 @@ export const FilterLabel = ({
           "--border": border,
         } as React.CSSProperties
       }
-      onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUp}
+      onClick={handleClick}
     >
       <Icon
         size={12}
         variant="Bold"
-        color={isPressed ? "var(--bg-color)" : "rgba(0, 33, 57, 1)"} // Change icon colour on mouse down
+        color={isClicked ? "var(--bg-color)" : "rgba(0, 33, 57, 1)"} // Change icon colour on mouse down
       />
       <div className="filter-label-text">{label}</div>
     </button>

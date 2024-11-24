@@ -17,7 +17,7 @@
   filter: brightness(0.85); /* Darken the background on hover */
 }
 
-.filter-label:active {
+.filter-label.clicked {
   background-color: var(--Blue-2);
   border-color: var(--bg-color); /* Change border color */
 }
@@ -31,6 +31,6 @@
   color: var(--text-color);
 }
 
-.filter-label:active .filter-label-text {
+.filter-label.clicked .filter-label-text {
   color: var(--bg-color);
 }
