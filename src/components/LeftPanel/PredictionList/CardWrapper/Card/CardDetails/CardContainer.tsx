@@ -12,7 +12,7 @@ export const CardContainer = ({
   filePath,
 }: CardContainerProps): JSX.Element => {
   return (
-    <div className="card-details">
+    <div className="card-container">
       <FileDetails fileName={fileName} filePath={filePath} />
       <ButtonWrapper />
     </div>
