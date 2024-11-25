@@ -1,0 +1,12 @@
+.timeline {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  flex: 1 0 0;
+  align-self: stretch;
+  padding: 16px;
+  background: var(--Background, #00171f);
+  border-radius: 8px;
+  height: 100%;
+  width: 100%;
+}

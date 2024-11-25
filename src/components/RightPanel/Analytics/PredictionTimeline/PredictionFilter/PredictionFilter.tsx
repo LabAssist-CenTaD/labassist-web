@@ -1,7 +1,7 @@
 import "./PredictionFilter.css";
 import { InfoCircle, Danger, CloseCircle } from "iconsax-react";
 import { PredictionFilterLabel } from "./PredictionFilterLabel/PredictionFilterLabel";
-import Seperator from "../../../../../assets/seperator.svg";
+import FilterSeperator from "../../../../../assets/filter-seperator.svg";
 
 export const PredictionFilter = (): JSX.Element => {
   return (
@@ -11,13 +11,21 @@ export const PredictionFilter = (): JSX.Element => {
         label="Info"
         bg_color="rgba(0, 122, 255, 1)"
       />
-      <img src={Seperator} alt="Seperator" className="seperator" />
+      <img
+        src={FilterSeperator}
+        alt="Filter Seperator"
+        className="filter-seperator"
+      />
       <PredictionFilterLabel
         Icon={Danger}
         label="Warning"
         bg_color="rgba(255, 209, 102, 1)"
       />
-      <img src={Seperator} alt="Seperator" className="seperator" />
+      <img
+        src={FilterSeperator}
+        alt="Filter Seperator"
+        className="filter-seperator"
+      />
       <PredictionFilterLabel
         Icon={CloseCircle}
         label="Error"
