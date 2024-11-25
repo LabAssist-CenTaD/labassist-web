@@ -17,4 +17,5 @@
   align-self: stretch;
   border-radius: 24px;
   background: var(--Blue-2, #002139);
+  height: 100%;
 }

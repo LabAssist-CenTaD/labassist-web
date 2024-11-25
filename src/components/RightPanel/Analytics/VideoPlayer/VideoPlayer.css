@@ -4,4 +4,11 @@
   justify-content: flex-end;
   align-items: center;
   align-self: stretch;
+  border-radius: 8px;
+}
+
+.video-player-container .video-player {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
 }
