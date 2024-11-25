@@ -1,0 +1,28 @@
+.file-path-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 40px;
+  padding: 0px 12px;
+  background: var(--Blue-2, #002139);
+  border-radius: 8px;
+}
+
+.file-path-display .file-path-header {
+  font-size: 12px;
+  font-family: Aeonik;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  color: var(--Foreground, #c9e8ff);
+}
+
+.file-path-display .file-path {
+  font-size: 12px;
+  font-family: Aeonik;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: var(--blue-grey, #627888);
+}

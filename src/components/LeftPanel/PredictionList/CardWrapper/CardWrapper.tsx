@@ -1,6 +1,7 @@
+import "./CardWrapper.css";
+import { setSelectedFilePath } from "../../../../shared/selectedFile";
 import { useEffect, useState } from "react";
 import { Card } from "./Card/Card";
-import "./CardWrapper.css";
 import { TagStatus } from "./Card/StatusBar/TagWrapper/Tag/Tag";
 
 interface CardWrapperProps {
@@ -40,9 +41,10 @@ export const CardWrapper = ({ fileList }: CardWrapperProps): JSX.Element => {
   }, []);
 
   // Track selected card
-  const [selectedCardIndex, setSelectedCardIndex] = useState<number | null>(
-    null
-  );
+  const [selectedCard, setSelectedCard] = useState<{
+    fileName: string;
+    filePath: string;
+  } | null>(null);
 
   return (
     <div
@@ -56,8 +58,14 @@ export const CardWrapper = ({ fileList }: CardWrapperProps): JSX.Element => {
           status_counts={file.status_counts}
           fileName={file.fileName}
           filePath={file.filePath}
-          isSelected={selectedCardIndex === index} // Pass whether the card is selected
-          onClick={() => setSelectedCardIndex(index)} // Update the selected card
+          isSelected={selectedCard?.fileName === file.fileName}
+          onClick={() => {
+            setSelectedCard({
+              fileName: file.fileName,
+              filePath: file.filePath,
+            });
+            setSelectedFilePath(file.filePath);
+          }}
         />
       ))}
     </div>
