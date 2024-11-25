@@ -1,0 +1,35 @@
+.prediction-filter-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  flex: 1 0 0;
+  box-sizing: border-box; /* Include border in the element’s size */
+  height: 24px;
+  transition: background-color 0.3s ease, color 0.3s ease, filter 0.3s ease; /* Smooth transition for hover effect */
+  background-color: var(--bg-color);
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+}
+
+.prediction-filter-label:hover {
+  filter: brightness(0.85); /* Darken the background on hover */
+}
+
+.prediction-filter-label.clicked {
+  background-color: transparent;
+}
+
+.prediction-filter-label .prediction-filter-label-text {
+  font-size: 10px;
+  font-family: Aeonik;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  color: var(--text-color);
+}
+
+.prediction-filter-label.clicked .prediction-filter-label-text {
+  color: var(--bg-color);
+}
