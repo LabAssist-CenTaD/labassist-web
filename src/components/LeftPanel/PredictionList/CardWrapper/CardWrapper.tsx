@@ -17,6 +17,7 @@ interface CardWrapperProps {
 }
 
 export const CardWrapper = ({ fileList }: CardWrapperProps): JSX.Element => {
+  // Track if the card wrapper has a scrollbar
   const [hasScrollbar, setHasScrollbar] = useState(false);
 
   useEffect(() => {
@@ -38,6 +39,11 @@ export const CardWrapper = ({ fileList }: CardWrapperProps): JSX.Element => {
     return () => resizeObserver.disconnect();
   }, []);
 
+  // Track selected card
+  const [selectedCardIndex, setSelectedCardIndex] = useState<number | null>(
+    null
+  );
+
   return (
     <div
       className="card-wrapper"
@@ -50,6 +56,8 @@ export const CardWrapper = ({ fileList }: CardWrapperProps): JSX.Element => {
           status_counts={file.status_counts}
           fileName={file.fileName}
           filePath={file.filePath}
+          isSelected={selectedCardIndex === index} // Pass whether the card is selected
+          onClick={() => setSelectedCardIndex(index)} // Update the selected card
         />
       ))}
     </div>

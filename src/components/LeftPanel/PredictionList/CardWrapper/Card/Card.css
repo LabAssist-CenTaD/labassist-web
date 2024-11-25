@@ -7,4 +7,9 @@
   padding: 16px;
   background: var(--Blue-2, #002139);
   border-radius: 8px;
+  border: 2px solid transparent;
+}
+
+.card.selected {
+  border: 2px solid var(--Foreground); /* Highlight border colour */
 }
