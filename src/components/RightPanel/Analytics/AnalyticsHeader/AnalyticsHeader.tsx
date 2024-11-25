@@ -11,7 +11,7 @@ export const AnalyticsHeader = (): JSX.Element => {
 
   return (
     <div className="analytics-header">
-      <div className="analytics-title">Analytics</div>
+      <div className="analytics-title"><p>Analytics</p></div>
       <div className="video-summary-toggler">
         <div
           className={`toggle ${activeTab === "video" ? "active" : ""}`}

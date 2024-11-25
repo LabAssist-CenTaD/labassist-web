@@ -4,6 +4,7 @@
   align-items: flex-start;
   align-self: stretch;
   width: 100%;
+  height: 32px;
 }
 
 .analytics-header .analytics-title {
@@ -13,6 +14,11 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+
+  display: flex;
+  padding-bottom: 16px;
+  align-items: flex-start;
+  gap: 10px;
 }
 
 .analytics-header .video-summary-toggler {
@@ -33,6 +39,7 @@
   border-radius: 8px 8px 0px 0px;
   background: transparent;
   transition: background 0.3s ease, transform 0.3s ease;
+  height: 48px;
 }
 
 .analytics-header .video-summary-toggler .toggle.active {
