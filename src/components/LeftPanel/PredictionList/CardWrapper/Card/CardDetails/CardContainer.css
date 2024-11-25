@@ -1,8 +1,26 @@
-.card-details {
+.card-container {
   display: flex;
   align-items: flex-start;
   gap: 24px;
   align-self: stretch;
   height: 32px;
   width: 100%;
+  justify-content: space-between; /* Ensure elements are spaced correctly */
+}
+
+.button-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: fit-content;
+}
+
+.file-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  flex: 1 0 0; /* Allow this to take remaining space */
+  width: auto;
+  overflow: hidden; /* Prevent overflow */
 }

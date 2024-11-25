@@ -1,6 +1,6 @@
 import { StatusBar } from "./StatusBar/StatusBar";
 import "./Card.css";
-import { CardDetails } from "./CardDetails/CardContainer";
+import { CardContainer } from "./CardDetails/CardContainer";
 import { TagStatus } from "./StatusBar/TagWrapper/Tag/Tag";
 
 interface CardProps {
@@ -23,7 +23,7 @@ export const Card = ({
   return (
     <div className="card" id="">
       <StatusBar status_list={status_list} status_counts={status_counts} />
-      <CardDetails fileName={fileName} filePath={filePath} />
+      <CardContainer fileName={fileName} filePath={filePath} />
     </div>
   );
 };
