@@ -1,0 +1,51 @@
+.analytics-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-self: stretch;
+  width: 100%;
+}
+
+.analytics-header .analytics-title {
+  color: var(--Foreground, #c9e8ff);
+  font-family: Aeonik;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.analytics-header .video-summary-toggler {
+  display: flex;
+  padding-right: 36px;
+  align-items: flex-start;
+  align-self: stretch;
+  width: fit-content;
+}
+
+.analytics-header .video-summary-toggler .toggle {
+  display: flex;
+  width: 96px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  align-self: stretch;
+  border-radius: 8px 8px 0px 0px;
+  background: transparent;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.analytics-header .video-summary-toggler .toggle.active {
+  background: var(--Blue-2, #002139);
+  /* transform: translateY(-4px); Slight upward movement for emphasis */
+}
+
+.toggle-text {
+  color: var(--Foreground, #c9e8ff);
+  font-family: Aeonik;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  transition: color 0.3s ease; /* Smooth colour change */
+}
