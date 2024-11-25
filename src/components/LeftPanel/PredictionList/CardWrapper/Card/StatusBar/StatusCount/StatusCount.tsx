@@ -5,7 +5,7 @@ import redCircle from "../../../../../../../assets/status_count/red_circle.svg";
 import "./StatusCount.css";
 
 interface StatusCountProps {
-  status_counts: {
+  status_counts?: {
     correct: number;
     warning: number;
     error: number;
@@ -13,7 +13,7 @@ interface StatusCountProps {
 }
 
 export const StatusCount = ({
-  status_counts,
+  status_counts = { correct: 0, warning: 0, error: 0 },
 }: StatusCountProps): JSX.Element => {
   return (
     <div

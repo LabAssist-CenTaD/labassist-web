@@ -2,27 +2,25 @@ import { TagWrapper } from "./TagWrapper/TagWrapper";
 import { StatusCount } from "./StatusCount/StatusCount";
 
 import "./StatusBar.css";
+import { TagStatus } from "./TagWrapper/Tag/Tag";
 
-export const StatusBar = (): JSX.Element => {
+interface StatusBarProps {
+  status_list: TagStatus[];
+  status_counts?: {
+    correct: number;
+    warning: number;
+    error: number;
+  };
+}
+
+export const StatusBar = ({
+  status_list,
+  status_counts,
+}: StatusBarProps): JSX.Element => {
   return (
     <div className="status-bar">
-      <TagWrapper
-        status_list={[
-          "complete",
-          "errors-present",
-          "warnings-present",
-          // "perfect",
-          // "predicting",
-          // "queued",
-        ]}
-      />
-      <StatusCount
-        status_counts={{
-          correct: 5, // Number of correct items
-          warning: 2, // Number of items with warnings
-          error: 1, // Number of error items
-        }}
-      />
+      <TagWrapper status_list={status_list} />
+      <StatusCount status_counts={status_counts} />
     </div>
   );
 };
