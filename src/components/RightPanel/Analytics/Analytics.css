@@ -19,3 +19,7 @@
   background: var(--Blue-2, #002139);
   height: 100%;
 }
+
+.analytics .analytics-container > * {
+  flex: 1; /* Make each child take up equal space */
+}

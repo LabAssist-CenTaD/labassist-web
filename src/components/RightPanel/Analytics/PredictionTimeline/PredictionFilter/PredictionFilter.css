@@ -1,0 +1,11 @@
+.prediciton-filter {
+  display: flex;
+  /* flex-direction: row; */
+  height: 40px;
+  padding: 0px 8px;
+  align-items: center;
+  gap: 8px;
+  align-self: stretch;
+  border-radius: 8px;
+  background: var(--Background, #00171f);
+}

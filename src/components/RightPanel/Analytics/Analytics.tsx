@@ -1,5 +1,6 @@
 import "./Analytics.css";
 import { AnalyticsHeader } from "./AnalyticsHeader/AnalyticsHeader";
+import { PredictionTimeline } from "./PredictionTimeline/PredictionTimeline";
 import { VideoPlayer } from "./VideoPlayer/VideoPlayer";
 
 export const Analytics = (): JSX.Element => {
@@ -8,6 +9,7 @@ export const Analytics = (): JSX.Element => {
       <AnalyticsHeader />
       <div className="analytics-container">
         <VideoPlayer />
+        <PredictionTimeline />
       </div>
     </div>
   );
