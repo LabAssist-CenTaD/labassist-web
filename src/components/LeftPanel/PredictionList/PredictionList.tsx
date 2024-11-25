@@ -4,6 +4,7 @@ import { Filter } from "./Filter/Filter";
 import "./PredictionList.css";
 import { TagStatus } from "./CardWrapper/Card/StatusBar/TagWrapper/Tag/Tag";
 
+// Define file list
 const fileData: {
   fileName: string;
   filePath: string;
