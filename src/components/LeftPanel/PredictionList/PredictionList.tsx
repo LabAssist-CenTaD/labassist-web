@@ -74,7 +74,6 @@ const fileData: {
   },
 ];
 
-
 export const PredictionList = (): JSX.Element => {
   const [searchQuery, setSearchQuery] = useState("");
 
