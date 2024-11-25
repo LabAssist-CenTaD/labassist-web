@@ -1,19 +1,57 @@
+import { useEffect, useState } from "react";
 import { Card } from "./Card/Card";
 import "./CardWrapper.css";
+import { TagStatus } from "./Card/StatusBar/TagWrapper/Tag/Tag";
 
-// interface CardWrapperProps {
-//   fileList: string[];
-// }
+interface CardWrapperProps {
+  fileList: {
+    fileName: string;
+    filePath: string;
+    status_list: TagStatus[];
+    status_counts: {
+      correct: number;
+      warning: number;
+      error: number;
+    };
+  }[];
+}
 
-export const CardWrapper = (): JSX.Element => {
+export const CardWrapper = ({ fileList }: CardWrapperProps): JSX.Element => {
+  const [hasScrollbar, setHasScrollbar] = useState(false);
+
+  useEffect(() => {
+    const wrapper = document.querySelector(".card-wrapper");
+
+    const checkScrollbar = () => {
+      if (wrapper) {
+        const hasVerticalScrollbar =
+          wrapper.scrollHeight > wrapper.clientHeight;
+        setHasScrollbar(hasVerticalScrollbar);
+      }
+    };
+
+    checkScrollbar(); // Check on mount
+
+    const resizeObserver = new ResizeObserver(checkScrollbar);
+    if (wrapper) resizeObserver.observe(wrapper);
+
+    return () => resizeObserver.disconnect();
+  }, []);
+
   return (
-    <div className="card-wrapper">
-      <Card
-        status_list={["complete"]}
-        // status_counts={{ correct: 1, warning: 1, error: 1 }}
-        fileName="file1"
-        filePath="path1"
-      />
+    <div
+      className="card-wrapper"
+      style={{ paddingRight: hasScrollbar ? "8px" : "0px" }}
+    >
+      {fileList.map((file, index) => (
+        <Card
+          key={index}
+          status_list={file.status_list}
+          status_counts={file.status_counts}
+          fileName={file.fileName}
+          filePath={file.filePath}
+        />
+      ))}
     </div>
   );
 };
