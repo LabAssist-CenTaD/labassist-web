@@ -1,6 +1,6 @@
 import "./Timeline.css";
+import { HorizontalSeperator } from "../../../../../HorizontalSeperator/HorizontalSeperator";
 import { TimelineEntry } from "./TimelineEntry/TimelineEntry";
-import { TimelineSeperator } from "./TimelineSeperator/TimelineSeperator";
 
 const timelineData: {
   type: "info" | "warning" | "error";
@@ -36,7 +36,7 @@ export const Timeline = (): JSX.Element => {
           />
           {/* Add timeline seperator for every entry except last one */}
           {index < timelineData.length - 1 && (
-            <TimelineSeperator key={`separator-${index}`} />
+            <HorizontalSeperator key={`separator-${index}`} />
           )}
         </>
       ))}
