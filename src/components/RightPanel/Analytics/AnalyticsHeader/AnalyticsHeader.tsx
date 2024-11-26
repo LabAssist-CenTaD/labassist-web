@@ -1,15 +1,16 @@
-import { useState } from "react";
 import { Note, VideoPlay } from "iconsax-react";
 import "./AnalyticsHeader.css";
 import { Colors } from "../../../../styles/colors";
 
-export const AnalyticsHeader = (): JSX.Element => {
-  const [activeTab, setActiveTab] = useState<"video" | "summary">("video");
+interface AnalyticsHeaderProps {
+  activeTab: "video" | "summary";
+  onToggle: (tab: "video" | "summary") => void;
+}
 
-  const handleToggle = (tab: "video" | "summary") => {
-    setActiveTab(tab);
-  };
-
+export const AnalyticsHeader = ({
+  activeTab,
+  onToggle,
+}: AnalyticsHeaderProps): JSX.Element => {
   return (
     <div className="analytics-header">
       <div className="analytics-title">
@@ -18,14 +19,14 @@ export const AnalyticsHeader = (): JSX.Element => {
       <div className="video-summary-toggler">
         <div
           className={`toggle ${activeTab === "video" ? "active" : ""}`}
-          onClick={() => handleToggle("video")}
+          onClick={() => onToggle("video")}
         >
           <VideoPlay size={16} variant="Bold" color={Colors.foreground} />
           <div className="toggle-text">Video</div>
         </div>
         <div
           className={`toggle ${activeTab === "summary" ? "active" : ""}`}
-          onClick={() => handleToggle("summary")}
+          onClick={() => onToggle("summary")}
         >
           <Note size={16} variant="Bold" color={Colors.foreground} />
           <div className="toggle-text">Summary</div>

@@ -6,4 +6,5 @@
   align-items: flex-start;
   align-self: stretch;
   gap: 16px;
+  transition: all 0.3s ease;
 }
