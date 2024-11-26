@@ -3,6 +3,8 @@
   align-items: center;
   gap: 8px;
   align-self: stretch;
+  height: fit-content;
+  max-width: 100%;
 }
 
 .timeline-entry .message {
