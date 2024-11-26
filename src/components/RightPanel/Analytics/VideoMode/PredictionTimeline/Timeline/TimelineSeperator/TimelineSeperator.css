@@ -1,0 +1,7 @@
+.timeline-seperator {
+  width: 100%; /* Make it dynamic */
+  height: 2px; /* Thickness of the line */
+  background-color: #c9e8ff; /* Colour of the line */
+  border-radius: 1px; /* Rounding the corners */
+  opacity: 0.2; /* Adjust transparency */
+}
