@@ -1,0 +1,15 @@
+.timeline-entry {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  align-self: stretch;
+}
+
+.timeline-entry .message {
+  color: var(--Foreground, #c9e8ff);
+  font-family: Aeonik;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}

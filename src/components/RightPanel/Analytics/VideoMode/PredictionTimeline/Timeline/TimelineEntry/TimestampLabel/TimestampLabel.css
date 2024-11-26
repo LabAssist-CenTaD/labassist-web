@@ -6,6 +6,7 @@
   align-items: center;
   gap: 4px;
   border-radius: 4px;
+  background-color: var(--bg-color);
 }
 
 .timestamp-label .timestamp {
