@@ -1,0 +1,17 @@
+.log-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  align-self: stretch;
+  height: fit-content;
+}
+
+.log-item .log-text {
+  flex: 1 0 0;
+  font-size: 12px;
+  font-family: Aeonik;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: var(--Foreground, #c9e8ff);
+}

@@ -8,6 +8,7 @@
   background: var(--Blue-2, #002139);
   border-radius: 8px;
   border: 2px solid transparent;
+  transition: 0.3s;
 }
 
 .card.selected {
