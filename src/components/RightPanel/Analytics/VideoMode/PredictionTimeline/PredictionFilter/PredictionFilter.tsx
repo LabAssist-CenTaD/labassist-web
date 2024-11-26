@@ -1,7 +1,7 @@
 import "./PredictionFilter.css";
 import { InfoCircle, Danger, CloseCircle } from "iconsax-react";
 import { PredictionFilterLabel } from "./PredictionFilterLabel/PredictionFilterLabel";
-import FilterSeperator from "../../../../../assets/filter-seperator.svg";
+import FilterSeperator from "../../../../../../assets/filter-seperator.svg";
 
 export const PredictionFilter = (): JSX.Element => {
   return (
