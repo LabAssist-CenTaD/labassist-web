@@ -11,11 +11,9 @@ export const Logo = (): JSX.Element => {
         src={labassistLogo}
       />
 
-      <div className="AI-powered-titration">
-        <p className="div">
-          <span className="description">AI-powered Titration Analysis </span>
-
-          <span className="span">V2</span>
+      <div className="ai-powered-titration">
+        <p className="ai-powered-titration-text">
+          AI-powered Titration Analysis <b>V2</b>
         </p>
       </div>
     </div>

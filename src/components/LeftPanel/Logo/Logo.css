@@ -3,6 +3,7 @@
   align-items: flex-start;
   gap: 18px;
   position: relative;
+  width: 100%; /* Ensure the logo container takes up full width */
 }
 
 .logo .labassist-logo {
@@ -11,32 +12,22 @@
   height: 40px;
 }
 
-.logo .AI-powered-titration {
-  display: inline-flex;
-  justify-content: center;
+.logo .ai-powered-titration {
+  display: inline-flex; /* Keep the inline-flex for inline text behaviour */
+  justify-content: flex-start;
   align-items: center;
-  flex: 0 0 auto;
-  position: relative;
-  height: 40px;
+  height: 100%;
+  max-width: 100%;
+  flex-wrap: wrap; /* Allow wrapping of text inside this container */
 }
 
-.logo .div {
-  position: relative;
-  width: fit-content;
+.logo .ai-powered-titration .ai-powered-titration-text {
+  color: var(--Blue-1, #007aff);
+  font-family: Aeonik;
   font-size: 16px;
-  font-family: "Aeonik-Medium", Helvetica;
-  font-weight: 400;
-  line-height: normal;
-  color: var(--Blue-1);
-  letter-spacing: 0;
-  white-space: nowrap;
-}
-
-.logo .description {
   font-weight: 500;
-}
-
-.logo .span {
-  font-family: "Aeonik-Bold", Helvetica;
-  font-weight: 700;
+  line-height: normal;
+  word-wrap: break-word; /* Allow words to break and wrap */
+  white-space: normal; /* Allow text to wrap */
+  max-width: 100%;
 }
