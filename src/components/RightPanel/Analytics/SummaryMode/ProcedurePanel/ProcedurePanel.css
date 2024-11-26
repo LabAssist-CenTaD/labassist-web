@@ -1,0 +1,28 @@
+.procedure-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  flex: 1 0 0;
+  align-self: stretch;
+}
+
+.procedure-panel .procedure-panel-header {
+  font-size: 16px;
+  font-family: Aeonik;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  color: var(--Blue-1, #007aff);
+}
+
+.procedure-panel .procedure-panel-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  flex: 1 0 0;
+  align-self: stretch;
+  padding: 16px;
+  background: var(--Background, #00171f);
+  border-radius: 8px;
+}

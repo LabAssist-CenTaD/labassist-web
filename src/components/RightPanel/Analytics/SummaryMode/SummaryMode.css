@@ -20,3 +20,11 @@
   font-weight: 500;
   line-height: normal;
 }
+
+.summary-mode .procedure-panel-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  flex: 1 0 0;
+  align-self: stretch;
+}

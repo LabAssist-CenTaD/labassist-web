@@ -1,5 +1,5 @@
-import "./HorizontalSeperator.css"
+import "./HorizontalSeperator.css";
 
 export const HorizontalSeperator = (): JSX.Element => {
-  return <div className="horizontal-seperator"></div>;
+  return <div className="horizontal-seperator" />;
 };
