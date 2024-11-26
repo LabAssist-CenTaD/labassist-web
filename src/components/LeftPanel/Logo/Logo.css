@@ -4,6 +4,7 @@
   gap: 18px;
   position: relative;
   width: 100%; /* Ensure the logo container takes up full width */
+  max-height: 40px;
 }
 
 .logo .labassist-logo {
@@ -17,6 +18,7 @@
   justify-content: flex-start;
   align-items: center;
   height: 100%;
+  max-height: 40px;
   max-width: 100%;
   flex-wrap: wrap; /* Allow wrapping of text inside this container */
 }
@@ -30,4 +32,5 @@
   word-wrap: break-word; /* Allow words to break and wrap */
   white-space: normal; /* Allow text to wrap */
   max-width: 100%;
+  max-height: 100%;
 }
