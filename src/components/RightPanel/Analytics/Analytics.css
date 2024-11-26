@@ -7,19 +7,3 @@
   align-self: stretch;
   gap: 16px;
 }
-
-.analytics .analytics-container {
-  display: flex;
-  padding: 24px;
-  align-items: flex-start;
-  gap: 24px;
-  flex: 1 0 0;
-  align-self: stretch;
-  border-radius: 24px;
-  background: var(--Blue-2, #002139);
-  height: 100%;
-}
-
-.analytics .analytics-container > * {
-  flex: 1; /* Make each child take up equal space */
-}
