@@ -40,7 +40,7 @@ export const TimestampLabel = ({
       }
       title={`${label} at ${timestamp}`} // Dynamic title
     >
-      <Icon size={8} variant="Bold" color="rgba(0, 23, 31, 1)" />
+      <Icon size={8} variant="Bold" color="rgba(0, 23, 31, 1) " />
       <div className="timestamp">{timestamp}</div>
     </div>
   );
