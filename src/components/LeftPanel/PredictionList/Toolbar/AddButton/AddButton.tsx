@@ -1,5 +1,6 @@
 import { AddCircle } from "iconsax-react";
 import "./AddButton.css";
+import { Colors } from "../../../../../styles/colors";
 
 export const AddButton = (): JSX.Element => {
   const handleClick = () => {
@@ -8,7 +9,7 @@ export const AddButton = (): JSX.Element => {
 
   return (
     <button className="add-button" onClick={handleClick} title="Add files">
-      <AddCircle size={16} variant="Bold" color="rgba(0, 23, 31, 1)" />
+      <AddCircle size={16} variant="Bold" color={Colors.background} />
     </button>
   );
 };

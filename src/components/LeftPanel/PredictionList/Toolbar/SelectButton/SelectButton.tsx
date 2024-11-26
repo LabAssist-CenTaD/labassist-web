@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { TickCircle, LogoutCurve } from "iconsax-react"; // Import both icons
 import "./SelectButton.css";
+import { Colors } from "../../../../../styles/colors";
 
 export const SelectButton = (): JSX.Element => {
   const [isClicked, setIsClicked] = useState(false); // Track if mouse is clicked
@@ -18,9 +19,9 @@ export const SelectButton = (): JSX.Element => {
       title="Select files"
     >
       {isClicked ? (
-        <LogoutCurve size={16} variant="Bold" color="rgba(201, 232, 255, 1)" />
+        <LogoutCurve size={16} variant="Bold" color={Colors.foreground} />
       ) : (
-        <TickCircle size={16} variant="Bold" color="rgba(0, 23, 31, 1)" />
+        <TickCircle size={16} variant="Bold" color={Colors.background} />
       )}
       <div className="select-button-text">
         {isClicked ? "Cancel" : "Select"} {/* Change text based on isClicked */}

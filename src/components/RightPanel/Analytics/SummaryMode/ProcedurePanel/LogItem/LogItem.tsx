@@ -1,5 +1,6 @@
 import { EmojiHappy, EmojiSad } from "iconsax-react";
 import "./LogItem.css";
+import { Colors } from "../../../../../../styles/colors";
 
 interface LogItemProps {
   type: "correct" | "incorrect";
@@ -8,11 +9,11 @@ interface LogItemProps {
 
 const typeStyles = {
   correct: {
-    icon_color: "rgba(6, 214, 160, 1)",
+    icon_color: Colors.green,
     Icon: EmojiHappy,
   },
   incorrect: {
-    icon_color: "rgba(239, 71, 111, 1)",
+    icon_color: Colors.red,
     Icon: EmojiSad,
   },
 };

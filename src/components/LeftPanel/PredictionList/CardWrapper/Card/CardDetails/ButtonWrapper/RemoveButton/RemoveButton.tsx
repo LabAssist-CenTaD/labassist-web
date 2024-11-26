@@ -1,5 +1,6 @@
 import { Trash } from "iconsax-react";
 import "./RemoveButton.css";
+import { Colors } from "../../../../../../../../styles/colors";
 
 export const RemoveButton = (): JSX.Element => {
   const handleClick = () => {
@@ -8,7 +9,7 @@ export const RemoveButton = (): JSX.Element => {
 
   return (
     <button className="remove-button" onClick={handleClick} title="Remove file">
-      <Trash size={16} variant="Bold" color="rgba(0, 23, 31, 1)" />
+      <Trash size={16} variant="Bold" color={Colors.background} />
     </button>
   );
 };

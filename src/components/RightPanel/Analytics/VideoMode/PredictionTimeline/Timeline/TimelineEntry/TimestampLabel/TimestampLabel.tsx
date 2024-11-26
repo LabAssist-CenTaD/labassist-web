@@ -1,3 +1,4 @@
+import { Colors } from "../../../../../../../../styles/colors";
 import "./TimestampLabel.css";
 import { CloseCircle, Danger, InfoCircle } from "iconsax-react";
 
@@ -8,17 +9,17 @@ interface TimestampLabelProps {
 
 const typeStyles = {
   info: {
-    bg_color: "rgba(0, 122, 255, 1)",
+    bg_color: Colors.blue1,
     Icon: InfoCircle,
     label: "Info",
   },
   warning: {
-    bg_color: "rgba(255, 209, 102, 1)",
+    bg_color: Colors.yellow,
     Icon: Danger,
     label: "Warning",
   },
   error: {
-    bg_color: "rgba(239, 71, 111, 1)",
+    bg_color: Colors.red,
     Icon: CloseCircle,
     label: "Error",
   },
@@ -40,7 +41,7 @@ export const TimestampLabel = ({
       }
       title={`${label} at ${timestamp}`} // Dynamic title
     >
-      <Icon size={8} variant="Bold" color="rgba(0, 23, 31, 1) " />
+      <Icon size={8} variant="Bold" color={Colors.background} />
       <div className="timestamp">{timestamp}</div>
     </div>
   );

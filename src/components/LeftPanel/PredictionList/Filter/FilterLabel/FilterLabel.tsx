@@ -45,7 +45,7 @@ export const FilterLabel = ({
       <Icon
         size={12}
         variant="Bold"
-        color={isClicked ? "var(--bg-color)" : "rgba(0, 33, 57, 1)"} // Change icon colour on mouse down
+        color={isClicked ? "var(--bg-color)" : "var(--blue-2)"} // Change icon colour on mouse down
       />
       <div className="filter-label-text">{label}</div>
     </button>

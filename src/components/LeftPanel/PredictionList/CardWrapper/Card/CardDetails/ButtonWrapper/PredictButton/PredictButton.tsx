@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ExportCurve } from "iconsax-react";
 import "./PredictButton.css";
+import { Colors } from "../../../../../../../../styles/colors";
 
 export const PredictButton = (): JSX.Element => {
   const [isClicked, setIsClicked] = useState(false);
@@ -17,9 +18,9 @@ export const PredictButton = (): JSX.Element => {
       title="Begin/queue file for prediction"
     >
       {isClicked ? (
-        <ExportCurve size={16} variant="Bold" color="rgba(98, 120, 136, 1)" />
+        <ExportCurve size={16} variant="Bold" color={Colors.blueGrey} />
       ) : (
-        <ExportCurve size={16} variant="Bold" color="rgba(0, 33, 57, 1)" />
+        <ExportCurve size={16} variant="Bold" color={Colors.blue2} />
       )}
       <div className="predict-button-text">Predict</div>
     </button>

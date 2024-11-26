@@ -8,6 +8,7 @@ import {
   Timer,
 } from "iconsax-react"; // Import required icons
 import "./Tag.css";
+import { Colors } from "../../../../../../../../styles/colors";
 
 export type TagStatus =
   | "perfect"
@@ -25,33 +26,33 @@ export const Tag = ({ status }: TagProps): JSX.Element => {
   // Define mappings for status to styles and icons
   const tagConfig = {
     perfect: {
-      background: "rgba(6, 214, 160, 1)",
-      icon: <Star size={8} variant="Bold" color="rgba(0, 33, 57, 1)" />,
+      background: Colors.green,
+      icon: <Star size={8} variant="Bold" color={Colors.blue2} />,
       text: "Perfect",
     },
     "warnings-present": {
-      background: "rgba(255, 209, 102, 1)",
-      icon: <Danger size={8} variant="Bold" color="rgba(0, 33, 57, 1)" />,
+      background: Colors.yellow,
+      icon: <Danger size={8} variant="Bold" color={Colors.blue2} />,
       text: "Warnings Present",
     },
     "errors-present": {
-      background: "rgba(239, 71, 111, 1)",
-      icon: <CloseCircle size={8} variant="Bold" color="rgba(0, 33, 57, 1)" />,
+      background: Colors.red,
+      icon: <CloseCircle size={8} variant="Bold" color={Colors.blue2} />,
       text: "Errors Present",
     },
     complete: {
-      background: "rgba(0, 122, 255, 1)",
-      icon: <TickCircle size={8} variant="Bold" color="rgba(0, 33, 57, 1)" />,
+      background: Colors.blue1,
+      icon: <TickCircle size={8} variant="Bold" color={Colors.blue2} />,
       text: "Complete",
     },
     predicting: {
-      background: "rgba(201, 232, 255, 1)",
-      icon: <Timer size={8} variant="Bold" color="rgba(0, 33, 57, 1)" />,
+      background: Colors.foreground,
+      icon: <Timer size={8} variant="Bold" color={Colors.blue2} />,
       text: "Predicting",
     },
     queued: {
-      background: "rgba(98, 120, 136, 1)",
-      icon: <Clock size={8} variant="Bold" color="rgba(0, 33, 57, 1)" />,
+      background: Colors.blueGrey,
+      icon: <Clock size={8} variant="Bold" color={Colors.blue2} />,
       text: "Queued",
     },
   };
