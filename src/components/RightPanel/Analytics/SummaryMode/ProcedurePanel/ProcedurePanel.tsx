@@ -1,5 +1,6 @@
-import { LogItem } from "./LogItem/LogItem";
 import "./ProcedurePanel.css";
+import { LogItem } from "./LogItem/LogItem";
+import { HorizontalSeperator } from "../../../../HorizontalSeperator/HorizontalSeperator";
 
 interface ProcedurePanelProps {
   header: string;
@@ -15,7 +16,12 @@ export const ProcedurePanel = ({
       <div className="procedure-panel-header">{header}</div>
       <div className="procedure-panel-content">
         {logs.map((log, index) => (
-          <LogItem key={index} type={log.type} logText={log.logText} />
+          <>
+            <LogItem key={index} type={log.type} logText={log.logText} />
+            {index < logs.length - 1 && (
+              <HorizontalSeperator key={`separator-${index}`} />
+            )}
+          </>
         ))}
       </div>
     </div>
