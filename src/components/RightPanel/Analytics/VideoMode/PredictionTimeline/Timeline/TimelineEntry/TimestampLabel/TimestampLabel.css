@@ -1,0 +1,18 @@
+.timestamp-label {
+  display: flex;
+  height: 16px;
+  padding: 0px 4px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  border-radius: 4px;
+}
+
+.timestamp-label .timestamp {
+  color: var(--Blue-2, #002139);
+  font-family: Aeonik;
+  font-size: 8px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
