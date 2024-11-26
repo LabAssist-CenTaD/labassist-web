@@ -49,7 +49,7 @@ export const CardWrapper = ({ fileList }: CardWrapperProps): JSX.Element => {
   return (
     <div
       className="card-wrapper"
-      style={{ paddingRight: hasScrollbar ? "8px" : "0px" }}
+      style={{ paddingRight: hasScrollbar ? "16px" : "0px" }}
     >
       {fileList.map((file, index) => (
         <Card

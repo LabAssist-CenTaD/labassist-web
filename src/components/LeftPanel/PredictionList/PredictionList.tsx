@@ -14,7 +14,8 @@ const fileData: {
 }[] = [
   {
     fileName: "titration_1.mp4",
-    filePath: "C:/Users/LabAssist/2024/Practicals/Titration/24S6X/titration_1.mp4",
+    filePath:
+      "C:/Users/LabAssist/2024/Practicals/Titration/24S6X/titration_1.mp4",
     status_list: ["complete"],
     status_counts: { correct: 3, warning: 0, error: 0 },
   },
@@ -77,14 +78,25 @@ const fileData: {
 export const PredictionList = (): JSX.Element => {
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Filter the fileList based on the searchQuery
-  const filteredFileData = fileData.filter((file) =>
-    file.fileName.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredFileData = fileData.filter((file) => {
+    // Remove the .mp4 extension and compare just the filename
+    const fileNameWithoutExtension = file.fileName
+      .replace(/\.mp4$/, "")
+      .toLowerCase();
+    const searchQueryLowerCase = searchQuery.toLowerCase();
 
-  const handleSearch = (query: string) => {
-    setSearchQuery(query);
-  };
+    // console.log(
+    //   `File: ${fileNameWithoutExtension} Search Query: ${searchQueryLowerCase} Match: ${fileNameWithoutExtension.includes(
+    //     searchQueryLowerCase
+    //   )}`
+    // );
+
+    return fileNameWithoutExtension.includes(searchQueryLowerCase);
+  });
+
+  const handleSearch = (query: string) => setSearchQuery(query);
+
+  console.log("Filtered file data: ", filteredFileData);
 
   return (
     <div className="prediction-list">
