@@ -1,8 +1,9 @@
 import "./AddButton.css";
+import axios from "axios";
+import { useRef } from "react";
 import { AddCircle } from "iconsax-react";
 import { Colors } from "../../../../../styles/colors";
-import { useRef } from "react";
-import axios from "axios";
+import { getOrCreateDeviceId } from "../../../../../utils/deviceIdUtil";
 
 export const AddButton = (): JSX.Element => {
   const fileInputRef = useRef<HTMLInputElement>(null); // Reference to the file input
@@ -19,6 +20,10 @@ export const AddButton = (): JSX.Element => {
       try {
         const formData = new FormData();
         formData.append("video", file);
+
+        // Get the deviceId (either from cookie or generate a new one)
+        const deviceId = getOrCreateDeviceId();
+        formData.append("id", deviceId); // Add deviceId to FormData
 
         const response = await axios.post(
           "http://localhost:5000/upload",
