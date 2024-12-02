@@ -2,13 +2,13 @@ import { io } from "socket.io-client";
 import * as jsonpatch from "fast-json-patch";
 import { TagStatus } from "../components/LeftPanel/PredictionList/CardWrapper/Card/StatusBar/TagWrapper/Tag/Tag";
 
-interface Annotation {
+type Annotation = {
   status: string;
   message: string;
   timestamp: string;
 }
 
-interface FileData {
+type FileData = {
   fileName: string;
   filePath: string;
   status_list: TagStatus[];
