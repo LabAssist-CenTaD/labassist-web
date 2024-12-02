@@ -28,7 +28,7 @@ export const PredictionList = (): JSX.Element => {
 
   const handleSearch = (query: string) => setSearchQuery(query);
 
-  console.log("Filtered file data: ", filteredFileData);
+  // console.log("Filtered file data: ", filteredFileData);
 
   return (
     <div className="prediction-list">
