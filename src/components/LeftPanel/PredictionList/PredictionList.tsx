@@ -11,7 +11,7 @@ export const PredictionList = (): JSX.Element => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredFileData = fileData.filter((file) => {
-    // Remove the .mp4 extension and compare just the filename
+    // Remove the .mp4, .mov or .avi extension and compare just the filename
     const fileNameWithoutExtension = file.fileName
       .replace(/\.(mp4|mov|avi)$/, "")
       .toLowerCase();
