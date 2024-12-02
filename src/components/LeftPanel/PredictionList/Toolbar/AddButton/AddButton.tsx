@@ -3,7 +3,7 @@ import axios from "axios";
 import { useRef } from "react";
 import { AddCircle } from "iconsax-react";
 import { Colors } from "../../../../../styles/colors";
-import { getOrCreateDeviceId } from "../../../../../utils/deviceIdUtil";
+import { getOrCreateDeviceId } from "../../../../../utils/deviceIdUtils";
 
 export const AddButton = (): JSX.Element => {
   const fileInputRef = useRef<HTMLInputElement>(null); // Reference to the file input
