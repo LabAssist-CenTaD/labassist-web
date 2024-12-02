@@ -1,4 +1,5 @@
 import "./Timeline.css";
+import React from "react";
 import { HorizontalSeperator } from "../../../../../HorizontalSeperator/HorizontalSeperator";
 import { TimelineEntry } from "./TimelineEntry/TimelineEntry";
 
@@ -118,7 +119,7 @@ export const Timeline = (): JSX.Element => {
   return (
     <div className="timeline">
       {timelineData.map((entry, index) => (
-        <>
+        <React.Fragment key={index}>
           <TimelineEntry
             key={index}
             type={entry.type}
@@ -129,7 +130,7 @@ export const Timeline = (): JSX.Element => {
           {index < timelineData.length - 1 && (
             <HorizontalSeperator key={`separator-${index}`} />
           )}
-        </>
+        </React.Fragment>
       ))}
     </div>
   );
