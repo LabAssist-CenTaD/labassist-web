@@ -23,7 +23,7 @@ export const AddButton = (): JSX.Element => {
 
         // Get the deviceId (either from cookie or generate a new one)
         const deviceId = getOrCreateDeviceId();
-        formData.append("id", deviceId); // Add deviceId to FormData
+        formData.append("device_id", deviceId); // Add deviceId to FormData
 
         const response = await axios.post(
           "http://localhost:5000/upload",

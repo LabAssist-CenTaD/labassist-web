@@ -26,7 +26,7 @@ export function initSocket() {
     console.log("Connected to server.");
     socket.emit(
       "authenticate",
-      { client_id: getOrCreateDeviceId() },
+      { "device_id": getOrCreateDeviceId() },
       (message: string, data: JsonData) => {
         console.log("Response from server:", message, data);
 

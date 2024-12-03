@@ -2,19 +2,10 @@ import "./CardWrapper.css";
 import { setSelectedFilePath } from "../../../../shared/selectedFile";
 import { useEffect, useState } from "react";
 import { Card } from "./Card/Card";
-import { TagStatus } from "./Card/StatusBar/TagWrapper/Tag/Tag";
+import { CachedVideo } from "../../../../types/jsondata";
 
 interface CardWrapperProps {
-  fileList: {
-    fileName: string;
-    filePath: string;
-    status_list: TagStatus[];
-    status_counts: {
-      correct: number;
-      warning: number;
-      error: number;
-    };
-  }[];
+  fileList: CachedVideo[]
 }
 
 export const CardWrapper = ({ fileList }: CardWrapperProps): JSX.Element => {
@@ -56,15 +47,15 @@ export const CardWrapper = ({ fileList }: CardWrapperProps): JSX.Element => {
           key={index}
           status_list={file.status_list}
           status_counts={file.status_counts}
-          fileName={file.fileName}
-          filePath={file.filePath}
-          isSelected={selectedCard?.fileName === file.fileName}
+          fileName={file.file_name}
+          filePath={file.file_path}
+          isSelected={selectedCard?.fileName === file.file_name}
           onClick={() => {
             setSelectedCard({
-              fileName: file.fileName,
-              filePath: file.filePath,
+              fileName: file.file_name,
+              filePath: file.file_path,
             });
-            setSelectedFilePath(file.filePath);
+            setSelectedFilePath(file.file_path);
           }}
         />
       ))}

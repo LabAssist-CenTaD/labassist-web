@@ -16,8 +16,8 @@ export const PredictionList = (): JSX.Element => {
   useEffect(() => {
     if (dataReady) {
       const newVideo: CachedVideo = {
-        fileName: "example_video.mp4",
-        filePath: "uploads/example_video.mp4",
+        file_name: "example_video.mp4",
+        file_path: "uploads/example_video.mp4",
         status_list: ["predicting"],
         annotations: [],
         status_counts: {
@@ -36,7 +36,7 @@ export const PredictionList = (): JSX.Element => {
   }, [dataReady, cvm]); // Add new video only when data is ready
 
   const filteredFileData = cvm.getCachedVideos().filter((file) => {
-    const fileNameWithoutExtension = file.fileName
+    const fileNameWithoutExtension = file.file_name
       .replace(/\.(mp4|mov|avi)$/, "")
       .toLowerCase();
     const searchQueryLowerCase = searchQuery.toLowerCase();

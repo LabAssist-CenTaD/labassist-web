@@ -8,9 +8,9 @@ export function useCachedVideoManager() {
   useEffect(() => {
     const cachedVideoManager = getCachedVideoManager();
 
-    // Check if the cached videos are available after socket data is updated
+    // Check if the server has responded with the "Authenticated!" message
     const checkDataReady = setInterval(() => {
-      if (cachedVideoManager.getCachedVideos().length > 0) {
+      if (cachedVideoManager.getMessage() === "Authenticated!") {
         setDataReady(true);
         clearInterval(checkDataReady);
       }

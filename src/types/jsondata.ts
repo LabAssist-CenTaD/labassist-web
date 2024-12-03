@@ -13,8 +13,8 @@ type StatusCounts = {
 };
 
 export type CachedVideo = {
-  fileName: string;
-  filePath: string;
+  file_name: string;
+  file_path: string;
   status_list: TagStatus[]; // Assuming TagStatus is defined elsewhere
   annotations: Annotation[];
   status_counts: StatusCounts;
