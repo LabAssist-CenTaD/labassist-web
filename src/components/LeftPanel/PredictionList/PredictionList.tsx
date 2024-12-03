@@ -1,16 +1,26 @@
 import "./PredictionList.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CardWrapper } from "./CardWrapper/CardWrapper";
 import { Toolbar } from "./Toolbar/Toolbar";
 import { Filter } from "./Filter/Filter";
-import { getCachedVideoManager } from "../../../utils/socketUtils";
+import { CachedVideo } from "../../../types/jsondata";
+import { CachedVideoManager } from "../../../managers/CachedVideoManager"; // Adjust the import path as needed
 
-export const PredictionList = (): JSX.Element => {
-  // const [, forceUpdate] = useReducer((x) => x + 1, 0); // State to trigger re-render
+interface PredictionListProps {
+  cvm: CachedVideoManager; // Pass cvm as a prop
+}
+
+export const PredictionList = ({ cvm }: PredictionListProps): JSX.Element => {
   const [searchQuery, setSearchQuery] = useState("");
-  const cvm = getCachedVideoManager();
+  const [fileData, setFileData] = useState<CachedVideo[]>([]); // Local state to hold filtered data
 
-  const filteredFileData = cvm.getCachedVideos().filter((file) => {
+  useEffect(() => {
+    setFileData(cvm.getCachedVideos());
+  }, [cvm]); // This effect runs whenever cvm changes
+
+  
+
+  const filteredFileData = fileData.filter((file) => {
     const fileNameWithoutExtension = file.file_name
       .replace(/\.(mp4|mov|avi)$/, "")
       .toLowerCase();
@@ -20,10 +30,6 @@ export const PredictionList = (): JSX.Element => {
   });
 
   const handleSearch = (query: string) => setSearchQuery(query);
-
-  // if (!dataReady) {
-  //   return <div className="header">Loading...</div>; // Show loading message if data is still being fetched
-  // }
 
   return (
     <div className="prediction-list">

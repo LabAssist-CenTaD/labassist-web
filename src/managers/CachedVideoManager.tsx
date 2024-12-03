@@ -5,10 +5,23 @@ import { CachedVideo } from "../types/jsondata";
 export class CachedVideoManager {
   private cachedVideos: CachedVideo[];
   private message: string | null;
+  private onUpdateCallback: (() => void) | null = null; // Callback to run when the manager updates
 
   constructor(initialData: { cached_videos: CachedVideo[]; message?: string }) {
     this.cachedVideos = initialData.cached_videos || [];
     this.message = initialData.message || null;
+  }
+
+  // Set a callback to notify on updates
+  public setUpdateCallback(callback: () => void): void {
+    this.onUpdateCallback = callback;
+  }
+
+  // Notify React to re-render
+  private notifyUpdate(): void {
+    if (this.onUpdateCallback) {
+      this.onUpdateCallback();
+    }
   }
 
   // Get the current message
@@ -30,11 +43,13 @@ export class CachedVideoManager {
     if (serverData.message) {
       this.message = serverData.message; // Update message
     }
+    this.notifyUpdate(); // Trigger re-render
   }
 
   // Add a new cached video to the list
   public addCachedVideo(video: CachedVideo): void {
     this.cachedVideos.push(video);
+    this.notifyUpdate(); // Trigger re-render
   }
 
   // Remove a cached video by file name
@@ -42,6 +57,7 @@ export class CachedVideoManager {
     this.cachedVideos = this.cachedVideos.filter(
       (video) => video.file_name !== fileName
     );
+    this.notifyUpdate(); // Trigger re-render
   }
 
   // Find a cached video by its file name

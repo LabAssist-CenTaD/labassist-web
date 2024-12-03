@@ -83,10 +83,10 @@ export function initSocket() {
 }
 
 // Emit updates to the server
-export function sendUpdate(newData: JsonData): void {
+export function patchBackend(newData: JsonData): void {
   const socket = getSocket();
   const patch = jsonpatch.compare(jsonData, newData);
-  socket.emit("delta_update", patch);
+  socket.emit("patch_backend", patch);
   jsonData = newData; // Update local data
 }
 

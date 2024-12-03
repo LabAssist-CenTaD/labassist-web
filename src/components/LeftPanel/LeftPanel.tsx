@@ -1,12 +1,18 @@
 import "./LeftPanel.css";
+
 import { Logo } from "./Logo/Logo";
 import { PredictionList } from "./PredictionList/PredictionList";
+import { CachedVideoManager } from "../../managers/CachedVideoManager";
 
-export const LeftPanel = (): JSX.Element => {
+interface LeftPanelProps {
+  cvm: CachedVideoManager;
+}
+
+export const LeftPanel = ({ cvm }: LeftPanelProps): JSX.Element => {
   return (
     <div className="left-panel">
       <Logo />
-      <PredictionList />
+      <PredictionList cvm={cvm} />
     </div>
   );
 };
