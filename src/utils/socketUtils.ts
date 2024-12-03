@@ -1,12 +1,12 @@
 import * as jsonpatch from "fast-json-patch";
 import { io, Socket } from "socket.io-client";
-import { JsonData } from "../types/jsondata";
+import { CachedVideo, JsonData } from "../types/jsondata";
 import { getOrCreateDeviceId } from "./deviceIdUtils";
-import { CachedVideoManager } from "../context/CachedVideoManager";
+import { CachedVideoManager } from "../managers/CachedVideoManager";
 
 let socket: Socket | null = null; // Singleton socket instance
 let jsonData = {}; // Stores the current state
-const cachedVideoManager = new CachedVideoManager({ cached_videos: [] }); // Initializing with empty cached_videos
+const cvm = new CachedVideoManager({ cached_videos: [] }); // Initializing with empty cached_videos
 
 export function getSocket(): Socket {
   if (!socket) {
@@ -21,22 +21,23 @@ export function initSocket() {
   const socket = getSocket();
   socket.removeAllListeners(); // Remove all existing listeners
 
+  // Socket events
+
   // Connect and authenticate the socket
   socket.on("connect", () => {
     console.log("Connected to server.");
     socket.emit(
       "authenticate",
-      { "device_id": getOrCreateDeviceId() },
+      { device_id: getOrCreateDeviceId() },
       (message: string, data: JsonData) => {
         console.log("Response from server:", message, data);
 
         // Update the manager with data from the server
-        cachedVideoManager?.updateFromServerData(data);
+        cvm?.updateFromServerData(data);
       }
     );
   });
 
-  // Socket events
   socket.on("disconnect", () => {
     console.log("Disconnected from server.");
   });
@@ -45,15 +46,40 @@ export function initSocket() {
     jsonpatch.applyPatch(jsonData, patch);
   });
 
+  // Listen for updates from the server and apply them
   socket.on("patch_frontend", (data) => {
-    console.log("Message from server:", data);
+    console.log("Raw message from server:", data);
+
+    try {
+      // Parse the data if it's a string
+      const parsedData = typeof data === "string" ? JSON.parse(data) : data;
+
+      // Ensure parsedData is an array
+      if (Array.isArray(parsedData)) {
+        parsedData.forEach(
+          (patch: { op: string; path: string; value: CachedVideo }) => {
+            // Operation: add new cached video
+            if (patch.op === "add" && patch.value) {
+              // Add the video to the cached video manager
+              if (!cvm.findCachedVideo(patch.value.file_name)) {
+                cvm.addCachedVideo(patch.value);
+              }
+            }
+            
+            // Operation: remove cached video
+          }
+        );
+      } else {
+        console.error("Unexpected data format for patch_frontend:", parsedData);
+      }
+    } catch (error) {
+      console.error("Error parsing patch_frontend data:", error, data);
+    }
   });
 
   socket.on("authentication_success", (data) => {
     console.log("Authentication success:", data);
   });
-
-  // console.log("Socket initialised");
 }
 
 // Emit updates to the server
@@ -66,5 +92,5 @@ export function sendUpdate(newData: JsonData): void {
 
 // Export CachedVideoManager for global use
 export function getCachedVideoManager(): CachedVideoManager {
-  return cachedVideoManager; // Always return the singleton instance
+  return cvm; // Always return the singleton instance
 }
