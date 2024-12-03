@@ -2,9 +2,11 @@ import * as jsonpatch from "fast-json-patch";
 import { io, Socket } from "socket.io-client";
 import { getOrCreateDeviceId } from "./deviceIdUtils";
 import { JsonData } from "../types/jsondata";
+import { CachedVideoManager } from "../context/CachedVideoManager";
 
 let socket: Socket | null = null; // Singleton socket instance
 let jsonData = {}; // Stores the current state
+const cvm: CachedVideoManager | null = null;
 
 export function getSocket(): Socket {
   if (!socket) {
@@ -27,6 +29,9 @@ export function initSocket() {
       { client_id: getOrCreateDeviceId() },
       (message: string, data: JsonData) => {
         console.log("Response from server:", message, data);
+
+        // Update the manager with data from the server
+        cvm?.updateFromServerData(data);
       }
     );
   });
@@ -57,4 +62,9 @@ export function sendUpdate(newData: JsonData): void {
   const patch = jsonpatch.compare(jsonData, newData);
   socket.emit("delta_update", patch);
   jsonData = newData; // Update local data
+}
+
+// Export CachedVideoManager for global use
+export function getCachedVideoManager(): CachedVideoManager | null {
+  return cvm;
 }
