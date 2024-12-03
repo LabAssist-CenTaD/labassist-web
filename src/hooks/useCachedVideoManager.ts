@@ -19,11 +19,5 @@ export function useCachedVideoManager() {
     return () => clearInterval(checkDataReady); // Cleanup interval
   }, []);
 
-  // Function to directly return whether cached videos are ready or not
-  const isDataReady = () => {
-    const cachedVideoManager = getCachedVideoManager();
-    return cachedVideoManager.getCachedVideos().length > 0;
-  };
-
-  return { dataReady, isDataReady }; // Return the ready state and the function
+  return dataReady; // Return the ready state
 }

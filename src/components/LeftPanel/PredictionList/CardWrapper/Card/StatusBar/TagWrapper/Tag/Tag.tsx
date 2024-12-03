@@ -6,6 +6,7 @@ import {
   Star,
   TickCircle,
   Timer,
+  VideoTick,
 } from "iconsax-react"; // Import required icons
 import "./Tag.css";
 import { Colors } from "../../../../../../../../styles/colors";
@@ -17,7 +18,7 @@ export type TagStatus =
   | "complete"
   | "predicting"
   | "queued"
-  | "pending";
+  | "uploaded"
 
 interface TagProps {
   status: TagStatus;
@@ -56,11 +57,11 @@ export const Tag = ({ status }: TagProps): JSX.Element => {
       icon: <Clock size={8} variant="Bold" color={Colors.blue2} />,
       text: "Queued",
     },
-    pending: {
+    uploaded: { 
       background: Colors.blueGrey,
-      icon: <Clock size={8} variant="Bold" color={Colors.blue2} />,
-      text: "Pending",
-    },
+      icon: <VideoTick size={8} variant="Bold" color={Colors.blue2} />,
+      text: "Uploaded",
+    }
   };
 
   // Get the specific config based on the status

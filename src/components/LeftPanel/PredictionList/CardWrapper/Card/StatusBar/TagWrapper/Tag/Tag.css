@@ -11,7 +11,7 @@
 }
 
 .tag .tag-text {
-  color: var(--Blue-2);
+  color: transparent;
   font-family: Aeonik;
   font-size: 8px;
   font-style: normal;

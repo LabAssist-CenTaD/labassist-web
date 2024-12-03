@@ -8,6 +8,7 @@ import { getCachedVideoManager } from "../../../utils/socketUtils";
 export const PredictionList = (): JSX.Element => {
   const [searchQuery, setSearchQuery] = useState("");
   const cvm = getCachedVideoManager();
+
   const fileData = cvm.getCachedVideos();
 
   const filteredFileData = fileData.filter((file) => {
