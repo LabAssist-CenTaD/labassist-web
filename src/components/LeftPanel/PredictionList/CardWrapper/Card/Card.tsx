@@ -6,7 +6,7 @@ import { TagStatus } from "./StatusBar/TagWrapper/Tag/Tag";
 interface CardProps {
   status_list: TagStatus[];
   status_counts?: {
-    correct: number;
+    info: number;
     warning: number;
     error: number;
   };

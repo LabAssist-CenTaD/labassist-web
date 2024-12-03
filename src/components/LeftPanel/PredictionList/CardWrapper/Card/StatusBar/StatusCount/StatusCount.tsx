@@ -1,4 +1,4 @@
-import greenCircle from "../../../../../../../assets/status_count/green_circle.svg";
+import blueCircle from "../../../../../../../assets/status_count/blue_circle.svg";
 import yellowCircle from "../../../../../../../assets/status_count/yellow_circle.svg";
 import redCircle from "../../../../../../../assets/status_count/red_circle.svg";
 
@@ -6,28 +6,28 @@ import "./StatusCount.css";
 
 interface StatusCountProps {
   status_counts?: {
-    correct: number;
+    info: number;
     warning: number;
     error: number;
   };
 }
 
 export const StatusCount = ({
-  status_counts = { correct: 0, warning: 0, error: 0 },
+  status_counts = { info: 0, warning: 0, error: 0 },
 }: StatusCountProps): JSX.Element => {
   return (
     <div
       className="status-count-wrapper"
-      title={`Correct(s): ${status_counts.correct}`}
+      title={`Info(s): ${status_counts.info}`}
     >
-      {/* Correct Count */}
+      {/* Info Count */}
       <div className="status-count">
         <img
           className="status-icon"
-          alt="Correct count icon"
-          src={greenCircle}
+          alt="Info count icon"
+          src={blueCircle}
         />
-        <div className="status-text">{status_counts.correct}</div>
+        <div className="status-text">{status_counts.info}</div>
       </div>
 
       {/* Warning Count */}

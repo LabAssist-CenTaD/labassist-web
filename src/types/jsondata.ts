@@ -7,7 +7,7 @@ type Annotation = {
 };
 
 type StatusCounts = {
-  correct: number;
+  info: number;
   warning: number;
   error: number;
 };
