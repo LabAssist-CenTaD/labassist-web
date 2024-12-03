@@ -1,17 +1,17 @@
 import * as jsonpatch from "fast-json-patch";
 import { io, Socket } from "socket.io-client";
-import { getOrCreateDeviceId } from "./deviceIdUtils";
 import { JsonData } from "../types/jsondata";
+import { getOrCreateDeviceId } from "./deviceIdUtils";
 import { CachedVideoManager } from "../context/CachedVideoManager";
 
 let socket: Socket | null = null; // Singleton socket instance
 let jsonData = {}; // Stores the current state
-const cvm: CachedVideoManager | null = null;
+const cachedVideoManager = new CachedVideoManager({ cached_videos: [] }); // Initializing with empty cached_videos
 
 export function getSocket(): Socket {
   if (!socket) {
     socket = io("http://localhost:5000");
-    console.log("Socket initialised");
+    console.log("Socket initialised, attemping to connect...");
   }
   return socket;
 }
@@ -23,7 +23,7 @@ export function initSocket() {
 
   // Connect and authenticate the socket
   socket.on("connect", () => {
-    console.log("Connected to server");
+    console.log("Connected to server.");
     socket.emit(
       "authenticate",
       { client_id: getOrCreateDeviceId() },
@@ -31,14 +31,14 @@ export function initSocket() {
         console.log("Response from server:", message, data);
 
         // Update the manager with data from the server
-        cvm?.updateFromServerData(data);
+        cachedVideoManager?.updateFromServerData(data);
       }
     );
   });
 
   // Socket events
   socket.on("disconnect", () => {
-    console.log("Disconnected from server");
+    console.log("Disconnected from server.");
   });
 
   socket.on("delta_update", (patch) => {
@@ -65,6 +65,6 @@ export function sendUpdate(newData: JsonData): void {
 }
 
 // Export CachedVideoManager for global use
-export function getCachedVideoManager(): CachedVideoManager | null {
-  return cvm;
+export function getCachedVideoManager(): CachedVideoManager {
+  return cachedVideoManager; // Always return the singleton instance
 }
