@@ -1,5 +1,5 @@
 import "./PredictionList.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import { CardWrapper } from "./CardWrapper/CardWrapper";
 import { Toolbar } from "./Toolbar/Toolbar";
 import { Filter } from "./Filter/Filter";
@@ -8,7 +8,7 @@ import { useCachedVideoManager } from "../../../hooks/useCachedVideoManager";
 import { CachedVideo } from "../../../types/jsondata";
 
 export const PredictionList = (): JSX.Element => {
-  const [forceUpdate, setForceUpdate] = useState(0); // State to trigger re-render
+  const [, forceUpdate] = useReducer((x) => x + 1, 0); // State to trigger re-render
   const [searchQuery, setSearchQuery] = useState("");
   const cvm = getCachedVideoManager();
   const dataReady = useCachedVideoManager();
@@ -31,7 +31,7 @@ export const PredictionList = (): JSX.Element => {
       cvm.addCachedVideo(newVideo);
 
       // Trigger re-render by updating state
-      setForceUpdate((prev) => prev + 1);
+      forceUpdate();
     }
   }, [dataReady, cvm]); // Add new video only when data is ready
 
