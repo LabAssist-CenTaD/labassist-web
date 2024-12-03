@@ -24,9 +24,12 @@ export const Card = ({
   isSelected,
   onClick,
 }: CardProps): JSX.Element => {
+  // Check if the status list contains 'predicting' and conditionally add the class
+  // const isPredicting = status_list.includes("predicting");
+
   return (
     <div
-      className={`card ${isSelected ? "selected" : ""}`}
+      className={`card ${isSelected ? "selected" : ""}` }
       onClick={onClick} // Add click handler
     >
       <StatusBar status_list={status_list} status_counts={status_counts} />

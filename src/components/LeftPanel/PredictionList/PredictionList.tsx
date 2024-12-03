@@ -1,35 +1,50 @@
 import "./PredictionList.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CardWrapper } from "./CardWrapper/CardWrapper";
 import { Toolbar } from "./Toolbar/Toolbar";
 import { Filter } from "./Filter/Filter";
 import { getCachedVideoManager } from "../../../utils/socketUtils";
 import { useCachedVideoManager } from "../../../hooks/useCachedVideoManager";
+import { CachedVideo } from "../../../types/jsondata";
 
 export const PredictionList = (): JSX.Element => {
+  const [forceUpdate, setForceUpdate] = useState(0); // State to trigger re-render
   const [searchQuery, setSearchQuery] = useState("");
   const cvm = getCachedVideoManager();
   const dataReady = useCachedVideoManager();
 
+  useEffect(() => {
+    if (dataReady) {
+      const newVideo: CachedVideo = {
+        fileName: "example_video.mp4",
+        filePath: "uploads/example_video.mp4",
+        status_list: ["predicting"],
+        annotations: [],
+        status_counts: {
+          correct: 0,
+          warning: 0,
+          error: 0,
+        },
+      };
+
+      // Add the new video to the cached video manager
+      cvm.addCachedVideo(newVideo);
+
+      // Trigger re-render by updating state
+      setForceUpdate((prev) => prev + 1);
+    }
+  }, [dataReady, cvm]); // Add new video only when data is ready
+
   const filteredFileData = cvm.getCachedVideos().filter((file) => {
-    // Remove the .mp4, .mov or .avi extension and compare just the filename
     const fileNameWithoutExtension = file.fileName
       .replace(/\.(mp4|mov|avi)$/, "")
       .toLowerCase();
     const searchQueryLowerCase = searchQuery.toLowerCase();
 
-    // console.log(
-    //   `File: ${fileNameWithoutExtension} Search Query: ${searchQueryLowerCase} Match: ${fileNameWithoutExtension.includes(
-    //     searchQueryLowerCase
-    //   )}`
-    // );
-
     return fileNameWithoutExtension.includes(searchQueryLowerCase);
   });
 
   const handleSearch = (query: string) => setSearchQuery(query);
-
-  // console.log("Filtered file data: ", filteredFileData);
 
   if (!dataReady) {
     return <div className="header">Loading...</div>; // Show loading message if data is still being fetched

@@ -4,13 +4,14 @@
   align-items: flex-start;
   gap: 16px;
   align-self: stretch;
+  position: relative;
   padding: 16px;
-  background: var(--Blue-2, #002139);
-  border-radius: 8px;
-  border: 2px solid transparent;
   transition: all 0.3s ease;
+  background: var(--Blue-2, #002139);
+  border: 2px solid transparent;
+  border-radius: 8px;
 }
 
 .card.selected {
-  border: 2px solid var(--Foreground); /* Highlight border colour */
+  border: 2px solid var(--Foreground); /* Highlight border colour */;
 }
