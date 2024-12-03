@@ -3,12 +3,12 @@ import { useState } from "react";
 import { CardWrapper } from "./CardWrapper/CardWrapper";
 import { Toolbar } from "./Toolbar/Toolbar";
 import { Filter } from "./Filter/Filter";
-// import { TagStatus } from "./CardWrapper/Card/StatusBar/TagWrapper/Tag/Tag";
-
-import { fileData } from "../../../shared/fileData";
+import { getCachedVideoManager } from "../../../utils/socketUtils";
 
 export const PredictionList = (): JSX.Element => {
   const [searchQuery, setSearchQuery] = useState("");
+  const cvm = getCachedVideoManager();
+  const fileData = cvm.getCachedVideos();
 
   const filteredFileData = fileData.filter((file) => {
     // Remove the .mp4, .mov or .avi extension and compare just the filename

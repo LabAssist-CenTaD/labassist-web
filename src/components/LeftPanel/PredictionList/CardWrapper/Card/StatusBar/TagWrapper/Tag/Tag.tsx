@@ -16,7 +16,8 @@ export type TagStatus =
   | "errors-present"
   | "complete"
   | "predicting"
-  | "queued";
+  | "queued"
+  | "pending";
 
 interface TagProps {
   status: TagStatus;
@@ -54,6 +55,11 @@ export const Tag = ({ status }: TagProps): JSX.Element => {
       background: Colors.blueGrey,
       icon: <Clock size={8} variant="Bold" color={Colors.blue2} />,
       text: "Queued",
+    },
+    pending: {
+      background: Colors.blueGrey,
+      icon: <Clock size={8} variant="Bold" color={Colors.blue2} />,
+      text: "Pending",
     },
   };
 
