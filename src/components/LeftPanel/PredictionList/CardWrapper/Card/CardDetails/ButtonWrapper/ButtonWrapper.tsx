@@ -2,11 +2,17 @@ import "./ButtonWrapper.css";
 import { RemoveButton } from "./RemoveButton/RemoveButton";
 import { PredictButton } from "./PredictButton/PredictButton";
 
-export const ButtonWrapper = (): JSX.Element => {
+interface ButtonWrapperProps {
+  fileName: string;
+}
+
+export const ButtonWrapper = ({
+  fileName,
+}: ButtonWrapperProps): JSX.Element => {
   return (
     <div className="button-wrapper">
       <RemoveButton />
-      <PredictButton />
+      <PredictButton fileName={fileName} />
     </div>
   );
 };

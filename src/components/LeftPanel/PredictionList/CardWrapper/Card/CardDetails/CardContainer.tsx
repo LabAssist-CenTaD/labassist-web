@@ -14,7 +14,7 @@ export const CardContainer = ({
   return (
     <div className="card-container">
       <FileDetails fileName={fileName} filePath={filePath} />
-      <ButtonWrapper />
+      <ButtonWrapper fileName={fileName} />
     </div>
   );
 };
