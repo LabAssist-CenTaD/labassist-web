@@ -1,21 +1,36 @@
 import "./PredictButton.css";
+
+import axios from "axios";
 import { Colors } from "../../../../../../../../styles/colors";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ExportCurve } from "iconsax-react";
 import { getOrCreateDeviceId } from "../../../../../../../../utils/deviceIdUtils";
-import axios from "axios";
+import { TagStatus } from "../../../StatusBar/TagWrapper/Tag/Tag";
 
 interface PredictButtonProps {
   fileName: string;
+  status_list: TagStatus[];
 }
 
 export const PredictButton = ({
   fileName,
+  status_list,
 }: PredictButtonProps): JSX.Element => {
   const [isClicked, setIsClicked] = useState(false);
   const [, setIsLoading] = useState(false);
 
   const deviceId = getOrCreateDeviceId();
+
+  // Set `isClicked` to true if `status_list` contains any of the specified statuses
+  useEffect(() => {
+    if (
+      status_list.some((status) =>
+        ["complete", "predicting", "queued"].includes(status)
+      )
+    ) {
+      setIsClicked(true);
+    }
+  }, [status_list]);
 
   const handleClick = async () => {
     setIsClicked(true);
@@ -41,6 +56,7 @@ export const PredictButton = ({
       className={`predict-button ${isClicked ? "clicked" : ""}`}
       onClick={handleClick}
       title="Begin/queue file for prediction"
+      disabled={isClicked}
     >
       {isClicked ? (
         <ExportCurve size={16} variant="Bold" color={Colors.blueGrey} />

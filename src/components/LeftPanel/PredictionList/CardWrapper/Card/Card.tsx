@@ -29,11 +29,15 @@ export const Card = ({
 
   return (
     <div
-      className={`card ${isSelected ? "selected" : ""}` }
+      className={`card ${isSelected ? "selected" : ""}`}
       onClick={onClick} // Add click handler
     >
       <StatusBar status_list={status_list} status_counts={status_counts} />
-      <CardContainer fileName={fileName} filePath={filePath} />
+      <CardContainer
+        fileName={fileName}
+        filePath={filePath}
+        status_list={status_list}
+      />
     </div>
   );
 };
