@@ -4,6 +4,7 @@ import { getOrCreateDeviceId } from "../utils/deviceIdUtils";
 import { CachedVideoManager } from "../managers/CachedVideoManager";
 import { JsonData, CachedVideo } from "../types/jsondata";
 import { config } from "../config/config";
+import * as jsonpatch from "fast-json-patch";
 
 // Define the shape of the context
 interface CachedVideoContextType {
@@ -53,30 +54,22 @@ export const CachedVideoProvider: React.FC<{ children: React.ReactNode }> = ({
 
     // Handle incoming patches
     socketInstance.on("patch_frontend", (data) => {
-      console.log("Raw patch data received:", data);
+      console.log("Patch data received:", data);
 
-      try {
-        const parsedData = typeof data === "string" ? JSON.parse(data) : data;
+      const parsedData = typeof data === "string" ? JSON.parse(data) : data;
 
-        if (Array.isArray(parsedData)) {
-          parsedData.forEach(
-            (patch: { op: string; path: string; value: CachedVideo }) => {
-              if (patch.op === "add" && patch.value) {
-                cachedVideoManager.addCachedVideo(patch.value); // Update manager
-                // console.log(
-                //   "Video added, updated list:",
-                //   cachedVideoManager.getCachedVideos()
-                // );
-                setCachedVideos(cachedVideoManager.getCachedVideos()); // Update state to trigger rerender
-              }
-            }
-          );
-        } else {
-          console.error("Unexpected data format:", parsedData);
-        }
-      } catch (error) {
-        console.error("Error parsing patch data:", error);
-      }
+      // Create a copy of the current videos and apply the patch to it
+      const patchedData = jsonpatch.applyPatch(
+        [...cachedVideoManager.getCachedVideos()],
+        parsedData
+      ).newDocument;
+
+      // Update the manager with the patched data
+      cachedVideoManager.updateFromServerData({
+        cached_videos: patchedData,
+      });
+
+      setCachedVideos(patchedData); // Directly update the state with the patched data to trigger a re-render
     });
 
     // Handle disconnect

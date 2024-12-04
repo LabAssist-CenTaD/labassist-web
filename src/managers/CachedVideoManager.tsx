@@ -55,20 +55,6 @@ export class CachedVideoManager {
     this.notifyListeners(); // Notify listeners about the update
   }
 
-  // Add a new cached video to the list
-  public addCachedVideo(video: CachedVideo): void {
-    this.cachedVideos.push(video);
-    this.notifyListeners(); // Notify listeners after adding a video
-  }
-
-  // Remove a cached video by file name
-  public removeCachedVideo(fileName: string): void {
-    this.cachedVideos = this.cachedVideos.filter(
-      (video) => video.file_name !== fileName
-    );
-    this.notifyListeners(); // Notify listeners after removing a video
-  }
-
   // Find a cached video by its file name
   public findCachedVideo(fileName: string): CachedVideo | undefined {
     return this.cachedVideos.find((video) => video.file_name === fileName);
