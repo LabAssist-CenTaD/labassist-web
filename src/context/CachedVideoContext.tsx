@@ -7,7 +7,8 @@ import { JsonData, CachedVideo } from "../types/jsondata";
 // Define the shape of the context
 interface CachedVideoContextType {
   cachedVideoManager: CachedVideoManager;
-  cachedVideos: CachedVideo[]; // Add cachedVideos property
+  cachedVideos: CachedVideo[];
+  setCachedVideos: React.Dispatch<React.SetStateAction<CachedVideo[]>>; // Expose setCachedVideos for updating state in the context
 }
 
 // Create the context
@@ -23,16 +24,16 @@ export const CachedVideoProvider: React.FC<{ children: React.ReactNode }> = ({
     () => new CachedVideoManager({ cached_videos: [] })
   );
   const [, setSocket] = useState<Socket | null>(null);
-  const [cachedVideos, setCachedVideos] = useState<CachedVideo[]>([]); // New state to manage the videos
+  const [cachedVideos, setCachedVideos] = useState<CachedVideo[]>([]);
 
-  let inititalisedSocketCount = 1;
+  let initialisedSocketCount = 1;
 
   useEffect(() => {
     // Initialise socket
     const socketInstance = io("http://localhost:5000");
     setSocket(socketInstance);
     console.log(
-      `Socket initialised, attempting to connect...(${inititalisedSocketCount++})`
+      `Socket initialised, attempting to connect...(${initialisedSocketCount++})`
     );
 
     // On connect, authenticate
@@ -43,8 +44,8 @@ export const CachedVideoProvider: React.FC<{ children: React.ReactNode }> = ({
         { device_id: getOrCreateDeviceId() },
         (message: string, data: JsonData) => {
           console.log("Authenticated:", message, data);
-          cachedVideoManager.updateFromServerData(data); // Update state
-          setCachedVideos(cachedVideoManager.getCachedVideos()); // Update cachedVideos state
+          cachedVideoManager.updateFromServerData(data); // Update the manager
+          setCachedVideos(cachedVideoManager.getCachedVideos()); // Update the state
         }
       );
     });
@@ -82,11 +83,12 @@ export const CachedVideoProvider: React.FC<{ children: React.ReactNode }> = ({
       socketInstance.disconnect();
       setSocket(null);
     };
-  }, [cachedVideoManager, inititalisedSocketCount]);
+  }, [cachedVideoManager, initialisedSocketCount]);
 
-  // Pass both the cachedVideoManager and the cachedVideos state to the context
   return (
-    <CachedVideoContext.Provider value={{ cachedVideoManager, cachedVideos }}>
+    <CachedVideoContext.Provider
+      value={{ cachedVideoManager, cachedVideos, setCachedVideos }}
+    >
       {children}
     </CachedVideoContext.Provider>
   );
