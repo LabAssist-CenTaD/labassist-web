@@ -7,7 +7,7 @@ import { Filter } from "./Filter/Filter";
 import { useCachedVideoContext } from "../../../hooks/useCachedVideoContext";
 
 export const PredictionList = (): JSX.Element => {
-  const { cachedVideoManager } = useCachedVideoContext(); // Use context to get cachedVideoManager
+  const { cachedVideoManager, cachedVideos } = useCachedVideoContext(); // Use context to get cachedVideoManager
   const [searchQuery, setSearchQuery] = useState("");
 
   const [fileData, setFileData] = useState(
@@ -26,16 +26,18 @@ export const PredictionList = (): JSX.Element => {
       }
     };
 
-    const updateHandler = () => {
-      fetchData(); // Re-fetch data on every update
-    };
+    fetchData();
 
-    cachedVideoManager.addChangeListener(updateHandler); // Listen to changes in cachedVideoManager
+    // const updateHandler = () => {
+    //   fetchData(); // Re-fetch data on every update
+    // };
 
-    return () => {
-      cachedVideoManager.removeChangeListener(updateHandler); // Clean up listener
-    };
-  }, [cachedVideoManager]); // Depend on cachedVideoManager to re-trigger effect on changes
+    // cachedVideoManager.addChangeListener(updateHandler); // Listen to changes in cachedVideoManager
+
+    // return () => {
+    //   cachedVideoManager.removeChangeListener(updateHandler); // Clean up listener
+    // };
+  }, [cachedVideoManager, cachedVideos]); // Depend on cachedVideoManager to re-trigger effect on changes
 
   // Filter the file data based on the search query
   const filteredFileData = fileData.filter((file) => {

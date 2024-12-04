@@ -62,6 +62,10 @@ export const CachedVideoProvider: React.FC<{ children: React.ReactNode }> = ({
             (patch: { op: string; path: string; value: CachedVideo }) => {
               if (patch.op === "add" && patch.value) {
                 cachedVideoManager.addCachedVideo(patch.value); // Update manager
+                // console.log(
+                //   "Video added, updated list:",
+                //   cachedVideoManager.getCachedVideos()
+                // );
                 setCachedVideos(cachedVideoManager.getCachedVideos()); // Update state to trigger rerender
               }
             }
