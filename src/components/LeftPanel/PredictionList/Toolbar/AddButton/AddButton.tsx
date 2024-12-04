@@ -22,18 +22,12 @@ export const AddButton = (): JSX.Element => {
         const formData = new FormData();
         formData.append("video", file);
 
-        // Get the deviceId (either from cookie or generate a new one)
-        const deviceId = getOrCreateDeviceId();
+        const deviceId = getOrCreateDeviceId(); // Get the deviceId (either from cookie or generate a new one)
         formData.append("device_id", deviceId); // Add deviceId to FormData
 
         const response = await axios.post(
           config.connection_address + "/upload",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
+          formData
         );
 
         console.log(response.data.message);
