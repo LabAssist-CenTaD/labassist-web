@@ -3,6 +3,7 @@ import { io, Socket } from "socket.io-client";
 import { getOrCreateDeviceId } from "../utils/deviceIdUtils";
 import { CachedVideoManager } from "../managers/CachedVideoManager";
 import { JsonData, CachedVideo } from "../types/jsondata";
+import { config } from "../config/config";
 
 // Define the shape of the context
 interface CachedVideoContextType {
@@ -30,7 +31,7 @@ export const CachedVideoProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     // Initialise socket
-    const socketInstance = io("http://localhost:5000");
+    const socketInstance = io(config.connection_address);
     setSocket(socketInstance);
     console.log(
       `Socket initialised, attempting to connect...(${initialisedSocketCount++})`
