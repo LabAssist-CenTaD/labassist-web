@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { AddCircle } from "iconsax-react";
 import { Colors } from "../../../../../styles/colors";
 import { getOrCreateDeviceId } from "../../../../../utils/deviceIdUtils";
+import { config } from "../../../../../config/config";
 
 export const AddButton = (): JSX.Element => {
   const fileInputRef = useRef<HTMLInputElement>(null); // Reference to the file input
@@ -26,7 +27,7 @@ export const AddButton = (): JSX.Element => {
         formData.append("device_id", deviceId); // Add deviceId to FormData
 
         const response = await axios.post(
-          "http://localhost:5000/upload",
+          config.connection_address + "/upload",
           formData,
           {
             headers: {
@@ -35,7 +36,7 @@ export const AddButton = (): JSX.Element => {
           }
         );
 
-        alert(response.data.message);
+        alert(response.data.message + ", please refresh.");
       } catch (error) {
         console.error("Error uploading video:", error);
         alert("Error uploading video. Please try again.");
