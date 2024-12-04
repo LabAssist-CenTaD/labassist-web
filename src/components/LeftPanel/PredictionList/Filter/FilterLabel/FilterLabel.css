@@ -11,6 +11,7 @@
   cursor: pointer;
   border: 2px solid transparent; /* Ensure border is already set */
   border-radius: 4px;
+  padding: 0 8.5px;
 }
 
 .filter-label:hover {
@@ -27,7 +28,7 @@
   font-family: Aeonik;
   font-style: normal;
   font-weight: 500;
-  line-height: normal;
+  line-height: 1;
   color: var(--text-color);
 }
 
