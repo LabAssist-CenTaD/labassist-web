@@ -1,25 +1,43 @@
 import "./PredictionList.css";
-import { useState, useEffect } from "react";
+
+import { useEffect, useState } from "react";
 import { CardWrapper } from "./CardWrapper/CardWrapper";
 import { Toolbar } from "./Toolbar/Toolbar";
 import { Filter } from "./Filter/Filter";
-import { CachedVideo } from "../../../types/jsondata";
-import { CachedVideoManager } from "../../../managers/CachedVideoManager"; // Adjust the import path as needed
+import { useCachedVideoContext } from "../../../hooks/useCachedVideoContext";
 
-interface PredictionListProps {
-  cvm: CachedVideoManager; // Pass cvm as a prop
-}
-
-export const PredictionList = ({ cvm }: PredictionListProps): JSX.Element => {
+export const PredictionList = (): JSX.Element => {
+  const { cachedVideoManager } = useCachedVideoContext(); // Use context to get cachedVideoManager
   const [searchQuery, setSearchQuery] = useState("");
-  const [fileData, setFileData] = useState<CachedVideo[]>([]); // Local state to hold filtered data
 
+  const [fileData, setFileData] = useState(
+    cachedVideoManager.getCachedVideos()
+  );
+  const [loading, setLoading] = useState(true);
+
+  // Update fileData when cachedVideoManager is updated
   useEffect(() => {
-    setFileData(cvm.getCachedVideos());
-  }, [cvm]); // This effect runs whenever cvm changes
+    const fetchData = async () => {
+      const updatedData = cachedVideoManager.getCachedVideos();
+      const jsonMessage = cachedVideoManager.getMessage();
+      if (jsonMessage) {
+        setFileData(updatedData); // Trigger re-render by updating fileData state
+        setLoading(false);
+      }
+    };
 
-  
+    const updateHandler = () => {
+      fetchData(); // Re-fetch data on every update
+    };
 
+    cachedVideoManager.addChangeListener(updateHandler); // Listen to changes in cachedVideoManager
+
+    return () => {
+      cachedVideoManager.removeChangeListener(updateHandler); // Clean up listener
+    };
+  }, [cachedVideoManager]); // Depend on cachedVideoManager to re-trigger effect on changes
+
+  // Filter the file data based on the search query
   const filteredFileData = fileData.filter((file) => {
     const fileNameWithoutExtension = file.file_name
       .replace(/\.(mp4|mov|avi)$/, "")
@@ -30,6 +48,11 @@ export const PredictionList = ({ cvm }: PredictionListProps): JSX.Element => {
   });
 
   const handleSearch = (query: string) => setSearchQuery(query);
+
+  // If still loading, show a loading message
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="prediction-list">

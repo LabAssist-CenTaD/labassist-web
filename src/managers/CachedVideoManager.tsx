@@ -5,23 +5,26 @@ import { CachedVideo } from "../types/jsondata";
 export class CachedVideoManager {
   private cachedVideos: CachedVideo[];
   private message: string | null;
-  private onUpdateCallback: (() => void) | null = null; // Callback to run when the manager updates
+  private listeners: Array<() => void> = [];
 
   constructor(initialData: { cached_videos: CachedVideo[]; message?: string }) {
     this.cachedVideos = initialData.cached_videos || [];
     this.message = initialData.message || null;
   }
 
-  // Set a callback to notify on updates
-  public setUpdateCallback(callback: () => void): void {
-    this.onUpdateCallback = callback;
+  // Add a listener that will be called when the cached videos change
+  public addChangeListener(listener: () => void): void {
+    this.listeners.push(listener);
   }
 
-  // Notify React to re-render
-  private notifyUpdate(): void {
-    if (this.onUpdateCallback) {
-      this.onUpdateCallback();
-    }
+  // Remove a listener
+  public removeChangeListener(listener: () => void): void {
+    this.listeners = this.listeners.filter((l) => l !== listener);
+  }
+
+  // Trigger all listeners when the data is updated
+  private notifyListeners(): void {
+    this.listeners.forEach((listener) => listener());
   }
 
   // Get the current message
@@ -31,25 +34,31 @@ export class CachedVideoManager {
 
   // Get the current list of cached videos
   public getCachedVideos(): CachedVideo[] {
+    // console.log("GET cached videos:", this.cachedVideos);
     return this.cachedVideos;
   }
 
   // Replace the current cached videos with new ones from a server response
+  // Update the state with new data (triggering reactivity)
   public updateFromServerData(serverData: {
     cached_videos: CachedVideo[];
     message?: string;
   }): void {
-    this.cachedVideos = serverData.cached_videos || [];
+    // Use a new array reference to trigger re-rendering
+    this.cachedVideos = [...serverData.cached_videos]; // Ensure it's a new reference
+    // console.log("UPDATE cached videos:", this.cachedVideos);
+
     if (serverData.message) {
-      this.message = serverData.message; // Update message
+      this.message = serverData.message;
     }
-    this.notifyUpdate(); // Trigger re-render
+
+    this.notifyListeners(); // Notify listeners about the update
   }
 
   // Add a new cached video to the list
   public addCachedVideo(video: CachedVideo): void {
     this.cachedVideos.push(video);
-    this.notifyUpdate(); // Trigger re-render
+    this.notifyListeners(); // Notify listeners after adding a video
   }
 
   // Remove a cached video by file name
@@ -57,7 +66,7 @@ export class CachedVideoManager {
     this.cachedVideos = this.cachedVideos.filter(
       (video) => video.file_name !== fileName
     );
-    this.notifyUpdate(); // Trigger re-render
+    this.notifyListeners(); // Notify listeners after removing a video
   }
 
   // Find a cached video by its file name
