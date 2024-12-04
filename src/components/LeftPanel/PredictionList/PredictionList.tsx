@@ -37,6 +37,7 @@ export const PredictionList = (): JSX.Element => {
     // return () => {
     //   cachedVideoManager.removeChangeListener(updateHandler); // Clean up listener
     // };
+    
   }, [cachedVideoManager, cachedVideos]); // Depend on cachedVideoManager to re-trigger effect on changes
 
   // Filter the file data based on the search query

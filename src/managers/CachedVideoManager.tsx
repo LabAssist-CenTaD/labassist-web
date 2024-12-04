@@ -5,27 +5,27 @@ import { CachedVideo } from "../types/jsondata";
 export class CachedVideoManager {
   private cachedVideos: CachedVideo[];
   private message: string | null;
-  private listeners: Array<() => void> = [];
+  // private listeners: Array<() => void> = [];
 
   constructor(initialData: { cached_videos: CachedVideo[]; message?: string }) {
     this.cachedVideos = initialData.cached_videos || [];
     this.message = initialData.message || null;
   }
 
-  // Add a listener that will be called when the cached videos change
-  public addChangeListener(listener: () => void): void {
-    this.listeners.push(listener);
-  }
+  // // Add a listener that will be called when the cached videos change
+  // public addChangeListener(listener: () => void): void {
+  //   this.listeners.push(listener);
+  // }
 
-  // Remove a listener
-  public removeChangeListener(listener: () => void): void {
-    this.listeners = this.listeners.filter((l) => l !== listener);
-  }
+  // // Remove a listener
+  // public removeChangeListener(listener: () => void): void {
+  //   this.listeners = this.listeners.filter((l) => l !== listener);
+  // }
 
-  // Trigger all listeners when the data is updated
-  private notifyListeners(): void {
-    this.listeners.forEach((listener) => listener());
-  }
+  // // Trigger all listeners when the data is updated
+  // private notifyListeners(): void {
+  //   this.listeners.forEach((listener) => listener());
+  // }
 
   // Get the current message
   public getMessage() {
@@ -52,7 +52,7 @@ export class CachedVideoManager {
       this.message = serverData.message;
     }
 
-    this.notifyListeners(); // Notify listeners about the update
+    // this.notifyListeners(); // Notify listeners about the update
   }
 
   // Find a cached video by its file name
