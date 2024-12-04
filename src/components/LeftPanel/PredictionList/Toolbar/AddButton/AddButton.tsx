@@ -36,7 +36,7 @@ export const AddButton = (): JSX.Element => {
           }
         );
 
-        alert(response.data.message + ", please refresh.");
+        console.log(response.data.message);
       } catch (error) {
         console.error("Error uploading video:", error);
         alert("Error uploading video. Please try again.");
