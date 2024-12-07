@@ -1,10 +1,12 @@
 import "./AddButton.css";
+
 import axios from "axios";
 import { useRef } from "react";
 import { AddCircle } from "iconsax-react";
+import { config } from "../../../../../config/config";
 import { Colors } from "../../../../../styles/colors";
 import { getOrCreateDeviceId } from "../../../../../utils/deviceIdUtils";
-import { config } from "../../../../../config/config";
+import { VideoBufferCache } from "../../../../../managers/VideoBufferCacheManager";
 
 export const AddButton = (): JSX.Element => {
   const fileInputRef = useRef<HTMLInputElement>(null); // Reference to the file input
@@ -31,6 +33,14 @@ export const AddButton = (): JSX.Element => {
         );
 
         console.log(response.data.message);
+
+        if (response.data.message === "Video uploaded successfully") {
+          // Add the video to the cache
+          const videoBlob = new Blob([file], { type: file.type }); // Convert the file to a Blob
+          const videoCache = VideoBufferCache.getInstance(); // Access the singleton instance
+          videoCache.addVideo(file.name, videoBlob); // Use the instance to add the video
+          console.log(`Video ${file.name} added to the video buffer cache.`);
+        }
       } catch (error) {
         console.error("Error uploading video:", error);
         alert("Error uploading video. Please try again.");

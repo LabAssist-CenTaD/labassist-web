@@ -1,12 +1,20 @@
 import { config } from "../config/config";
 
 export class VideoBufferCache {
+  private static instance: VideoBufferCache | null = null;
   private cache: Map<string, Blob>;
   private maxCacheSize: number;
 
   constructor() {
     this.cache = new Map<string, Blob>(); // Map to store videos as { key: Blob }
     this.maxCacheSize = config.max_cache_size; // Maximum size of the cache
+  }
+
+  public static getInstance(): VideoBufferCache {
+    if (!VideoBufferCache.instance) {
+      VideoBufferCache.instance = new VideoBufferCache();
+    }
+    return VideoBufferCache.instance;
   }
 
   // Add a video to the cache
