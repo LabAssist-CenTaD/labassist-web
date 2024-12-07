@@ -1,3 +1,4 @@
 export const config = {
-  connection_address: "http://localhost:5000",
-}
+  CONNECTION_ADDRESS: "http://localhost:5000",
+  CACHE_SIZE: 5,
+};

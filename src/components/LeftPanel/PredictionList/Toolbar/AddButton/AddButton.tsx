@@ -26,7 +26,7 @@ export const AddButton = (): JSX.Element => {
         formData.append("device_id", deviceId); // Add deviceId to FormData
 
         const response = await axios.post(
-          config.connection_address + "/upload",
+          config.CONNECTION_ADDRESS + "/upload",
           formData
         );
 
