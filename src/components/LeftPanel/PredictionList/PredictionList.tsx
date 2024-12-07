@@ -54,12 +54,12 @@ export const PredictionList = (): JSX.Element => {
 
   // If still loading, show a loading message
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="prediction-list-header">Loading...</div>;
   }
 
   return (
     <div className="prediction-list">
-      <div className="header">Prediction List</div>
+      <div className="prediction-list-header">Prediction List</div>
       <Toolbar onSearch={handleSearch} />
       <Filter />
       <CardWrapper fileList={filteredFileData} />
