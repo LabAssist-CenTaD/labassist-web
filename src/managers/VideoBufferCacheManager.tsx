@@ -1,6 +1,6 @@
 import { config } from "../config/config";
 
-export class LocalCachedVideoManager {
+export class VideoBufferCache {
   private cache: Map<string, Blob>;
   private maxCacheSize: number;
 
