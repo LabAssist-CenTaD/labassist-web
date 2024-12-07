@@ -1,4 +1,4 @@
 export const config = {
-  CONNECTION_ADDRESS: "http://localhost:5000",
-  MAX_CACHE_SIZE: 5, // Default cache size set to 5
+  connection_address: "http://localhost:5000",
+  max_cache_size: 5, // Default cache size set to 5
 };

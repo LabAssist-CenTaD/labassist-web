@@ -6,7 +6,7 @@ export class VideoBufferCache {
 
   constructor() {
     this.cache = new Map<string, Blob>(); // Map to store videos as { key: Blob }
-    this.maxCacheSize = config.MAX_CACHE_SIZE; // Maximum size of the cache
+    this.maxCacheSize = config.max_cache_size; // Maximum size of the cache
   }
 
   // Add a video to the cache
