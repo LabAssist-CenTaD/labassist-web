@@ -37,14 +37,6 @@ export const VideoPlayer = (): JSX.Element => {
 
           const url = URL.createObjectURL(videoBlob);
           setVideoUrl(url);
-
-          // Cleanup the object URL when the component unmounts or when a new video is selected
-          return () => {
-            if (url) {
-              console.log("Releasing object URL for cleanup.");
-              URL.revokeObjectURL(url);
-            }
-          };
         }
       } else {
         // If the video is not cached, clear the videoUrl
@@ -56,14 +48,29 @@ export const VideoPlayer = (): JSX.Element => {
 
   useEffect(() => {
     if (videoPlayerRef.current && videoUrl) {
-      // Force the video player to reload when the URL changes
+      console.log("Reloading video player...");
       videoPlayerRef.current.load();
     }
-  }, [videoUrl]); // Only trigger when videoUrl changes
+  }, [videoUrl]);
+
+  // Reload the video player when a new video is selected
+  useEffect(() => {
+    if (videoPlayerRef.current && videoUrl) {
+      console.log("Reloading video player...");
+      videoPlayerRef.current.load();
+    }
+  }, [videoUrl]);
 
   return (
     <div className="video-player-container">
-      <video className="video-player" width="100%" height="100%" controls>
+      <video
+        ref={videoPlayerRef}
+        className="video-player"
+        width="100%"
+        height="100%"
+        controls
+        onError={(e) => console.error("Video playback error:", e)}
+      >
         <source src={videoUrl || ""} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
