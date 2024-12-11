@@ -1,15 +1,15 @@
 import "./CardWrapper.css";
-import { setSelectedFilePath } from "../../../../shared/selectedFile";
 import { useEffect, useState } from "react";
 import { Card } from "./Card/Card";
+import { useSelectedFileContext } from "../../../../hooks/useSelectedFileContext";
 import { CachedVideo } from "../../../../types/jsondata";
 
 interface CardWrapperProps {
-  fileList: CachedVideo[]
+  fileList: CachedVideo[];
 }
 
 export const CardWrapper = ({ fileList }: CardWrapperProps): JSX.Element => {
-  // Track if the card wrapper has a scrollbar
+  const { selectedFile, setSelectedFile } = useSelectedFileContext();
   const [hasScrollbar, setHasScrollbar] = useState(false);
 
   useEffect(() => {
@@ -31,12 +31,6 @@ export const CardWrapper = ({ fileList }: CardWrapperProps): JSX.Element => {
     return () => resizeObserver.disconnect();
   }, []);
 
-  // Track selected card
-  const [selectedCard, setSelectedCard] = useState<{
-    fileName: string;
-    filePath: string;
-  } | null>(null);
-
   return (
     <div
       className="card-wrapper"
@@ -49,13 +43,12 @@ export const CardWrapper = ({ fileList }: CardWrapperProps): JSX.Element => {
           status_counts={file.status_counts}
           fileName={file.file_name}
           filePath={file.file_path}
-          isSelected={selectedCard?.fileName === file.file_name}
+          isSelected={selectedFile.fileName === file.file_name}
           onClick={() => {
-            setSelectedCard({
+            setSelectedFile({
               fileName: file.file_name,
               filePath: file.file_path,
             });
-            setSelectedFilePath(file.file_path);
           }}
         />
       ))}

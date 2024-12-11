@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import CachedVideoContext from "../context/CachedVideoContext";
+import CachedVideoContext from "../providers/CachedVideoContext";
 
 export const useCachedVideoContext = () => {
   const context = useContext(CachedVideoContext);
