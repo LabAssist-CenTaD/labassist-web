@@ -39,7 +39,6 @@ export const AddButton = (): JSX.Element => {
           const videoBlob = new Blob([file], { type: file.type }); // Convert the file to a Blob
           const videoCache = VideoBufferCache.getInstance(); // Access the singleton instance
           videoCache.addVideo(file.name, videoBlob); // Use the instance to add the video
-          console.log(`Video ${file.name} added to the video buffer cache.`);
         }
       } catch (error) {
         console.error("Error uploading video:", error);

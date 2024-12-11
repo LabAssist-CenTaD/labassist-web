@@ -28,12 +28,14 @@ export class VideoBufferCache {
       this.cache.delete(fileName); // Remove existing entry to re-add it
     }
     this.cache.set(fileName, videoBlob);
+    console.log(`Video ${fileName} added to the cache.`);
 
     // Remove the oldest video if cache exceeds size
     if (this.cache.size > this.maxCacheSize) {
       const oldestKey = this.cache.keys().next().value; // Get the first inserted key
       if (oldestKey) {
         this.cache.delete(oldestKey); // Only delete if the key is valid
+        console.log(`Cache size of ${this.maxCacheSize} exceeded, video ${oldestKey} removed from the cache.`);
       }
     }
   }
