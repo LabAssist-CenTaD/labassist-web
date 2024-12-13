@@ -17,16 +17,35 @@ LabAssist is an AI-powered laboratory assistant designed to assist students in p
 ## 📂 Project Structure
 
 ```
-labassist-frontend/
+labassist-web/
 ├── public/             # Static assets
 ├── src/
+│   ├── assets/         # Images and other static files
 │   ├── components/     # Reusable UI components
-│   ├── pages/          # Application pages
-│   ├── services/       # API communication logic
+│   ├── config/         # Configuration files
+│   ├── hooks/          # Custom React hooks
+│   ├── managers/       # State or logic management
+│   ├── providers/      # Context providers for global state
+│   ├── shared/         # Shared utilities or types
 │   ├── styles/         # CSS and styling
-│   └── App.js          # Main application file
+│   ├── types/          # TypeScript type definitions
+│   ├── utils/          # General utility functions
+│   ├── App.css         # Application-wide styles
+│   ├── App.tsx         # Main application component
+│   ├── index.css       # Global CSS
+│   ├── main.tsx        # Application entry point
+│   └── vite-env.d.ts   # Vite environment definitions
+├── .gitignore          # Git ignore rules
+├── .prettierrc         # Prettier configuration
+├── eslint.config.js    # ESLint configuration
+├── index.html          # HTML template
+├── LICENSE             # Licence information
+├── package-lock.json   # Lockfile for dependencies
 ├── package.json        # Project metadata and dependencies
-└── README.md           # Project documentation
+├── tsconfig.app.json   # TypeScript configuration for the app
+├── tsconfig.json       # General TypeScript configuration
+├── tsconfig.node.json  # TypeScript configuration for Node.js
+└── vite.config.ts      # Vite configuration
 ```
 
 ## 📄 Licence
