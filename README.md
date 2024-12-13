@@ -1,65 +1,38 @@
-# LabAssist
+# LabAssist Frontend
 
-LabAssist is an AI-powered laboratory assistant designed to help students perform chemistry experiments more accurately while reducing teacher workload. The system uses computer vision to detect and provide real-time feedback on common mistakes during laboratory procedures, with an initial focus on titration experiments.
+LabAssist is an AI-powered laboratory assistant designed to assist students in performing chemistry experiments accurately while reducing teacher workload. This repository contains the frontend code for the LabAssist system, built using **React**.
 
-## 🔬 Problem Statement
+## 📜 Features
 
-In school laboratories, teachers face significant challenges:
+- **Interactive Timeline**: Navigate through the experiment's recorded timeline to review specific procedural errors.
+- **Performance Summary Dashboard**: Provides a comprehensive overview of student performance and detected errors.
+- **Experiment Playback Controls**: Replay experiments with annotated feedback for better understanding.
+- **Real-time Feedback Integration**: Seamless integration with the backend to display detected errors during live experiments.
 
-- Managing and monitoring 30+ students simultaneously
-- Keeping track of multiple experiment procedures throughout the year
-- Catching minute but important procedural errors
-- Ensuring safety compliance while providing individual attention
+## 🛠️ Technologies Used
 
-## 🎯 Key Features
+- **React**: For building a dynamic and interactive user interface.
+- **Axios**: For communicating with the Flask backend API.
 
-- **Real-time Error Detection**: Uses advanced AI to identify common mistakes during laboratory procedures
-- **Dual AI System**:
-  - Object Detection using YOLOv10m for identifying laboratory equipment and safety gear
-  - Action Detection using X3D_M framework for analyzing procedure execution (e.g., proper swirling technique)
-- **Comprehensive UI**:
-  - Timeline view for chronological error tracking
-  - Summary dashboard for performance overview
-  - One-click navigation to specific error instances
+## 📂 Project Structure
 
-## 🤖 Technical Architecture
+```
+labassist-frontend/
+├── public/             # Static assets
+├── src/
+│   ├── components/     # Reusable UI components
+│   ├── pages/          # Application pages
+│   ├── services/       # API communication logic
+│   ├── styles/         # CSS and styling
+│   └── App.js          # Main application file
+├── package.json        # Project metadata and dependencies
+└── README.md           # Project documentation
+```
 
-### Backend
+## 📄 Licence
 
-- **Object Detection Model**
-  - Built on YOLOv10m architecture
-  - Trained on 4,500+ manually labeled images
-  - Dataset augmented to 22,500 images
-  - Detects 9 key objects: beaker, burette, pipette, conical flask, volumetric flask, funnel, white tile, face, and lab goggles
+This project is licensed under the MIT Licence. See the `LICENSE` file for details.
 
-### Frontend
+## 🔗 API Repository
 
-- **User Interface**
-  - Built with **React**
-  - Interactive timeline for error navigation
-  - Performance summary dashboard
-  - Intuitive experiment playback controls
-
-## 📊 Current Performance
-
-The object detection model shows promising results with:
-
-- > 90% mAP50 accuracy for most object classes
-- Strong performance in distinguishing similar laboratory equipment (including transparent objects)
-- Reliable safety equipment detection (lab goggles etc.)
-
-## 🚀 Future Development
-
-Planned improvements include:
-
-- Expanding the training dataset for enhanced object detection
-- Implementing the action detection model
-- Completing the frontend user interface with **React**
-- Integrating frontend and backend systems with **Flask**
-- Writing detailed documentation for user guidance
-- Expanding to other experiment types besides titration
-
-## 🔗 References
-
-Based on research from:
-Gligorea I, et al. (2023). Adaptive Learning Using Artificial Intelligence in e-Learning: A Literature Review. Education Sciences, 13(12):1216.
+The API (backend) for this project is available at: [labassist-api](https://github.com/LabAssist-CenTaD/labassist-api.git)
