@@ -28,10 +28,10 @@ export const VideoPlayer = (): JSX.Element => {
           // console.log(`Blob for ${selectedFile.fileName} found. Creating object URL...`);
 
           // Ensure that the Blob is of the correct type (video/mp4)
-          if (videoBlob.type !== "video/mp4") {
-            console.error("The cached blob is not of type video/mp4");
-            return;
-          }
+          // if (videoBlob.type !== "video/mp4") {
+          //   console.error("The cached blob is not of type video/mp4");
+          //   return;
+          // }
 
           const url = URL.createObjectURL(videoBlob);
           setVideoUrl(url);
@@ -73,6 +73,8 @@ export const VideoPlayer = (): JSX.Element => {
         onError={(e) => console.error("Video playback error:", e)}
       >
         <source src={videoUrl || ""} type="video/mp4" />
+        <source src={videoUrl || ""} type="video/quicktime" />
+        <source src={videoUrl || ""} type="video/x-msvideo" />
         Your browser does not support the video tag.
       </video>
     </div>
