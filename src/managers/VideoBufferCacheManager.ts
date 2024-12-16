@@ -35,18 +35,37 @@ export class VideoBufferCache {
       const oldestKey = this.cache.keys().next().value; // Get the first inserted key
       if (oldestKey) {
         this.cache.delete(oldestKey); // Only delete if the key is valid
-        console.log(`VBCache size of ${this.maxCacheSize} exceeded, video ${oldestKey} removed from the VBCache.`);
+        console.log(
+          `VBCache size of ${this.maxCacheSize} exceeded, video ${oldestKey} removed from the VBCache.`
+        );
       }
     }
   }
 
   // Retrieve a video from the cache
   public getVideo(fileName: string): Blob | null {
-    return this.cache.get(fileName) || null;
+    if (this.cache.has(fileName)) {
+      return this.cache.get(fileName) || null;
+    } else {
+      console.warn(`Video ${fileName} not found in the VBCache.`);
+      return null;
+    }
   }
 
   // Check if a video is cached
   public isCached(fileName: string): boolean {
     return this.cache.has(fileName);
+  }
+
+  // Remove a video from the cache
+  public removeVideo(fileName: string): void {
+    if (this.cache.has(fileName)) {
+      this.cache.delete(fileName);
+      console.log(`Video ${fileName} removed from the VBCache.`);
+    } else {
+      console.warn(
+        `Attempted to remove ${fileName}, but it does not exist in the VBCache.`
+      );
+    }
   }
 }
