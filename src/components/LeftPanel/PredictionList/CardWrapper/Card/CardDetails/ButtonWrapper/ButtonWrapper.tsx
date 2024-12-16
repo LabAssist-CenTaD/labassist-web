@@ -14,7 +14,7 @@ export const ButtonWrapper = ({
 }: ButtonWrapperProps): JSX.Element => {
   return (
     <div className="button-wrapper">
-      <RemoveButton />
+      <RemoveButton fileName={fileName} />
       <PredictButton fileName={fileName} status_list={status_list} />
     </div>
   );

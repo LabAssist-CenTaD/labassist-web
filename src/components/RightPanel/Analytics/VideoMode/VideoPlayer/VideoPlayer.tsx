@@ -38,7 +38,7 @@ export const VideoPlayer = (): JSX.Element => {
         }
       } else {
         // If the video is not cached, clear the videoUrl
-        console.log(`${selectedFile.fileName} not cached yet.`);
+        // console.log(`${selectedFile.fileName} not cached yet.`);
         setVideoUrl("");
       }
     }
