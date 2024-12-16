@@ -7,9 +7,9 @@ import { VideoBufferCache } from "../../../../../managers/VideoBufferCacheManage
 export const VideoPlayer = (): JSX.Element => {
   const { selectedFile } = useSelectedFileContext();
   const videoCache = VideoBufferCache.getInstance();
+  const videoPlayerRef = useRef<HTMLVideoElement | null>(null); // Ref to the video element
 
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
-  const videoPlayerRef = useRef<HTMLVideoElement | null>(null); // Ref to the video element
 
   useEffect(() => {
     // console.log("Selected file:", selectedFile); // Debugging selectedFile
