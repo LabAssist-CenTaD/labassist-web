@@ -25,7 +25,7 @@ export const PredictionFilterLabel = ({
       "Filter label (",
       label,
       ") clicked, state is now: ",
-      !isClicked
+      isClicked
     );
   };
 
