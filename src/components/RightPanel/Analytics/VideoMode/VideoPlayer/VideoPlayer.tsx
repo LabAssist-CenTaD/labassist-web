@@ -72,9 +72,13 @@ export const VideoPlayer = (): JSX.Element => {
         controls
         onError={(e) => console.error("Video playback error:", e)}
       >
-        <source src={videoUrl || ""} type="video/mp4" />
-        <source src={videoUrl || ""} type="video/quicktime" />
-        <source src={videoUrl || ""} type="video/x-msvideo" />
+        {videoUrl && (
+          <>
+            <source src={videoUrl} type="video/mp4" />
+            <source src={videoUrl} type="video/quicktime" />
+            <source src={videoUrl} type="video/x-msvideo" />
+          </>
+        )}
         Your browser does not support the video tag.
       </video>
     </div>
