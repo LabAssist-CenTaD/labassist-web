@@ -38,8 +38,7 @@ export const PredictButton = ({
 
     console.log("Predict button clicked");
 
-    const clientId = deviceId; // Use the deviceId as the client_id
-    const url = `http://localhost:5000/process_video/${fileName}?device_id=${clientId}`;
+    const url = `http://localhost:5000/process_video/${fileName}?device_id=${deviceId}`;
 
     try {
       const response = await axios.get(url); // Send a GET request with axios
