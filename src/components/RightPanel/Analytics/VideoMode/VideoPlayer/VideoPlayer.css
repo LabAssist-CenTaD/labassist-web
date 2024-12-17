@@ -5,10 +5,13 @@
   align-items: center;
   align-self: stretch;
   border-radius: 8px;
+  background-color: black;
+  max-height: 100%;
 }
 
 .video-player-container .video-player {
   width: 100%;
   height: 100%;
   border-radius: 8px;
+  object-fit: contain;
 }

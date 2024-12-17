@@ -7,4 +7,5 @@
   align-self: stretch;
   gap: 16px;
   transition: all 0.3s ease;
+  max-height: 100%;
 }

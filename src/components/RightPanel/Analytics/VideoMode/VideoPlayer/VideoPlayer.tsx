@@ -67,8 +67,6 @@ export const VideoPlayer = (): JSX.Element => {
       <video
         ref={videoPlayerRef}
         className="video-player"
-        width="100%"
-        height="100%"
         controls
         onError={(e) => console.error("Video playback error:", e)}
       >
