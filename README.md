@@ -13,6 +13,7 @@ LabAssist is an AI-powered laboratory assistant designed to assist students in p
 
 - **React**: For building a dynamic and interactive user interface.
 - **Axios**: For communicating with the Flask backend API.
+- **Iconsax**: Beautiful icons from Vuesax.
 
 ## 📂 Project Structure
 
