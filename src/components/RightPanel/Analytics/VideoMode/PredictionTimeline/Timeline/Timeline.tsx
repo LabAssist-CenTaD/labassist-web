@@ -5,6 +5,16 @@ import { TimelineEntry } from "./TimelineEntry/TimelineEntry";
 import { useSelectedFileContext } from "../../../../../../hooks/useSelectedFileContext";
 import { useCachedVideoContext } from "../../../../../../hooks/useCachedVideoContext";
 
+function formatTime(seconds: number): string {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+
+  const formattedMinutes = minutes.toString().padStart(2, "0");
+  const formattedSeconds = remainingSeconds.toString().padStart(2, "0");
+
+  return `${formattedMinutes}:${formattedSeconds}`;
+}
+
 export const Timeline = (): JSX.Element => {
   const { selectedFile } = useSelectedFileContext();
   const { cachedVideos } = useCachedVideoContext(); // Access cached video data
@@ -28,7 +38,7 @@ export const Timeline = (): JSX.Element => {
           <TimelineEntry
             key={index}
             type={entry.type}
-            timestamp={String(entry.start_seconds)}
+            timestamp={formatTime(entry.start_seconds)}
             message={entry.message}
           />
           {/* Add timeline separator for every entry except last one */}
