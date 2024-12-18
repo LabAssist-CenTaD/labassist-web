@@ -31,9 +31,15 @@ export const Timeline = (): JSX.Element => {
     // Return annotations if the video exists, otherwise an empty array
     return videoData?.annotations || [];
   }, [selectedFile, cachedVideos]);
+
+  // Sort annotations by start_seconds
+  const sortedAnnotations = useMemo(() => {
+    return [...annotations].sort((a, b) => a.start_seconds - b.start_seconds);
+  }, [annotations]);
+
   return (
     <div className="timeline">
-      {annotations.map((entry, index) => (
+      {sortedAnnotations.map((entry, index) => (
         <React.Fragment key={index}>
           <TimelineEntry
             key={index}
