@@ -72,21 +72,23 @@ export const VideoPlayer = ({
 
   return (
     <div className="video-player-container">
-      <video
-        ref={videoPlayerRef}
-        className="video-player"
-        controls
-        onError={(e) => console.error("Video playback error:", e)}
-      >
-        {videoUrl && (
+      {videoUrl ? (
+        <video
+          ref={videoPlayerRef}
+          className="video-player"
+          controls
+          onError={(e) => console.error("Video playback error:", e)}
+        >
           <>
             <source src={videoUrl} type="video/mp4" />
             <source src={videoUrl} type="video/quicktime" />
             <source src={videoUrl} type="video/x-msvideo" />
           </>
-        )}
-        Your browser does not support the video tag.
-      </video>
+          Your browser does not support the video tag.
+        </video>
+      ) : (
+        <p className="no-video-selected">No video selected/avaliable.</p>
+      )}
     </div>
   );
 };

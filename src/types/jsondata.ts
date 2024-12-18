@@ -1,12 +1,13 @@
 import { TagStatus } from "../components/LeftPanel/PredictionList/CardWrapper/Card/StatusBar/TagWrapper/Tag/Tag";
 
-type Annotation = {
-  status: string;
+export type Annotation = {
+  type: "info" | "warning" | "error";
   message: string;
-  timestamp: string;
+  start_seconds: number;
+  end_seconds: number;
 };
 
-type StatusCounts = {
+export type StatusCounts = {
   info: number;
   warning: number;
   error: number;
