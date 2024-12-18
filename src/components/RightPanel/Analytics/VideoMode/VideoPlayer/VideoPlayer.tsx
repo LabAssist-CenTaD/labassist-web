@@ -3,6 +3,7 @@ import "./VideoPlayer.css";
 import { useEffect, useRef, useState } from "react";
 import { useSelectedFileContext } from "../../../../../hooks/useSelectedFileContext";
 import { VideoBufferCache } from "../../../../../managers/VideoBufferCacheManager";
+import { useCachedVideoContext } from "../../../../../hooks/useCachedVideoContext";
 
 interface VideoPlayerProps {
   videoUrlChanged: (url: string | null) => void;
@@ -12,22 +13,32 @@ export const VideoPlayer = ({
   videoUrlChanged,
 }: VideoPlayerProps): JSX.Element => {
   const { selectedFile } = useSelectedFileContext();
-  const videoCache = VideoBufferCache.getInstance();
+  const { cachedVideos } = useCachedVideoContext();
+
+  const videoBufferCache = VideoBufferCache.getInstance();
   const videoPlayerRef = useRef<HTMLVideoElement | null>(null); // Ref to the video element
 
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
 
   useEffect(() => {
-    // console.log("Selected file:", selectedFile); // Debugging selectedFile
+    // If there is no selected file or the video is not in the cachedVideos, reset the videoUrl
+    if (
+      !selectedFile ||
+      !cachedVideos.some((video) => video.file_name === selectedFile.fileName)
+    ) {
+      setVideoUrl(null); // Clear the video URL if the file is not cached
+      videoUrlChanged(null); // Notify the parent that no video is available
+      return;
+    }
 
     if (selectedFile?.fileName) {
       console.log(
         `Checking if ${selectedFile.fileName} is cached:`,
-        videoCache.isCached(selectedFile.fileName)
+        videoBufferCache.isCached(selectedFile.fileName)
       );
 
-      if (videoCache.isCached(selectedFile.fileName)) {
-        const videoBlob = videoCache.getVideo(selectedFile.fileName);
+      if (videoBufferCache.isCached(selectedFile.fileName)) {
+        const videoBlob = videoBufferCache.getVideo(selectedFile.fileName);
         // console.log(`Video ${selectedFile.fileName} found in the VBCache.`);
 
         if (videoBlob) {
@@ -50,7 +61,7 @@ export const VideoPlayer = ({
         videoUrlChanged(null); // Notify parent that no video is present
       }
     }
-  }, [selectedFile, videoCache, videoUrlChanged]);
+  }, [selectedFile, videoBufferCache, videoUrlChanged, cachedVideos]);
 
   // Reload the video player when a new video is selected
   useEffect(() => {
