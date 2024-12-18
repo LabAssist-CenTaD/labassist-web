@@ -4,7 +4,13 @@ import { useEffect, useRef, useState } from "react";
 import { useSelectedFileContext } from "../../../../../hooks/useSelectedFileContext";
 import { VideoBufferCache } from "../../../../../managers/VideoBufferCacheManager";
 
-export const VideoPlayer = (): JSX.Element => {
+interface VideoPlayerProps {
+  videoUrlChanged: (url: string | null) => void;
+}
+
+export const VideoPlayer = ({
+  videoUrlChanged,
+}: VideoPlayerProps): JSX.Element => {
   const { selectedFile } = useSelectedFileContext();
   const videoCache = VideoBufferCache.getInstance();
   const videoPlayerRef = useRef<HTMLVideoElement | null>(null); // Ref to the video element
@@ -35,14 +41,16 @@ export const VideoPlayer = (): JSX.Element => {
 
           const url = URL.createObjectURL(videoBlob);
           setVideoUrl(url);
+          videoUrlChanged(url); // Notify parent about the new video URL
         }
       } else {
         // If the video is not cached, clear the videoUrl
         // console.log(`${selectedFile.fileName} not cached yet.`);
         setVideoUrl("");
+        videoUrlChanged(null); // Notify parent that no video is present
       }
     }
-  }, [selectedFile, videoCache]);
+  }, [selectedFile, videoCache, videoUrlChanged]);
 
   // Reload the video player when a new video is selected
   useEffect(() => {

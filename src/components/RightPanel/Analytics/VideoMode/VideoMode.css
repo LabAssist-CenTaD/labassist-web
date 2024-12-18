@@ -7,6 +7,10 @@
   padding: 24px;
   background: var(--Blue-2, #002139);
   border-radius: 24px;
+  max-height: 100%;
+}
+
+.video-present {
   max-height: calc(100% - 120px);
 }
 
