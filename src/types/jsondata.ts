@@ -2,6 +2,7 @@ import { TagStatus } from "../components/LeftPanel/PredictionList/CardWrapper/Ca
 
 export type Annotation = {
   type: "info" | "warning" | "error";
+  category: string;
   message: string;
   start_seconds: number;
   end_seconds: number;
