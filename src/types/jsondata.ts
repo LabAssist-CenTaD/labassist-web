@@ -1,13 +1,15 @@
 import { TagStatus } from "../components/LeftPanel/PredictionList/CardWrapper/Card/StatusBar/TagWrapper/Tag/Tag";
 
+export type AnnotationCatergories =
+  | "funnel"
+  | "conical flask"
+  // | "burette"
+  | "lab goggles"
+  | "white tile";
+
 export type Annotation = {
   type: "info" | "warning" | "error";
-  category:
-    | "funnel"
-    | "conical flask"
-    // | "burette"
-    | "lab goggles"
-    | "white tile";
+  category: AnnotationCatergories;
   message: string;
   start_seconds: number;
   end_seconds: number;
