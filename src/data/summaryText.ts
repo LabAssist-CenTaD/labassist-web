@@ -5,7 +5,7 @@ export type SummaryText = {
   no_error_text: string;
 };
 
-export const summaryText: SummaryText[] = [
+export const summaryTexts: SummaryText[] = [
   {
     category: "lab goggles",
     error_message: "Goggles should be worn properly",
