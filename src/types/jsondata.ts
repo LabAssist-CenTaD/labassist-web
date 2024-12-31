@@ -2,7 +2,12 @@ import { TagStatus } from "../components/LeftPanel/PredictionList/CardWrapper/Ca
 
 export type Annotation = {
   type: "info" | "warning" | "error";
-  category: string;
+  category:
+    | "funnel"
+    | "conical flask"
+    // | "burette"
+    | "lab goggles"
+    | "white tile";
   message: string;
   start_seconds: number;
   end_seconds: number;
