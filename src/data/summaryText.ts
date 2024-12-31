@@ -37,6 +37,6 @@ export const summaryTexts: SummaryText[] = [
     error_message:
       "Filter funnel should be used when pouring solution into burette",
     error_text: "Filter funnel used when pouring solution into burette",
-    no_error_text: "Filter funnel not used when pouring solution into burette",
+    no_error_text: "Filter funnel used when pouring solution into burette",
   },
 ];
