@@ -42,9 +42,9 @@ export const Timeline = (): JSX.Element => {
     }
   }, [selectedFile, cachedVideos]);
 
-  useEffect(() => {
-    console.log("Annotations updated:", annotations);
-  }, [annotations]);
+  // useEffect(() => {
+  //   console.log("Annotations updated:", annotations);
+  // }, [annotations]);
 
   // Sort annotations by start_seconds
   const sortedAnnotations = annotations.sort(
