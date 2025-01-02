@@ -1,6 +1,9 @@
-import React from "react";
 import "./FilterLabel.css";
+
+import React from "react";
 import { PredictionListFilterLabel } from "../../../../../types/filterlabel";
+import { toTitleCase } from "../../../../../utils/stringUtils";
+
 interface FilterLabelProps {
   Icon: React.ElementType;
   label: PredictionListFilterLabel;
@@ -10,15 +13,6 @@ interface FilterLabelProps {
 
   isActive: boolean; // New prop to determine if the label is active
   onToggle: (label: PredictionListFilterLabel, isActive: boolean) => void; // Callback for toggling
-}
-
-function toTitleCase(input: string): string {
-  return input
-    .split(/[-_]/) // Split on hyphens or underscores
-    .map(
-      (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase() // Capitalise first letter, lowercase the rest
-    )
-    .join(" "); // Join with a space
 }
 
 export const FilterLabel = ({
@@ -32,12 +26,7 @@ export const FilterLabel = ({
 }: FilterLabelProps): JSX.Element => {
   const handleClick = () => {
     onToggle(label, !isActive); // Call the parent's onToggle function
-    console.log(
-      "Filter label (",
-      label,
-      ") clicked, state is now: ",
-      isActive
-    );
+    // console.log("Filter label (", label, ") clicked, state is now: ", !isActive);
   };
 
   return (

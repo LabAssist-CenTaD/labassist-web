@@ -1,12 +1,17 @@
-import React, { useState } from "react";
 import "./PredictionFilterLabel.css";
+
+import { PredictionTimelineFilterLabel } from "../../../../../../../types/filterlabel";
+import { toTitleCase } from "../../../../../../../utils/stringUtils";
 
 interface PredictionFilterLabelProps {
   Icon: React.ElementType;
-  label: string;
+  label: PredictionTimelineFilterLabel;
   text_color?: string;
   bg_color: string;
   border?: string; // Optional prop to define border colour
+
+  isActive: boolean; // New prop to determine if the label is active
+  onToggle: (label: PredictionTimelineFilterLabel, isActive: boolean) => void; // Callback for toggling
 }
 
 export const PredictionFilterLabel = ({
@@ -15,23 +20,18 @@ export const PredictionFilterLabel = ({
   text_color,
   bg_color,
   border = "none", // Default border to none if not passed
+  isActive,
+  onToggle,
 }: PredictionFilterLabelProps): JSX.Element => {
-  const [isClicked, setIsClicked] = useState(false); // Track if mouse is clicked
-
   // Handle click event
   const handleClick = () => {
-    setIsClicked(!isClicked);
-    console.log(
-      "Filter label (",
-      label,
-      ") clicked, state is now: ",
-      isClicked
-    );
+    onToggle(label, !isActive); // Call the parent's onToggle function
+    // console.log("Filter label (", label, ") clicked, state is now: ", !isActive);
   };
 
   return (
     <button
-      className={`prediction-filter-label ${isClicked && "clicked"}`}
+      className={`prediction-filter-label ${!isActive && "clicked"}`}
       style={
         {
           "--bg-color": bg_color,
@@ -40,14 +40,14 @@ export const PredictionFilterLabel = ({
         } as React.CSSProperties
       }
       onClick={handleClick}
-      title={`Filter by "${label}"`}
+      title={`Filter by "${toTitleCase(label)}"`}
     >
       <Icon
         size={12}
         variant="Bold"
-        color={isClicked ? "var(--bg-color)" : "var(--blue-2)"} // Change icon colour on mouse down
+        color={!isActive ? "var(--bg-color)" : "var(--blue-2)"} // Change icon colour on mouse down
       />
-      <div className="prediction-filter-label-text">{label}</div>
+      <div className="prediction-filter-label-text">{toTitleCase(label)}</div>
     </button>
   );
 };

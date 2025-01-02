@@ -59,7 +59,7 @@ export const PredictionList = (): JSX.Element => {
     return matchesSearch && matchesLabels;
   });
 
-  console.log("activeLabels: ", activeLabels);  
+  // console.log("activeLabels: ", activeLabels);  
 
   const handleSearch = (query: string) => setSearchQuery(query);
 
