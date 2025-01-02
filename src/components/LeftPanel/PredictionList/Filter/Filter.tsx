@@ -10,12 +10,12 @@ import {
 } from "iconsax-react";
 import { FilterLabel } from "./FilterLabel/FilterLabel";
 import { Colors } from "../../../../styles/colors";
-import { PredictionListFilterLabel } from "../../../../types/filterlabel";
+import { PredictionListFilterLabelName } from "../../../../types/filterlabel";
 
 interface FilterProps {
-  activeLabels: PredictionListFilterLabel[];
+  activeLabels: PredictionListFilterLabelName[];
   setActiveLabels: React.Dispatch<
-    React.SetStateAction<PredictionListFilterLabel[]>
+    React.SetStateAction<PredictionListFilterLabelName[]>
   >;
 }
 
@@ -24,7 +24,7 @@ export const Filter = ({
   setActiveLabels,
 }: FilterProps): JSX.Element => {
   const handleToggle = (
-    label: PredictionListFilterLabel,
+    label: PredictionListFilterLabelName,
     isActive: boolean
   ) => {
     setActiveLabels((prev) =>

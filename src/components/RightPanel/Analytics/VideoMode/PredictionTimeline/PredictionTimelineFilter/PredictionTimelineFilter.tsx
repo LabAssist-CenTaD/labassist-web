@@ -1,24 +1,24 @@
-import "./PredictionFilter.css";
+import "./PredictionTimelineFilter.css";
 
 import FilterSeperator from "../../../../../../assets/filter-seperator.svg";
 import { InfoCircle, Danger, CloseCircle } from "iconsax-react";
-import { PredictionFilterLabel } from "./PredictionFilterLabel/PredictionFilterLabel";
+import { PredictionTimelineFilterLabel } from "./PredictionTimelineFilterLabel/PredictionTimelineFilterLabel";
 import { Colors } from "../../../../../../styles/colors";
-import { PredictionTimelineFilterLabel } from "../../../../../../types/filterlabel";
+import { PredictionTimelineFilterLabelName } from "../../../../../../types/filterlabel";
 
-interface PredictionFilterProps {
-  activeLabels: PredictionTimelineFilterLabel[];
+interface PredictionTimelineFilterProps {
+  activeLabels: PredictionTimelineFilterLabelName[];
   setActiveLabels: React.Dispatch<
-    React.SetStateAction<PredictionTimelineFilterLabel[]>
+    React.SetStateAction<PredictionTimelineFilterLabelName[]>
   >;
 }
 
-export const PredictionFilter = ({
+export const PredictionTimelineFilter = ({
   activeLabels,
   setActiveLabels,
-}: PredictionFilterProps): JSX.Element => {
+}: PredictionTimelineFilterProps): JSX.Element => {
   const handleToggle = (
-    label: PredictionTimelineFilterLabel,
+    label: PredictionTimelineFilterLabelName,
     isActive: boolean
   ) => {
     setActiveLabels((prev) => {
@@ -31,12 +31,12 @@ export const PredictionFilter = ({
       }
     });
   };
-  
-  // console.log("PredictionFilter activeLabels: ", activeLabels);
+
+  // console.log("PredictionTimelineFilter activeLabels: ", activeLabels);
 
   return (
     <div className="prediciton-filter">
-      <PredictionFilterLabel
+      <PredictionTimelineFilterLabel
         Icon={InfoCircle}
         label="info"
         bg_color={Colors.blue1}
@@ -48,7 +48,7 @@ export const PredictionFilter = ({
         alt="Filter Seperator"
         className="filter-seperator"
       />
-      <PredictionFilterLabel
+      <PredictionTimelineFilterLabel
         Icon={Danger}
         label="warning"
         bg_color={Colors.yellow}
@@ -60,7 +60,7 @@ export const PredictionFilter = ({
         alt="Filter Seperator"
         className="filter-seperator"
       />
-      <PredictionFilterLabel
+      <PredictionTimelineFilterLabel
         Icon={CloseCircle}
         label="error"
         bg_color={Colors.red}

@@ -5,7 +5,7 @@ import { CardWrapper } from "./CardWrapper/CardWrapper";
 import { Toolbar } from "./Toolbar/Toolbar";
 import { Filter } from "./Filter/Filter";
 import { useCachedVideoContext } from "../../../hooks/useCachedVideoContext";
-import { PredictionListFilterLabel } from "../../../types/filterlabel";
+import { PredictionListFilterLabelName } from "../../../types/filterlabel";
 
 export const PredictionList = (): JSX.Element => {
   const { cachedVideoManager, cachedVideos } = useCachedVideoContext(); // Use context to get cachedVideoManager
@@ -14,16 +14,16 @@ export const PredictionList = (): JSX.Element => {
     cachedVideoManager.getCachedVideos()
   );
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeLabels, setActiveLabels] = useState<PredictionListFilterLabel[]>(
-    [
-      "perfect",
-      "warnings-present",
-      "errors-present",
-      "complete",
-      "predicting",
-      "uploaded",
-    ]
-  );
+  const [activeLabels, setActiveLabels] = useState<
+    PredictionListFilterLabelName[]
+  >([
+    "perfect",
+    "warnings-present",
+    "errors-present",
+    "complete",
+    "predicting",
+    "uploaded",
+  ]);
   const [loading, setLoading] = useState(true);
 
   // Update fileData when cachedVideoManager is updated

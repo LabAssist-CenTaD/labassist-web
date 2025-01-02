@@ -1,20 +1,23 @@
-import "./PredictionFilterLabel.css";
+import "./PredictionTimelineFilterLabel.css";
 
-import { PredictionTimelineFilterLabel } from "../../../../../../../types/filterlabel";
+import { PredictionTimelineFilterLabelName } from "../../../../../../../types/filterlabel";
 import { toTitleCase } from "../../../../../../../utils/stringUtils";
 
-interface PredictionFilterLabelProps {
+interface PredictionTimelineFilterLabelProps {
   Icon: React.ElementType;
-  label: PredictionTimelineFilterLabel;
+  label: PredictionTimelineFilterLabelName;
   text_color?: string;
   bg_color: string;
   border?: string; // Optional prop to define border colour
 
   isActive: boolean; // New prop to determine if the label is active
-  onToggle: (label: PredictionTimelineFilterLabel, isActive: boolean) => void; // Callback for toggling
+  onToggle: (
+    label: PredictionTimelineFilterLabelName,
+    isActive: boolean
+  ) => void; // Callback for toggling
 }
 
-export const PredictionFilterLabel = ({
+export const PredictionTimelineFilterLabel = ({
   Icon,
   label,
   text_color,
@@ -22,7 +25,7 @@ export const PredictionFilterLabel = ({
   border = "none", // Default border to none if not passed
   isActive,
   onToggle,
-}: PredictionFilterLabelProps): JSX.Element => {
+}: PredictionTimelineFilterLabelProps): JSX.Element => {
   // Handle click event
   const handleClick = () => {
     onToggle(label, !isActive); // Call the parent's onToggle function

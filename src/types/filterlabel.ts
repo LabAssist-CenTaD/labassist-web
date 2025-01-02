@@ -1,4 +1,4 @@
-export type PredictionListFilterLabel =
+export type PredictionListFilterLabelName =
   | "perfect"
   | "warnings-present"
   | "errors-present"
@@ -6,4 +6,4 @@ export type PredictionListFilterLabel =
   | "predicting"
   | "uploaded";
 
-export type PredictionTimelineFilterLabel = "info" | "warning" | "error";
+export type PredictionTimelineFilterLabelName = "info" | "warning" | "error";

@@ -1,18 +1,18 @@
 import "./FilterLabel.css";
 
 import React from "react";
-import { PredictionListFilterLabel } from "../../../../../types/filterlabel";
+import { PredictionListFilterLabelName } from "../../../../../types/filterlabel";
 import { toTitleCase } from "../../../../../utils/stringUtils";
 
 interface FilterLabelProps {
   Icon: React.ElementType;
-  label: PredictionListFilterLabel;
+  label: PredictionListFilterLabelName;
   text_color?: string;
   bg_color: string;
   border?: string; // Optional prop to define border colour
 
   isActive: boolean; // New prop to determine if the label is active
-  onToggle: (label: PredictionListFilterLabel, isActive: boolean) => void; // Callback for toggling
+  onToggle: (label: PredictionListFilterLabelName, isActive: boolean) => void; // Callback for toggling
 }
 
 export const FilterLabel = ({
