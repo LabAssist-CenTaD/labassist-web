@@ -1,7 +1,7 @@
 import "./ButtonWrapper.css";
 import { RemoveButton } from "./RemoveButton/RemoveButton";
 import { PredictButton } from "./PredictButton/PredictButton";
-import { TagStatus } from "../../StatusBar/TagWrapper/Tag/Tag";
+import { TagStatus } from "../../../../../../../types/tagstatus";
 
 interface ButtonWrapperProps {
   fileName: string;

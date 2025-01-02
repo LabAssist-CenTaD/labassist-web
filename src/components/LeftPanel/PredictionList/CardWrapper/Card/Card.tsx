@@ -1,7 +1,7 @@
 import { StatusBar } from "./StatusBar/StatusBar";
 import "./Card.css";
 import { CardContainer } from "./CardDetails/CardContainer";
-import { TagStatus } from "./StatusBar/TagWrapper/Tag/Tag";
+import { TagStatus } from "../../../../../types/tagstatus";
 
 interface CardProps {
   status_list: TagStatus[];

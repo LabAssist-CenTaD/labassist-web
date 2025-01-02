@@ -1,6 +1,7 @@
-import { Tag } from "./Tag/Tag";
 import "./TagWrapper.css";
-import { TagStatus } from "./Tag/Tag"; // Import the type definition
+
+import { Tag } from "./Tag/Tag";
+import { TagStatus } from "../../../../../../../types/tagstatus";
 
 interface TagWrapperProps {
   status_list: TagStatus[]; // Properly typed

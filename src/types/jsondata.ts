@@ -1,4 +1,4 @@
-import { TagStatus } from "../components/LeftPanel/PredictionList/CardWrapper/Card/StatusBar/TagWrapper/Tag/Tag";
+import { TagStatus } from "./tagstatus";
 
 export type AnnotationCatergories =
   | "funnel"

@@ -1,4 +1,5 @@
-// import React from "react";
+import "./Tag.css";
+
 import {
   Clock,
   CloseCircle,
@@ -8,17 +9,8 @@ import {
   Timer,
   VideoTick,
 } from "iconsax-react"; // Import required icons
-import "./Tag.css";
 import { Colors } from "../../../../../../../../styles/colors";
-
-export type TagStatus =
-  | "perfect"
-  | "warnings-present"
-  | "errors-present"
-  | "complete"
-  | "predicting"
-  | "queued"
-  | "uploaded"
+import { TagStatus } from "../../../../../../../../types/tagstatus";
 
 interface TagProps {
   status: TagStatus;

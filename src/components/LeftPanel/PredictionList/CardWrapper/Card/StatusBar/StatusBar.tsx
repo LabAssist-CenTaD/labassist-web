@@ -1,8 +1,8 @@
+import "./StatusBar.css";
+
 import { TagWrapper } from "./TagWrapper/TagWrapper";
 import { StatusCount } from "./StatusCount/StatusCount";
-
-import "./StatusBar.css";
-import { TagStatus } from "./TagWrapper/Tag/Tag";
+import { TagStatus } from "../../../../../../types/tagstatus";
 
 interface StatusBarProps {
   status_list: TagStatus[];

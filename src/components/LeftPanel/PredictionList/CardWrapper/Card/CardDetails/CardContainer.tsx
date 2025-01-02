@@ -1,7 +1,7 @@
 import "./CardContainer.css";
 import { FileDetails } from "./FileDetails/FileDetails";
 import { ButtonWrapper } from "./ButtonWrapper/ButtonWrapper";
-import { TagStatus } from "../StatusBar/TagWrapper/Tag/Tag";
+import { TagStatus } from "../../../../../../types/tagstatus";
 
 interface CardContainerProps {
   fileName: string;

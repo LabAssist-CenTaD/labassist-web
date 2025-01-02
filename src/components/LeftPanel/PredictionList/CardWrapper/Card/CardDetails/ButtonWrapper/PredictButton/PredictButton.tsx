@@ -5,7 +5,7 @@ import { Colors } from "../../../../../../../../styles/colors";
 import { useState, useEffect } from "react";
 import { ExportCurve } from "iconsax-react";
 import { getOrCreateDeviceId } from "../../../../../../../../utils/deviceIdUtils";
-import { TagStatus } from "../../../StatusBar/TagWrapper/Tag/Tag";
+import { TagStatus } from "../../../../../../../../types/tagstatus";
 
 interface PredictButtonProps {
   fileName: string;
