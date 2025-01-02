@@ -35,13 +35,13 @@ export class VideoBufferCache {
       if (oldestKey) {
         this.cache.delete(oldestKey); // Only delete if the key is valid
         console.log(
-          `Video ${fileName} added to the VBCache. VBCache size of ${this.maxCacheSize} exceeded, video ${oldestKey} removed from the VBCache.`
+          `Video ${fileName} added to the VBCache. Oldest video ${oldestKey} removed (cached size exceeded). Cache size: (${this.cache.size}/${this.maxCacheSize})`
         );
       } else {
         console.error("Failed to get the oldest key in the VBCache.");
       }
     } else {
-      console.log(`Video ${fileName} added to the VBCache.`);
+      console.log(`Video ${fileName} added to the VBCache. Cache size: (${this.cache.size}/${this.maxCacheSize})`);
     }
   }
 
