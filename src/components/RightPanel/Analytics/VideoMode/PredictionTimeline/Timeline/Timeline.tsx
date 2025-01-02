@@ -1,3 +1,5 @@
+// Timeline.tsx
+
 import "./Timeline.css";
 
 import React, { useEffect, useState } from "react";
@@ -18,7 +20,11 @@ function formatTime(seconds: number): string {
   return `${formattedMinutes}:${formattedSeconds}`;
 }
 
-export const Timeline = (): JSX.Element => {
+interface TimelineProps {
+  activeLabels: string[]; // Receive active labels
+}
+
+export const Timeline = ({ activeLabels }: TimelineProps): JSX.Element => {
   const { selectedFile } = useSelectedFileContext();
   const { cachedVideos } = useCachedVideoContext(); // Access cached video data
 
@@ -42,27 +48,27 @@ export const Timeline = (): JSX.Element => {
     }
   }, [selectedFile, cachedVideos]);
 
-  // useEffect(() => {
-  //   console.log("Annotations updated:", annotations);
-  // }, [annotations]);
-
   // Sort annotations by start_seconds
   const sortedAnnotations = annotations.sort(
     (a, b) => a.start_seconds - b.start_seconds
   );
 
+  // Filter annotations based on activeLabels
+  const filteredAnnotations = sortedAnnotations.filter(
+    (entry) => activeLabels.includes(entry.type) // Only include annotations of active types
+  );
+
   return (
     <div className="timeline">
-      {sortedAnnotations.map((entry, index) => (
+      {filteredAnnotations.map((entry, index) => (
         <React.Fragment key={index}>
           <TimelineEntry
-            key={index}
             type={entry.type}
             timestamp={formatTime(entry.start_seconds)}
             message={entry.message}
           />
           {/* Add timeline separator for every entry except last one */}
-          {index < annotations.length - 1 && (
+          {index < filteredAnnotations.length - 1 && (
             <HorizontalSeperator key={`separator-${index}`} />
           )}
         </React.Fragment>

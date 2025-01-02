@@ -1,3 +1,5 @@
+// PredictionTimeline.tsx
+
 import { useState } from "react";
 import { PredictionTimelineFilterLabelName } from "../../../../../types/filterlabel";
 import { PredictionTimelineFilter } from "./PredictionTimelineFilter/PredictionTimelineFilter";
@@ -16,7 +18,7 @@ export const PredictionTimeline = (): JSX.Element => {
         activeLabels={activeLabels}
         setActiveLabels={setActiveLabels}
       />
-      <Timeline />
+      <Timeline activeLabels={activeLabels} /> {/* Pass activeLabels */}
     </div>
   );
 };
