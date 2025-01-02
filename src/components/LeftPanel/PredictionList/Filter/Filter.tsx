@@ -10,18 +10,23 @@ import {
 } from "iconsax-react";
 import { FilterLabel } from "./FilterLabel/FilterLabel";
 import { Colors } from "../../../../styles/colors";
-import { FilterLabelName } from "../../../../types/filterlabel";
+import { PredictionListFilterLabel } from "../../../../types/filterlabel";
 
 interface FilterProps {
-  activeLabels: FilterLabelName[];
-  setActiveLabels: React.Dispatch<React.SetStateAction<FilterLabelName[]>>;
+  activeLabels: PredictionListFilterLabel[];
+  setActiveLabels: React.Dispatch<
+    React.SetStateAction<PredictionListFilterLabel[]>
+  >;
 }
 
 export const Filter = ({
   activeLabels,
   setActiveLabels,
 }: FilterProps): JSX.Element => {
-  const handleToggle = (label: FilterLabelName, isActive: boolean) => {
+  const handleToggle = (
+    label: PredictionListFilterLabel,
+    isActive: boolean
+  ) => {
     setActiveLabels((prev) =>
       isActive ? [...prev, label] : prev.filter((l) => l !== label)
     );

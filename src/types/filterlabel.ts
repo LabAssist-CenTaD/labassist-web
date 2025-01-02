@@ -1,4 +1,4 @@
-export type FilterLabelName =
+export type PredictionListFilterLabel =
   | "perfect"
   | "warnings-present"
   | "errors-present"
