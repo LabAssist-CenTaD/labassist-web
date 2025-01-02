@@ -28,7 +28,6 @@ export class VideoBufferCache {
       this.cache.delete(fileName); // Remove existing entry to re-add it
     }
     this.cache.set(fileName, videoBlob);
-    console.log(`Video ${fileName} added to the VBCache.`);
 
     // Remove the oldest video if cache exceeds size
     if (this.cache.size > this.maxCacheSize) {
@@ -36,9 +35,13 @@ export class VideoBufferCache {
       if (oldestKey) {
         this.cache.delete(oldestKey); // Only delete if the key is valid
         console.log(
-          `VBCache size of ${this.maxCacheSize} exceeded, video ${oldestKey} removed from the VBCache.`
+          `Video ${fileName} added to the VBCache. VBCache size of ${this.maxCacheSize} exceeded, video ${oldestKey} removed from the VBCache.`
         );
+      } else {
+        console.error("Failed to get the oldest key in the VBCache.");
       }
+    } else {
+      console.log(`Video ${fileName} added to the VBCache.`);
     }
   }
 
