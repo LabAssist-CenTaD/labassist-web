@@ -42,8 +42,13 @@ export const PredictionList = (): JSX.Element => {
 
   // Filter the file data based on the search query and active labels
   const filteredFileData = fileData.filter((file) => {
-    // Check if the file has the `queued` status
+    // Always show files with `queued` status
     const isQueued = file.status_list.includes("queued");
+
+    // If activeLabels is not empty, check if the file matches any active labels
+    const matchesLabels =
+      activeLabels.length > 0 &&
+      activeLabels.some((label) => file.status_list.includes(label));
 
     // Check search query
     const fileNameWithoutExtension = file.file_name
@@ -53,12 +58,7 @@ export const PredictionList = (): JSX.Element => {
     const matchesSearch =
       fileNameWithoutExtension.includes(searchQueryLowerCase);
 
-    // Check active labels
-    const matchesLabels =
-      activeLabels.length === 0 || // If no labels are active, show all files
-      activeLabels.some((label) => file.status_list.includes(label));
-
-    // Include the file if it has `queued` status or matches the search and labels
+    // Include files that are queued or match the search and active labels
     return isQueued || (matchesSearch && matchesLabels);
   });
 
