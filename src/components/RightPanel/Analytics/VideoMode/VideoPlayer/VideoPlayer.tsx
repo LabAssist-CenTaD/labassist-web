@@ -88,6 +88,7 @@ export const VideoPlayer = ({
           ref={videoPlayerRef}
           className="video-player"
           controls
+          autoPlay // Autoplay the video when selected
           onError={(e) => console.error("Video playback error:", e)}
         >
           <>
