@@ -5,3 +5,5 @@ export type PredictionListFilterLabel =
   | "complete"
   | "predicting"
   | "uploaded";
+
+export type PredictionTimelineFilterLabel = "info" | "warning" | "error";
