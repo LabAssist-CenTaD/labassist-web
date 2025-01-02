@@ -18,31 +18,43 @@ export const AddButton = (): JSX.Element => {
   };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      try {
-        const formData = new FormData();
-        formData.append("video", file);
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      const deviceId = getOrCreateDeviceId();
+      const videoBufferCache = VideoBufferCache.getInstance();
 
-        const deviceId = getOrCreateDeviceId(); // Get the deviceId (either from cookie or generate a new one)
-        formData.append("device_id", deviceId); // Add deviceId to FormData
+      for (const file of files) { // Iterate over the selected files
+        try {
+          const formData = new FormData();
+          formData.append("video", file);
+          formData.append("device_id", deviceId);
 
-        const response = await axios.post(
-          config.connection_address + "/upload",
-          formData
-        );
+          const response = await axios.post(
+            `${config.connection_address}/upload`,
+            formData
+          );
 
-        console.log(response.data.message);
+          console.log(`Response for ${file.name}:`, response.data.message);
 
-        if (response.data.message === "Video uploaded successfully") {
-          // Add the video to the cache
-          const videoBlob = new Blob([file], { type: file.type }); // Convert the file to a Blob
-          const fileName = file.name.replace(/\s+/g, "_").replace(/[()]/g, "");
-          VideoBufferCache.getInstance().addVideo(fileName, videoBlob);
+          if (response.data.message === "Video uploaded successfully") {
+            // Add the video to the cache
+            const videoBlob = new Blob([file], { type: file.type }); // Convert the file to a Blob
+            const fileName = file.name
+              .replace(/\s+/g, "_")
+              .replace(/[()]/g, "");
+            videoBufferCache.addVideo(fileName, videoBlob);
+
+            console.log(`Video ${fileName} added to VBCache.`);
+          }
+        } catch (error) {
+          console.error(`Error uploading ${file.name}:`, error);
+          alert(`Error uploading ${file.name}. Please try again.`);
         }
-      } catch (error) {
-        console.error("Error uploading video:", error);
-        alert("Error uploading video. Please try again.");
+      }
+
+      // Reset the file input value to allow re-uploading the same files if needed
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
       }
     }
   };
@@ -59,6 +71,7 @@ export const AddButton = (): JSX.Element => {
         ref={fileInputRef}
         style={{ display: "none" }} // Hide the input
         accept="video/*" // Restrict file types to video files
+        multiple // Enable multiple file selection
         onChange={handleFileChange}
       />
     </div>
