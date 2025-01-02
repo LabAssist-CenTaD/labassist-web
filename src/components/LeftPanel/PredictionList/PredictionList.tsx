@@ -42,12 +42,14 @@ export const PredictionList = (): JSX.Element => {
 
   // Filter the file data based on the search query and active labels
   const filteredFileData = fileData.filter((file) => {
+    // Check if the file has the `queued` status
+    const isQueued = file.status_list.includes("queued");
+
     // Check search query
     const fileNameWithoutExtension = file.file_name
       .replace(/\.(mp4|mov|avi)$/, "")
       .toLowerCase();
     const searchQueryLowerCase = searchQuery.toLowerCase();
-
     const matchesSearch =
       fileNameWithoutExtension.includes(searchQueryLowerCase);
 
@@ -56,10 +58,11 @@ export const PredictionList = (): JSX.Element => {
       activeLabels.length === 0 || // If no labels are active, show all files
       activeLabels.some((label) => file.status_list.includes(label));
 
-    return matchesSearch && matchesLabels;
+    // Include the file if it has `queued` status or matches the search and labels
+    return isQueued || (matchesSearch && matchesLabels);
   });
 
-  // console.log("activeLabels: ", activeLabels);  
+  // console.log("activeLabels: ", activeLabels);
 
   const handleSearch = (query: string) => setSearchQuery(query);
 
