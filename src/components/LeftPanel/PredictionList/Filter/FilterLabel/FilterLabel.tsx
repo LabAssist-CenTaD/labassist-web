@@ -1,12 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import "./FilterLabel.css";
-
+import { FilterLabelName } from "../../../../../types/filterlabel";
 interface FilterLabelProps {
   Icon: React.ElementType;
-  label: string;
+  label: FilterLabelName;
   text_color?: string;
   bg_color: string;
   border?: string; // Optional prop to define border colour
+
+  isActive: boolean; // New prop to determine if the label is active
+  onToggle: (label: FilterLabelName, isActive: boolean) => void; // Callback for toggling
+}
+
+function toTitleCase(input: string): string {
+  return input
+    .split(/[-_]/) // Split on hyphens or underscores
+    .map(
+      (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase() // Capitalise first letter, lowercase the rest
+    )
+    .join(" "); // Join with a space
 }
 
 export const FilterLabel = ({
@@ -15,23 +27,22 @@ export const FilterLabel = ({
   text_color,
   bg_color,
   border = "none", // Default border to none if not passed
+  isActive,
+  onToggle,
 }: FilterLabelProps): JSX.Element => {
-  const [isClicked, setIsClicked] = useState(false); // Track if mouse is clicked
-
-  // Handle click event
   const handleClick = () => {
-    setIsClicked(!isClicked);
+    onToggle(label, !isActive); // Call the parent's onToggle function
     console.log(
       "Filter label (",
       label,
       ") clicked, state is now: ",
-      isClicked
+      isActive
     );
   };
 
   return (
     <button
-      className={`filter-label ${isClicked && "clicked"}`}
+      className={`filter-label ${!isActive && "clicked"}`}
       style={
         {
           "--bg-color": bg_color,
@@ -40,14 +51,14 @@ export const FilterLabel = ({
         } as React.CSSProperties
       }
       onClick={handleClick}
-      title={`Filter by "${label}"`}
+      title={`Filter by "${toTitleCase(label)}"`}
     >
       <Icon
         size={12}
         variant="Bold"
-        color={isClicked ? "var(--bg-color)" : "var(--blue-2)"} // Change icon colour on mouse down
+        color={!isActive ? "var(--bg-color)" : "var(--blue-2)"} // Change icon colour on mouse down
       />
-      <div className="filter-label-text">{label}</div>
+      <div className="filter-label-text">{toTitleCase(label)}</div>
     </button>
   );
 };
