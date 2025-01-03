@@ -38,3 +38,18 @@
   font-weight: 500;
   line-height: normal;
 }
+
+.predict-button.clicked.predicting {
+  border-radius: 8px;
+  border: 2px solid var(--Blue-1);
+  background-color: transparent;
+}
+
+.predict-button.clicked.predicting .predict-button-text {
+  color: var(--Blue-1);
+  font-family: Aeonik;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
