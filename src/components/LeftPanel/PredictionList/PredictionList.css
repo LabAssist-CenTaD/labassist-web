@@ -7,7 +7,7 @@
   width: 100%;
 }
 
-.prediction-list-header {
+.prediction-list .prediction-list-header {
   font-size: 24px;
   font-family: Aeonik;
   font-style: normal;
@@ -15,4 +15,26 @@
   line-height: normal;
   color: var(--Foreground, #c9e8ff);
   height: 36px;
+}
+
+.prediction-list .loading {
+  font-size: 16px;
+  font-family: Aeonik;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  color: var(--Foreground, #c9e8ff);
+  height: 36px;
+}
+
+.prediction-list .loading {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  height: fit-content;
+  gap: 4px;
+}
+
+l-dot-stream {
+  padding-top: 4px;
 }

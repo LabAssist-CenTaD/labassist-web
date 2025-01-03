@@ -58,7 +58,7 @@ export const CardWrapper = ({
 
         return (
           <Card
-            key={file.file_name}
+            key={file.file_path}
             status_list={file.status_list}
             status_counts={file.status_counts}
             fileName={file.file_name}
