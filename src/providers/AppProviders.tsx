@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { CachedVideoProvider } from "./CachedVideoContext";
 import { SelectedFileProvider } from "./SelectedFileContext";
+import { SelectedFilesProvider } from "./SelectedFilesContext";
 
 interface AppProvidersProps {
   children: ReactNode;
@@ -9,7 +10,9 @@ interface AppProvidersProps {
 const AppProviders = ({ children }: AppProvidersProps): JSX.Element => {
   return (
     <CachedVideoProvider>
-      <SelectedFileProvider>{children}</SelectedFileProvider>
+      <SelectedFileProvider>
+        <SelectedFilesProvider>{children}</SelectedFilesProvider>
+      </SelectedFileProvider>
     </CachedVideoProvider>
   );
 };

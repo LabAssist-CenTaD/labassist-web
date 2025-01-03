@@ -1,5 +1,4 @@
 import "./Card.css";
-
 import { StatusBar } from "./StatusBar/StatusBar";
 import { CardContainer } from "./CardDetails/CardContainer";
 import { TagStatus } from "../../../../../types/tagstatus";
@@ -13,8 +12,8 @@ interface CardProps {
   };
   fileName: string;
   filePath: string;
-  isSelected: boolean;
   onClick: () => void;
+  cardClass: string; // Accept cardClass prop
 }
 
 export const Card = ({
@@ -22,17 +21,11 @@ export const Card = ({
   status_counts,
   fileName,
   filePath,
-  isSelected,
   onClick,
+  cardClass, // Use the class passed as prop
 }: CardProps): JSX.Element => {
-  // Check if the status list contains 'predicting' and conditionally add the class
-  // const isPredicting = status_list.includes("predicting");
-
   return (
-    <div
-      className={`card ${isSelected ? "selected" : ""}`}
-      onClick={onClick} // Add click handler
-    >
+    <div className={cardClass} onClick={onClick}>
       <StatusBar status_list={status_list} status_counts={status_counts} />
       <CardContainer
         fileName={fileName}

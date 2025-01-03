@@ -1,5 +1,4 @@
 import "./PredictionList.css";
-
 import { useEffect, useState } from "react";
 import { CardWrapper } from "./CardWrapper/CardWrapper";
 import { Toolbar } from "./Toolbar/Toolbar";
@@ -7,9 +6,13 @@ import { Filter } from "./Filter/Filter";
 import { useCachedVideoContext } from "../../../hooks/useCachedVideoContext";
 import { PredictionListFilterLabelName } from "../../../types/filterlabel";
 import { SelectModeToolbar } from "./SelectModeToolbar/SelectModeToolbar";
+import { useSelectedFileContext } from "../../../hooks/useSelectedFileContext"; // For single file selection
+import { useSelectedFilesContext } from "../../../hooks/useSelectedFilesContext"; // For multi-file selection
 
 export const PredictionList = (): JSX.Element => {
-  const { cachedVideoManager, cachedVideos } = useCachedVideoContext(); // Use context to get cachedVideoManager
+  const { cachedVideoManager, cachedVideos } = useCachedVideoContext();
+  const { selectedFile, setSelectedFile } = useSelectedFileContext(); // Single file selection
+  const { selectedFiles, toggleSelectedFile } = useSelectedFilesContext(); // Multi file selection
 
   const [fileData, setFileData] = useState(
     cachedVideoManager.getCachedVideos()
@@ -28,51 +31,40 @@ export const PredictionList = (): JSX.Element => {
   const [loading, setLoading] = useState(true);
   const [isInSelectMode, setIsInSelectMode] = useState(false);
 
-  // Update fileData when cachedVideoManager is updated
   useEffect(() => {
     const fetchData = async () => {
       const updatedData = cachedVideoManager.getCachedVideos();
       const jsonMessage = cachedVideoManager.getMessage();
       if (jsonMessage) {
-        setFileData(updatedData); // Trigger re-render by updating fileData state
+        setFileData(updatedData);
         setLoading(false);
       }
     };
 
     fetchData();
-  }, [cachedVideoManager, cachedVideos]); // Depend on cachedVideoManager to re-trigger effect on changes
+  }, [cachedVideoManager, cachedVideos]);
 
-  // Filter the file data based on the search query and active labels
   const filteredFileData = fileData.filter((file) => {
-    const isQueued = file.status_list.includes("queued"); // Always show files with `queued` status
-
-    // If activeLabels is not empty, check if the file matches any active labels
+    const isQueued = file.status_list.includes("queued");
     const matchesLabels =
       activeLabels.length > 0 &&
       activeLabels.some((label) => file.status_list.includes(label));
-
-    // Check search query
     const fileNameWithoutExtension = file.file_name
       .replace(/\.(mp4|mov|avi)$/, "")
       .toLowerCase();
-    const searchQueryLowerCase = searchQuery.toLowerCase();
-    const matchesSearch =
-      fileNameWithoutExtension.includes(searchQueryLowerCase);
+    const matchesSearch = fileNameWithoutExtension.includes(
+      searchQuery.toLowerCase()
+    );
 
-    // Include files that are queued or match the search and active labels
     return isQueued || (matchesSearch && matchesLabels);
   });
 
-  // console.log("activeLabels: ", activeLabels);
-
   const handleSearch = (query: string) => setSearchQuery(query);
 
-  const handleSelectModeToggle = () => {
-    setIsInSelectMode(!isInSelectMode);
-  };
+  const handleSelectModeToggle = () => setIsInSelectMode(!isInSelectMode);
 
   if (loading) {
-    return <div className="prediction-list-header">Loading...</div>; // If still loading, show a loading message
+    return <div className="prediction-list-header">Loading...</div>;
   }
 
   return (
@@ -89,7 +81,14 @@ export const PredictionList = (): JSX.Element => {
         <Filter activeLabels={activeLabels} setActiveLabels={setActiveLabels} />
       )}
 
-      <CardWrapper fileList={filteredFileData} />
+      <CardWrapper
+        fileList={filteredFileData}
+        isInSelectMode={isInSelectMode}
+        selectedFile={selectedFile}
+        setSelectedFile={setSelectedFile}
+        selectedFiles={selectedFiles}
+        toggleSelectedFile={toggleSelectedFile}
+      />
     </div>
   );
 };
