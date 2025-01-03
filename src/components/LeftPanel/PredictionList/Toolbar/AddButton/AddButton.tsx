@@ -1,15 +1,22 @@
 import "./AddButton.css";
 
 import axios from "axios";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { AddCircle } from "iconsax-react";
+import { orbit } from "ldrs";
 import { config } from "../../../../../config/config";
 import { Colors } from "../../../../../styles/colors";
 import { getOrCreateDeviceId } from "../../../../../utils/deviceIdUtils";
 import { VideoBufferCache } from "../../../../../managers/VideoBufferCacheManager";
 
+orbit.register();
+
 export const AddButton = (): JSX.Element => {
   const fileInputRef = useRef<HTMLInputElement>(null); // Reference to the file input
+
+  // New state variables for tracking upload status
+  const [isUploading, setIsUploading] = useState(false);
+  const [filesUploading, setFilesUploading] = useState(0);
 
   const handleClick = () => {
     if (fileInputRef.current) {
@@ -23,7 +30,12 @@ export const AddButton = (): JSX.Element => {
       const deviceId = getOrCreateDeviceId();
       const videoBufferCache = VideoBufferCache.getInstance();
 
-      for (const file of files) { // Iterate over the selected files
+      // Set uploading state
+      setIsUploading(true);
+      setFilesUploading(files.length); // Set the number of files being uploaded
+
+      // Iterate over the selected files
+      for (const file of files) {
         try {
           const formData = new FormData();
           formData.append("video", file);
@@ -50,19 +62,39 @@ export const AddButton = (): JSX.Element => {
           console.error(`Error uploading ${file.name}:`, error);
           alert(`Error uploading ${file.name}. Please try again.`);
         }
+
+        // Decrement the filesUploading count after each file upload
+        setFilesUploading((prevCount) => prevCount - 1);
       }
 
       // Reset the file input value to allow re-uploading the same files if needed
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
       }
+
+      // Set uploading state to false when all files are uploaded
+      setIsUploading(false);
     }
   };
 
   return (
     <div>
-      <button className="add-button" onClick={handleClick} title="Add files">
-        <AddCircle size={16} variant="Bold" color={Colors.background} />
+      <button
+        className={`add-button ${isUploading ? "uploading" : "not-uploading"}`}
+        onClick={handleClick}
+        title={
+          isUploading ? `Uploading ${filesUploading} file(s)` : "Add files"
+        }
+        disabled={isUploading} // Disable the button while uploading
+      >
+        {isUploading ? (
+          <>
+            <l-orbit size={16} speed={1.5} color={Colors.background}></l-orbit>
+            <div className="uploading-text">{filesUploading}</div>
+          </>
+        ) : (
+          <AddCircle size={16} variant="Bold" color={Colors.background} />
+        )}
       </button>
 
       {/* Invisible file input triggered by button click */}

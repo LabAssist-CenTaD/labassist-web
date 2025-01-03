@@ -1,4 +1,4 @@
-.add-button {
+.add-button.not-uploading {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,4 +16,32 @@
 
 .add-button:hover {
   filter: brightness(0.85);
+}
+
+.add-button.uploading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0px 8px;
+  transition: background-color 0.3s ease, color 0.3s ease, filter 0.3s ease;
+  background: var(--Blue-1, #007aff);
+  border: none;
+  border-radius: 8px;
+  max-width: fit-content;
+  width: fit-content;
+  min-width: fit-content;
+}
+
+.add-button .uploading-text {
+  position: relative;
+  width: fit-content;
+  font-size: 12px;
+  font-family: Aeonik;
+  font-weight: 500;
+  line-height: normal;
+  color: var(--Background);
+  letter-spacing: 0;
+  white-space: nowrap;
 }
