@@ -12,12 +12,15 @@ import { useSelectedFilesContext } from "../../../hooks/useSelectedFilesContext"
 export const PredictionList = (): JSX.Element => {
   const { cachedVideoManager, cachedVideos } = useCachedVideoContext();
   const { selectedFile, setSelectedFile } = useSelectedFileContext(); // Single file selection
-  const { selectedFiles, toggleSelectedFile } = useSelectedFilesContext(); // Multi file selection
+  const { selectedFiles, toggleSelectedFile, setSelectedFiles } =
+    useSelectedFilesContext(); // Multi file selection
 
   const [fileData, setFileData] = useState(
     cachedVideoManager.getCachedVideos()
   );
   const [searchQuery, setSearchQuery] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [isInSelectMode, setIsInSelectMode] = useState(false);
   const [activeLabels, setActiveLabels] = useState<
     PredictionListFilterLabelName[]
   >([
@@ -28,8 +31,7 @@ export const PredictionList = (): JSX.Element => {
     "predicting",
     "uploaded",
   ]);
-  const [loading, setLoading] = useState(true);
-  const [isInSelectMode, setIsInSelectMode] = useState(false);
+  const [allFilesSelected, setAllFilesSelected] = useState(false); // New state for tracking if all files are selected
 
   useEffect(() => {
     const fetchData = async () => {
@@ -63,6 +65,29 @@ export const PredictionList = (): JSX.Element => {
 
   const handleSelectModeToggle = () => setIsInSelectMode(!isInSelectMode);
 
+  // Track whether all files are selected in select mode
+  useEffect(() => {
+    if (isInSelectMode) {
+      // Check if all files in the filtered list are selected
+      const allSelected = filteredFileData.every((file) =>
+        selectedFiles.includes(file.file_name)
+      );
+      setAllFilesSelected(allSelected);
+    }
+  }, [isInSelectMode, selectedFiles, filteredFileData]);
+
+  // Toggle select all files
+  const toggleSelectAllFiles = () => {
+    if (allFilesSelected) {
+      // Deselect all files
+      setSelectedFiles([]);
+    } else {
+      // Select all files
+      const allFileNames = filteredFileData.map((file) => file.file_name);
+      setSelectedFiles(allFileNames);
+    }
+  };
+
   if (loading) {
     return <div className="prediction-list-header">Loading...</div>;
   }
@@ -76,7 +101,10 @@ export const PredictionList = (): JSX.Element => {
         isInSelectMode={isInSelectMode}
       />
       {isInSelectMode ? (
-        <SelectModeToolbar />
+        <SelectModeToolbar
+          allFilesSelected={allFilesSelected}
+          toggleSelectAllFiles={toggleSelectAllFiles} // Pass toggle function here
+        />
       ) : (
         <Filter activeLabels={activeLabels} setActiveLabels={setActiveLabels} />
       )}
