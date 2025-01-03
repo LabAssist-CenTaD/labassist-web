@@ -6,6 +6,7 @@ import { Toolbar } from "./Toolbar/Toolbar";
 import { Filter } from "./Filter/Filter";
 import { useCachedVideoContext } from "../../../hooks/useCachedVideoContext";
 import { PredictionListFilterLabelName } from "../../../types/filterlabel";
+import { SelectModeToolbar } from "./SelectModeToolbar/SelectModeToolbar";
 
 export const PredictionList = (): JSX.Element => {
   const { cachedVideoManager, cachedVideos } = useCachedVideoContext(); // Use context to get cachedVideoManager
@@ -25,6 +26,7 @@ export const PredictionList = (): JSX.Element => {
     "uploaded",
   ]);
   const [loading, setLoading] = useState(true);
+  const [isInSelectMode, setIsInSelectMode] = useState(false);
 
   // Update fileData when cachedVideoManager is updated
   useEffect(() => {
@@ -66,6 +68,10 @@ export const PredictionList = (): JSX.Element => {
 
   const handleSearch = (query: string) => setSearchQuery(query);
 
+  const handleSelectModeToggle = () => {
+    setIsInSelectMode(!isInSelectMode);
+  };
+
   // If still loading, show a loading message
   if (loading) {
     return <div className="prediction-list-header">Loading...</div>;
@@ -74,8 +80,17 @@ export const PredictionList = (): JSX.Element => {
   return (
     <div className="prediction-list">
       <div className="prediction-list-header">Prediction List</div>
-      <Toolbar onSearch={handleSearch} />
-      <Filter activeLabels={activeLabels} setActiveLabels={setActiveLabels} />
+      <Toolbar
+        onSearch={handleSearch}
+        handleSelectModeToggle={handleSelectModeToggle}
+        isInSelectMode={isInSelectMode}
+      />
+      {isInSelectMode ? (
+        <SelectModeToolbar />
+      ) : (
+        <Filter activeLabels={activeLabels} setActiveLabels={setActiveLabels} />
+      )}
+
       <CardWrapper fileList={filteredFileData} />
     </div>
   );

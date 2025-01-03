@@ -1,0 +1,7 @@
+.select-mode-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  align-self: stretch;
+  width: 100%;
+}

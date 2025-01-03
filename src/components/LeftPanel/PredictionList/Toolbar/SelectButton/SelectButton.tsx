@@ -1,30 +1,37 @@
-import { useState } from "react";
-import { TickCircle, LogoutCurve } from "iconsax-react"; // Import both icons
 import "./SelectButton.css";
+
+import { TickCircle, LogoutCurve } from "iconsax-react"; // Import both icons
 import { Colors } from "../../../../../styles/colors";
 
-export const SelectButton = (): JSX.Element => {
-  const [isClicked, setIsClicked] = useState(false); // Track if mouse is clicked
+interface SelectButtonProps {
+  onToggle: () => void;
+  isInSelectMode: boolean;
+}
 
+export const SelectButton = ({
+  onToggle,
+  isInSelectMode,
+}: SelectButtonProps): JSX.Element => {
   // Handle click event
   const handleClick = () => {
-    setIsClicked(!isClicked);
-    console.log("Select button clicked, state is now: ", !isClicked);
+    onToggle(); // Call onToggle to update state in parent
+    console.log("Select button clicked, state is now: ", !isInSelectMode);
   };
 
   return (
     <button
-      className={`select-button ${isClicked && "clicked"}`}
+      className={`select-button ${isInSelectMode && "clicked"}`}
       onClick={handleClick}
       title="Select files"
     >
-      {isClicked ? (
+      {isInSelectMode ? (
         <LogoutCurve size={16} variant="Bold" color={Colors.foreground} />
       ) : (
         <TickCircle size={16} variant="Bold" color={Colors.background} />
       )}
       <div className="select-button-text">
-        {isClicked ? "Cancel" : "Select"} {/* Change text based on isClicked */}
+        {isInSelectMode ? "Cancel" : "Select"}{" "}
+        {/* Change text based on isClicked */}
       </div>
     </button>
   );

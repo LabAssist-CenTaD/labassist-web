@@ -1,0 +1,21 @@
+.toolbar-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex: 1 0 0;
+  height: 40px;
+  padding: 0px 12px;
+  transition: background-color 0.3s ease, color 0.3s ease, filter 0.3s ease; /* Smooth transition for hover effect */
+  border-radius: 8px;
+  font-size: 12px;
+  font-family: Aeonik;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  color: var(--Background, #00171f);
+}
+
+.toolbar-button:hover {
+  filter: brightness(0.85); /* Darken the background on hover */
+}
