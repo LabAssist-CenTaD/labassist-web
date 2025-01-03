@@ -44,8 +44,7 @@ export const PredictionList = (): JSX.Element => {
 
   // Filter the file data based on the search query and active labels
   const filteredFileData = fileData.filter((file) => {
-    // Always show files with `queued` status
-    const isQueued = file.status_list.includes("queued");
+    const isQueued = file.status_list.includes("queued"); // Always show files with `queued` status
 
     // If activeLabels is not empty, check if the file matches any active labels
     const matchesLabels =
@@ -72,9 +71,8 @@ export const PredictionList = (): JSX.Element => {
     setIsInSelectMode(!isInSelectMode);
   };
 
-  // If still loading, show a loading message
   if (loading) {
-    return <div className="prediction-list-header">Loading...</div>;
+    return <div className="prediction-list-header">Loading...</div>; // If still loading, show a loading message
   }
 
   return (
