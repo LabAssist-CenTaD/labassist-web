@@ -13,5 +13,9 @@
 }
 
 .card.selected {
-  border: 2px solid var(--Foreground); /* Highlight border colour */;
+  border: 2px solid var(--Foreground); /* Highlight border colour */
+}
+
+.card.multi-selected {
+  border: 2px solid rgba(var(--Foreground), 0.5);
 }

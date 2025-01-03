@@ -1,5 +1,6 @@
-import { StatusBar } from "./StatusBar/StatusBar";
 import "./Card.css";
+
+import { StatusBar } from "./StatusBar/StatusBar";
 import { CardContainer } from "./CardDetails/CardContainer";
 import { TagStatus } from "../../../../../types/tagstatus";
 
