@@ -14,6 +14,7 @@ import { useSelectedFileContext } from "../../../hooks/useSelectedFileContext"; 
 import { useSelectedFilesContext } from "../../../hooks/useSelectedFilesContext"; // For multi-file selection
 import { getOrCreateDeviceId } from "../../../utils/deviceIdUtils";
 import { Colors } from "../../../styles/colors";
+import { VideoBufferCache } from "../../../managers/VideoBufferCacheManager";
 
 dotStream.register();
 
@@ -90,7 +91,34 @@ export const PredictionList = (): JSX.Element => {
     }
   };
 
-  // Updated handlePredict function
+  // Handle file deletion
+  const handleDelete = async () => {
+    setLoading(true); // Set loading state before starting deletion
+    const deviceId = getOrCreateDeviceId();
+    const videoCache = VideoBufferCache.getInstance();
+
+    for (const fileName of selectedFiles) {
+      try {
+        // Delete the video from the backend
+        const url = `http://localhost:5000/delete/${fileName}?device_id=${deviceId}`;
+        const response = await axios.get(url);
+
+        if (response.data?.message === "Video deleted successfully") {
+          // Remove the video from the cache
+          videoCache.removeVideo(fileName);
+          console.log(`Video ${fileName} deleted from cache.`);
+        }
+      } catch (error) {
+        console.error("Error deleting video:", error);
+      }
+    }
+
+    // Reset the selected files after deletion
+    setSelectedFiles([]);
+    setLoading(false); // Set loading to false after deletion is done
+  };
+
+  // Handle predict action
   const handlePredict = async () => {
     const deviceId = getOrCreateDeviceId(); // Get or create device ID
     setLoading(true); // Set loading state while processing predictions
@@ -125,7 +153,8 @@ export const PredictionList = (): JSX.Element => {
           <SelectModeToolbar
             allFilesSelected={allFilesSelected}
             toggleSelectAllFiles={toggleSelectAllFiles}
-            onPredict={handlePredict} // Pass updated handlePredict function
+            onPredict={handlePredict}
+            onDelete={handleDelete}
           />
         ) : (
           <Filter
@@ -154,7 +183,8 @@ export const PredictionList = (): JSX.Element => {
         <SelectModeToolbar
           allFilesSelected={allFilesSelected}
           toggleSelectAllFiles={toggleSelectAllFiles}
-          onPredict={handlePredict} // Pass updated handlePredict function
+          onPredict={handlePredict}
+          onDelete={handleDelete}
         />
       ) : (
         <Filter activeLabels={activeLabels} setActiveLabels={setActiveLabels} />

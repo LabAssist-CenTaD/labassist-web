@@ -83,7 +83,7 @@ export const PredictButton = ({
       ) : isClicked && isPredicted ? (
         <TickCircle size={16} variant="Bold" color={Colors.blueGrey} /> // TickCircle when predicted
       ) : (
-        <ExportCurve size={16} variant="Bold" color={Colors.blueGrey} />
+        <ExportCurve size={16} variant="Bold" color={Colors.background} />
       )}
       <div className="predict-button-text">
         {isPredicted ? "Predicted" : isPredicting ? "Predicting" : "Predict"}

@@ -8,13 +8,15 @@ import { Colors } from "../../../../styles/colors";
 interface SelectModeToolbarProps {
   allFilesSelected: boolean;
   toggleSelectAllFiles: () => void;
-  onPredict: () => void; // Add a prop for the predict action
+  onPredict: () => void; // Prop for the predict action
+  onDelete: () => void; // Prop for the delete action
 }
 
 export const SelectModeToolbar = ({
   allFilesSelected,
   toggleSelectAllFiles,
   onPredict, // Receive onPredict prop
+  onDelete, // Receive onDelete prop
 }: SelectModeToolbarProps): JSX.Element => {
   return (
     <div className="select-mode-toolbar">
@@ -30,7 +32,12 @@ export const SelectModeToolbar = ({
         bg_color={Colors.blue1}
         onClick={onPredict} // Trigger the onPredict function when clicked
       />
-      <ToolbarButton Icon={Trash} label="Upload" bg_color={Colors.red} />
+      <ToolbarButton
+        Icon={Trash}
+        label="Delete"
+        bg_color={Colors.red}
+        onClick={onDelete} // Trigger the onDelete function when clicked
+      />
     </div>
   );
 };
