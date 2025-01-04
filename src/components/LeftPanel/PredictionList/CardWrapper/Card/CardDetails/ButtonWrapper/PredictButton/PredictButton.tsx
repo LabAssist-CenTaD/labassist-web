@@ -87,7 +87,6 @@ export const PredictButton = ({
     return "Predict";
   };
 
-  // Set the icon based on the button state
   const getButtonIcon = () => {
     if (isQueued)
       return <Clock size={16} variant="Bold" color={Colors.blueGrey} />;

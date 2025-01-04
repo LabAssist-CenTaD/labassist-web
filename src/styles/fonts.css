@@ -3,40 +3,19 @@
   src: url("../assets/fonts/Aeonik-Regular.woff2") format("woff2");
   font-family: "Aeonik-Regular";
   font-style: normal;
-  font-weight: 400; /* Regular */;
+  font-weight: 400; /* Regular */
 }
 
 @font-face {
   src: url("../assets/fonts/Aeonik-Medium.woff2") format("woff2");
   font-family: "Aeonik-Medium";
   font-style: normal;
-  font-weight: 500; /* Medium */;
+  font-weight: 500; /* Medium */
 }
 
 @font-face {
   src: url("../assets/fonts/Aeonik-Bold.woff2") format("woff2");
   font-family: "Aeonik-Bold";
   font-style: normal;
-  font-weight: 700; /* Bold */;
-}
-
-@font-face {
-  src: url("../assets/fonts/Aeonik-RegularItalic.woff2") format("woff2");
-  font-family: "Aeonik-Regular";
-  font-style: italic;
-  font-weight: 400; /* Regular Italic */;
-}
-
-@font-face {
-  src: url("../assets/fonts/Aeonik-MediumItalic.woff2") format("woff2");
-  font-family: "Aeonik-Medium";
-  font-style: italic;
-  font-weight: 500; /* Medium Italic */;
-}
-
-@font-face {
-  src: url("../assets/fonts/Aeonik-BoldItalic.woff2") format("woff2");
-  font-family: "Aeonik-Bold";
-  font-style: italic;
-  font-weight: 700; /* Bold Italic */;
+  font-weight: 700; /* Bold */
 }
