@@ -23,12 +23,11 @@ export const PredictButton = ({
   const [isQueued, setIsQueued] = useState(false);
   const [isPredicting, setIsPredicting] = useState(false);
   const [isPredicted, setIsPredicted] = useState(false);
-  const [, setIsLoading] = useState(false);
+  const [, setLoading] = useState(false);
 
   const deviceId = getOrCreateDeviceId();
 
   useEffect(() => {
-    // If status is 'queued', set the button to 'queued' state
     if (status_list.some((status) => status === "queued")) {
       setIsQueued(true);
       setIsPredicting(false);
@@ -37,7 +36,6 @@ export const PredictButton = ({
       setIsQueued(false);
     }
 
-    // If status is 'predicting', set the button to 'predicting' state
     if (status_list.some((status) => status === "predicting")) {
       setIsQueued(false);
       setIsPredicting(true);
@@ -46,7 +44,6 @@ export const PredictButton = ({
       setIsPredicting(false);
     }
 
-    // If status is 'complete', set the button to 'predicted' state
     if (status_list.some((status) => status === "complete")) {
       setIsQueued(false);
       setIsPredicting(false);
@@ -58,7 +55,7 @@ export const PredictButton = ({
 
   const handleClick = async () => {
     setIsQueued(true);
-    setIsLoading(true);
+    setLoading(true);
 
     console.log("Predict button clicked");
 
@@ -70,7 +67,7 @@ export const PredictButton = ({
     } catch (error) {
       console.error("Error processing video:", error);
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
