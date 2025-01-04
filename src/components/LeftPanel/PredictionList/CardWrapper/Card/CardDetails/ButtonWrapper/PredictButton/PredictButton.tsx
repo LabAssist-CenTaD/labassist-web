@@ -26,44 +26,69 @@ export const PredictButton = ({
   const [isPredicted, setIsPredicted] = useState(false);
   const [, setLoading] = useState(false);
 
-  const { cachedVideos } = useCachedVideoContext();
+  const { cachedVideos, cachedVideoManager } = useCachedVideoContext();
   const deviceId = getOrCreateDeviceId();
 
   useEffect(() => {
-    // If the status list includes "predicting" or "complete", update the states
-    setIsQueued(false); // Reset queued state if it's no longer queued
-    setIsPredicting(status_list.includes("predicting"));
-    setIsPredicted(status_list.includes("complete"));
-  }, [status_list]); // Track changes in status_list
-
-  useEffect(() => {
-    // If the button was clicked, set isQueued to true
-    const cachedVideo = cachedVideos.find(
-      (video) => video.file_name === fileName
-    );
-
-    if (cachedVideo && !isQueued) {
-      // setIsQueued(cachedVideo.status_list.includes("queued"));
-      setIsPredicting(cachedVideo.status_list.includes("predicting"));
-      setIsPredicted(cachedVideo.status_list.includes("complete"));
+    // Update the states based on the status list
+    if (status_list.includes("complete")) {
+      setIsQueued(false);
+      setIsPredicting(false);
+      setIsPredicted(true);
+    } else if (status_list.includes("predicting")) {
+      setIsQueued(false);
+      setIsPredicting(true);
+      setIsPredicted(false);
+    } else if (status_list.includes("queued")) {
+      setIsQueued(true);
+      setIsPredicting(false);
+      setIsPredicted(false);
+    } else {
+      setIsQueued(false);
     }
-  }, [cachedVideos, fileName, isQueued]); // Re-run this effect when cachedVideos, fileName, or isQueued changes
+
+    setIsPredicting(
+      cachedVideos.some(
+        (video) =>
+          video.file_name === fileName &&
+          video.status_list.includes("predicting")
+      )
+    );
+    setIsPredicted(
+      cachedVideos.some(
+        (video) =>
+          video.file_name === fileName && video.status_list.includes("complete")
+      )
+    );
+  }, [status_list, cachedVideos, fileName]); // Run whenever status_list changes
 
   const handleClick = async () => {
-    setIsQueued(true); // Set isQueued to true when button is clicked
-    setLoading(true);
+    if (!isQueued) {
+      setIsQueued(true); // Set isQueued to true when button is clicked
+      setLoading(true);
 
-    console.log("Predict button clicked");
+      try {
+        // Replace the first tag (usually "uploaded") with "queued"
+        const updatedStatusList = status_list.map((status, index) => {
+          if (index === 0) {
+            return "queued"; // Replace the first status with "queued"
+          }
+          return status;
+        });
 
-    const url = `${config.connection_address}/process_video/${fileName}?device_id=${deviceId}`;
+        // Ensure "queued" replaces the first tag, even if it's not exactly "uploaded"
+        cachedVideoManager.updateStatusList(fileName, updatedStatusList);
+        // console.log("Patch emitted for status update.");
 
-    try {
-      const response = await axios.get(url);
-      console.log("Process video response:", response.data);
-    } catch (error) {
-      console.error("Error processing video:", error);
-    } finally {
-      setLoading(false);
+        // Make the API request to process the video
+        const url = `${config.connection_address}/process_video/${fileName}?device_id=${deviceId}`;
+        const response = await axios.get(url);
+        console.log("Process video response:", response.data);
+      } catch (error) {
+        console.error("Error processing video or updating status:", error);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 

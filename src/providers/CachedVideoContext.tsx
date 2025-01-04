@@ -23,7 +23,7 @@ export const CachedVideoProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [cachedVideoManager] = useState(
-    () => new CachedVideoManager({ cached_videos: [] })
+    () => new CachedVideoManager({ cached_videos: [] }, null)
   );
   const [, setSocket] = useState<Socket | null>(null);
   const [cachedVideos, setCachedVideos] = useState<CachedVideo[]>([]);
@@ -37,6 +37,9 @@ export const CachedVideoProvider: React.FC<{ children: React.ReactNode }> = ({
     console.log(
       `Socket initialised, attempting to connect...(${initialisedSocketCount++})`
     );
+
+    // Pass the socket instance to the manager
+    cachedVideoManager["socket"] = socketInstance;
 
     // On connect, authenticate
     socketInstance.on("connect", () => {
@@ -70,6 +73,22 @@ export const CachedVideoProvider: React.FC<{ children: React.ReactNode }> = ({
       });
 
       setCachedVideos(patchedData); // Directly update the state with the patched data to trigger a re-render
+    });
+
+    // Listen for server responses to the `patch_backend` event
+    socketInstance.on("update", (response) => {
+      console.log("Server response to patch_backend:", response);
+
+      const parsedResponse =
+        typeof response === "string" ? JSON.parse(response) : response;
+
+      // Update the manager with the server's response if necessary
+      if (parsedResponse?.data) {
+        cachedVideoManager.updateFromServerData({
+          cached_videos: parsedResponse.data,
+        });
+        setCachedVideos(parsedResponse.data);
+      }
     });
 
     // Handle disconnect

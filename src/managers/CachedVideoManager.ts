@@ -1,15 +1,22 @@
 // CachedVideoManager
 
+import jsonpatch from "fast-json-patch";
 import { CachedVideo } from "../types/jsondata";
+import { Socket } from "socket.io-client";
+import { getOrCreateDeviceId } from "../utils/deviceIdUtils";
 
 export class CachedVideoManager {
   private cachedVideos: CachedVideo[];
   private message: string | null;
-  // private listeners: Array<() => void> = [];
+  private socket: Socket | null;
 
-  constructor(initialData: { cached_videos: CachedVideo[]; message?: string }) {
+  constructor(
+    initialData: { cached_videos: CachedVideo[]; message?: string },
+    socket: Socket | null
+  ) {
     this.cachedVideos = initialData.cached_videos || [];
     this.message = initialData.message || null;
+    this.socket = socket;
   }
 
   // Get the current message
@@ -48,10 +55,34 @@ export class CachedVideoManager {
     fileName: string,
     newStatusList: CachedVideo["status_list"]
   ): void {
-    const video = this.findCachedVideo(fileName);
-    if (video) {
-      video.status_list = newStatusList; // Update the status list
-      console.log(`Updated status list for ${fileName}:`, newStatusList);
+    const oldVideos = [...this.cachedVideos]; // Clone the current state of cachedVideos for comparison
+
+    const videoIndex = this.cachedVideos.findIndex(
+      (video) => video.file_name === fileName
+    );
+
+    if (videoIndex !== -1) {
+      // Update the video status in the cloned array
+      const updatedVideo = {
+        ...this.cachedVideos[videoIndex],
+        status_list: newStatusList,
+      };
+      this.cachedVideos[videoIndex] = updatedVideo;
+
+      const patch = jsonpatch.compare(oldVideos, this.cachedVideos);
+
+      const patchString = JSON.stringify(patch);
+
+      // Emit the patch to the backend
+      if (this.socket) {
+        this.socket.emit("patch_backend", {
+          device_id: getOrCreateDeviceId(),
+          patchString,
+        });
+        console.log("Patch emitted:", patchString);
+      } else {
+        console.warn("Socket not initialised, patch not sent.");
+      }
     } else {
       console.warn(`Video with fileName "${fileName}" not found.`);
     }
