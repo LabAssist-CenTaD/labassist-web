@@ -103,7 +103,7 @@ export const PredictButton = ({
       className={`predict-button ${getButtonClass()}`}
       onClick={handleClick}
       title="Begin/queue file for prediction"
-      disabled={isQueued || isPredicted}
+      disabled={isQueued || isPredicting || isPredicted}
     >
       {getButtonIcon()}
       <div className="predict-button-text">{getButtonText()}</div>
