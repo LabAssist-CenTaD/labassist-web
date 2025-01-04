@@ -100,12 +100,10 @@ export const PredictionList = (): JSX.Element => {
 
     for (const fileName of selectedFiles) {
       try {
-        // Delete the video from the backend
         const url = `${config.connection_address}/delete/${fileName}?device_id=${deviceId}`;
         const response = await axios.get(url);
 
         if (response.data?.message === "Video deleted successfully") {
-          // Remove the video from the cache
           videoCache.removeVideo(fileName);
           console.log(`Video ${fileName} deleted from cache.`);
         }
@@ -114,15 +112,14 @@ export const PredictionList = (): JSX.Element => {
       }
     }
 
-    // Reset the selected files after deletion
     setSelectedFiles([]);
-    setLoading(false); // Set loading to false after deletion is done
+    setLoading(false);
   };
 
   // Handle predict action
   const handlePredict = async () => {
-    const deviceId = getOrCreateDeviceId(); // Get or create device ID
-    setLoading(true); // Set loading state while processing predictions
+    const deviceId = getOrCreateDeviceId();
+    setLoading(true);
 
     for (const fileName of selectedFiles) {
       const file = fileData.find((file) => file.file_name === fileName);
@@ -130,15 +127,15 @@ export const PredictionList = (): JSX.Element => {
         const url = `${config.connection_address}/process_video/${fileName}?device_id=${deviceId}`;
         try {
           console.log(`Processing video: ${fileName}`);
-          const response = await axios.get(url); // Send GET request for prediction
+          const response = await axios.get(url);
           console.log("Prediction response:", response.data);
         } catch (error) {
-          console.error("Error predicting:", error);
+          console.error("Error predicting video:", error);
         }
       }
     }
 
-    setLoading(false); // Reset loading state after prediction is complete
+    setLoading(false);
   };
 
   if (loading) {
