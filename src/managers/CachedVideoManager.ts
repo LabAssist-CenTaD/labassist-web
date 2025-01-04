@@ -12,21 +12,6 @@ export class CachedVideoManager {
     this.message = initialData.message || null;
   }
 
-  // // Add a listener that will be called when the cached videos change
-  // public addChangeListener(listener: () => void): void {
-  //   this.listeners.push(listener);
-  // }
-
-  // // Remove a listener
-  // public removeChangeListener(listener: () => void): void {
-  //   this.listeners = this.listeners.filter((l) => l !== listener);
-  // }
-
-  // // Trigger all listeners when the data is updated
-  // private notifyListeners(): void {
-  //   this.listeners.forEach((listener) => listener());
-  // }
-
   // Get the current message
   public getMessage() {
     return this.message; // Retrieve the message
@@ -52,7 +37,6 @@ export class CachedVideoManager {
       this.message = serverData.message;
     }
 
-    // this.notifyListeners(); // Notify listeners about the update
   }
 
   // Find a cached video by its file name
