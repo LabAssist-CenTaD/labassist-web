@@ -1,6 +1,7 @@
 import "./RemoveButton.css";
 
 import axios from "axios";
+import { config } from "../../../../../../../../config/config";
 import { Trash } from "iconsax-react";
 import { Colors } from "../../../../../../../../styles/colors";
 import { getOrCreateDeviceId } from "../../../../../../../../utils/deviceIdUtils";
@@ -16,7 +17,7 @@ export const RemoveButton = ({ fileName }: RemoveButtonProps): JSX.Element => {
   const handleClick = async () => {
     console.log("Remove button clicked, removing ", fileName);
 
-    const url = `http://localhost:5000/delete/${fileName}?device_id=${deviceId}`;
+    const url = `${config.connection_address}/delete/${fileName}?device_id=${deviceId}`;
 
     try {
       const response = await axios.get(url); // Send a GET request with axios

@@ -2,6 +2,7 @@ import "./PredictButton.css";
 
 import axios from "axios";
 import { dotPulse } from "ldrs";
+import { config } from "../../../../../../../../config/config";
 import { Colors } from "../../../../../../../../styles/colors";
 import { useState, useEffect } from "react";
 import { ExportCurve, Clock, TickCircle } from "iconsax-react"; // Added Clock import
@@ -61,7 +62,7 @@ export const PredictButton = ({
 
     console.log("Predict button clicked");
 
-    const url = `http://localhost:5000/process_video/${fileName}?device_id=${deviceId}`;
+    const url = `${config.connection_address}/process_video/${fileName}?device_id=${deviceId}`;
 
     try {
       const response = await axios.get(url);

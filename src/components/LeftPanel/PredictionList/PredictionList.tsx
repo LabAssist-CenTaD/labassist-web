@@ -4,6 +4,7 @@ import "./PredictionList.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { dotStream } from "ldrs";
+import { config } from "../../../config/config";
 import { CardWrapper } from "./CardWrapper/CardWrapper";
 import { Toolbar } from "./Toolbar/Toolbar";
 import { Filter } from "./Filter/Filter";
@@ -100,7 +101,7 @@ export const PredictionList = (): JSX.Element => {
     for (const fileName of selectedFiles) {
       try {
         // Delete the video from the backend
-        const url = `http://localhost:5000/delete/${fileName}?device_id=${deviceId}`;
+        const url = `${config.connection_address}/delete/${fileName}?device_id=${deviceId}`;
         const response = await axios.get(url);
 
         if (response.data?.message === "Video deleted successfully") {
@@ -126,7 +127,7 @@ export const PredictionList = (): JSX.Element => {
     for (const fileName of selectedFiles) {
       const file = fileData.find((file) => file.file_name === fileName);
       if (file) {
-        const url = `http://localhost:5000/process_video/${fileName}?device_id=${deviceId}`;
+        const url = `${config.connection_address}/process_video/${fileName}?device_id=${deviceId}`;
         try {
           console.log(`Processing video: ${fileName}`);
           const response = await axios.get(url); // Send GET request for prediction
