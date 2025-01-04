@@ -4,7 +4,7 @@ import axios from "axios";
 import { dotPulse } from "ldrs";
 import { Colors } from "../../../../../../../../styles/colors";
 import { useState, useEffect } from "react";
-import { ExportCurve, TickCircle } from "iconsax-react";
+import { ExportCurve, Clock, TickCircle } from "iconsax-react"; // Added Clock import
 import { getOrCreateDeviceId } from "../../../../../../../../utils/deviceIdUtils";
 import { TagStatus } from "../../../../../../../../types/tagstatus";
 
@@ -19,40 +19,44 @@ export const PredictButton = ({
   fileName,
   status_list,
 }: PredictButtonProps): JSX.Element => {
-  const [isClicked, setIsClicked] = useState(false);
-  const [isPredicting, setIsPredicting] = useState(false); // default to false as it's not predicting initially
+  const [isQueued, setIsQueued] = useState(false);
+  const [isPredicting, setIsPredicting] = useState(false);
   const [isPredicted, setIsPredicted] = useState(false);
   const [, setIsLoading] = useState(false);
 
   const deviceId = getOrCreateDeviceId();
 
-  // Set `isClicked` to true if `status_list` contains any of the specified statuses
   useEffect(() => {
-    if (status_list.some((status) => ["queued"].includes(status))) {
-      setIsClicked(true);
+    // If status is 'queued', set the button to 'queued' state
+    if (status_list.some((status) => status === "queued")) {
+      setIsQueued(true);
+      setIsPredicting(false);
+      setIsPredicted(false);
+    } else {
+      setIsQueued(false);
     }
-  }, [status_list]);
 
-  useEffect(() => {
-    if (status_list.some((status) => ["predicting"].includes(status))) {
+    // If status is 'predicting', set the button to 'predicting' state
+    if (status_list.some((status) => status === "predicting")) {
+      setIsQueued(false);
       setIsPredicting(true);
-      setIsPredicted(false); // Reset to false while predicting
+      setIsPredicted(false);
     } else {
       setIsPredicting(false);
     }
-  }, [status_list]);
 
-  useEffect(() => {
-    if (status_list.some((status) => ["complete"].includes(status))) {
+    // If status is 'complete', set the button to 'predicted' state
+    if (status_list.some((status) => status === "complete")) {
+      setIsQueued(false);
+      setIsPredicting(false);
       setIsPredicted(true);
-      setIsPredicting(false); // Stop predicting once completed
     } else {
       setIsPredicted(false);
     }
   }, [status_list]);
 
   const handleClick = async () => {
-    setIsClicked(true);
+    setIsQueued(true);
     setIsLoading(true);
 
     console.log("Predict button clicked");
@@ -60,34 +64,49 @@ export const PredictButton = ({
     const url = `http://localhost:5000/process_video/${fileName}?device_id=${deviceId}`;
 
     try {
-      const response = await axios.get(url); // Send a GET request with axios
+      const response = await axios.get(url);
       console.log("Process video response:", response.data);
     } catch (error) {
       console.error("Error processing video:", error);
     } finally {
-      setIsLoading(false); // Reset loading state after request is complete
+      setIsLoading(false);
     }
+  };
+
+  const getButtonClass = () => {
+    if (isQueued) return "queued";
+    if (isPredicting) return "predicting";
+    if (isPredicted) return "predicted";
+    return ""; // No class if none of the states are true
+  };
+
+  const getButtonText = () => {
+    if (isPredicted) return "Predicted";
+    if (isPredicting) return "Predicting";
+    if (isQueued) return "Queued";
+    return "Predict";
+  };
+
+  // Set the icon based on the button state
+  const getButtonIcon = () => {
+    if (isQueued)
+      return <Clock size={16} variant="Bold" color={Colors.blueGrey} />;
+    if (isPredicting)
+      return <l-dot-pulse size="16" speed="1.75" color={Colors.blue1} />;
+    if (isPredicted)
+      return <TickCircle size={16} variant="Bold" color={Colors.blueGrey} />;
+    return <ExportCurve size={16} variant="Bold" color={Colors.blue2} />;
   };
 
   return (
     <button
-      className={`predict-button ${isClicked ? "clicked" : ""} ${
-        isPredicting ? "predicting" : ""
-      } ${isPredicted ? "predicted" : ""}`}
+      className={`predict-button ${getButtonClass()}`}
       onClick={handleClick}
       title="Begin/queue file for prediction"
-      disabled={isClicked || isPredicted} // Disable the button once predicted
+      disabled={isQueued || isPredicted}
     >
-      {isClicked && isPredicting ? (
-        <l-dot-pulse size="16" speed="1.75" color={Colors.blue1} />
-      ) : isClicked && isPredicted ? (
-        <TickCircle size={16} variant="Bold" color={Colors.blueGrey} /> // TickCircle when predicted
-      ) : (
-        <ExportCurve size={16} variant="Bold" color={Colors.background} />
-      )}
-      <div className="predict-button-text">
-        {isPredicted ? "Predicted" : isPredicting ? "Predicting" : "Predict"}
-      </div>
+      {getButtonIcon()}
+      <div className="predict-button-text">{getButtonText()}</div>
     </button>
   );
 };

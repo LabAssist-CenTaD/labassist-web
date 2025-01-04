@@ -11,7 +11,7 @@
   border-radius: 8px;
 }
 
-.predict-button:not(.clicked):hover {
+.predict-button:not(.queued):not(.predicting):not(.predicted):hover {
   filter: brightness(0.85);
 }
 
@@ -24,32 +24,31 @@
   color: var(--Background, #00171f);
 }
 
-.predict-button.clicked {
-  border-radius: 8px;
+/* Empty ruleset for queued state */
+.predict-button.queued {
   border: 2px solid var(--Blue-grey, #627888);
   background-color: transparent;
 }
 
-.predict-button.clicked .predict-button-text {
+.predict-button.queued .predict-button-text {
   color: var(--Blue-grey, #627888);
-  font-family: Aeonik;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
 }
 
-.predict-button.clicked.predicting {
-  border-radius: 8px;
-  border: 2px solid var(--Blue-1);
+.predict-button.predicting {
+  border: 2px solid var(--Blue-1, #007aff);
   background-color: transparent;
 }
 
-.predict-button.clicked.predicting .predict-button-text {
-  color: var(--Blue-1);
-  font-family: Aeonik;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
+.predict-button.predicting .predict-button-text {
+  color: var(--Blue-1, #007aff);
+}
+
+/* Empty ruleset for predicted state */
+.predict-button.predicted {
+  border: 2px solid var(--Blue-grey, #627888);
+  background-color: transparent;
+}
+
+.predict-button.predicted .predict-button-text {
+  color: var(--Blue-grey, #627888);
 }
