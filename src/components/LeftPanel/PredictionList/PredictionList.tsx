@@ -121,6 +121,8 @@ export const PredictionList = (): JSX.Element => {
     setLoading(true);
     const deviceId = getOrCreateDeviceId();
 
+    // TODO - What if I loop through all the files and update all the status to queued first
+
     for (const fileName of selectedFiles) {
       const file = fileData.find((file) => file.file_name === fileName);
       if (file) {
