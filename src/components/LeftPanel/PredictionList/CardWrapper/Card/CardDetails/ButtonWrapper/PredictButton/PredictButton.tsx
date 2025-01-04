@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import { ExportCurve, Clock, TickCircle } from "iconsax-react"; // Added Clock import
 import { getOrCreateDeviceId } from "../../../../../../../../utils/deviceIdUtils";
 import { TagStatus } from "../../../../../../../../types/tagstatus";
+import { useCachedVideoContext } from "../../../../../../../../hooks/useCachedVideoContext";
 
 dotPulse.register();
 
@@ -25,36 +26,31 @@ export const PredictButton = ({
   const [isPredicted, setIsPredicted] = useState(false);
   const [, setLoading] = useState(false);
 
+  const { cachedVideos } = useCachedVideoContext();
   const deviceId = getOrCreateDeviceId();
 
   useEffect(() => {
-    if (status_list.some((status) => status === "queued")) {
-      setIsQueued(true);
-      setIsPredicting(false);
-      setIsPredicted(false);
-    } else {
-      setIsQueued(false);
-    }
+    // If the status list includes "predicting" or "complete", update the states
+    setIsQueued(false); // Reset queued state if it's no longer queued
+    setIsPredicting(status_list.includes("predicting"));
+    setIsPredicted(status_list.includes("complete"));
+  }, [status_list]); // Track changes in status_list
 
-    if (status_list.some((status) => status === "predicting")) {
-      setIsQueued(false);
-      setIsPredicting(true);
-      setIsPredicted(false);
-    } else {
-      setIsPredicting(false);
-    }
+  useEffect(() => {
+    // If the button was clicked, set isQueued to true
+    const cachedVideo = cachedVideos.find(
+      (video) => video.file_name === fileName
+    );
 
-    if (status_list.some((status) => status === "complete")) {
-      setIsQueued(false);
-      setIsPredicting(false);
-      setIsPredicted(true);
-    } else {
-      setIsPredicted(false);
+    if (cachedVideo && !isQueued) {
+      // setIsQueued(cachedVideo.status_list.includes("queued"));
+      setIsPredicting(cachedVideo.status_list.includes("predicting"));
+      setIsPredicted(cachedVideo.status_list.includes("complete"));
     }
-  }, [status_list]);
+  }, [cachedVideos, fileName, isQueued]); // Re-run this effect when cachedVideos, fileName, or isQueued changes
 
   const handleClick = async () => {
-    setIsQueued(true);
+    setIsQueued(true); // Set isQueued to true when button is clicked
     setLoading(true);
 
     console.log("Predict button clicked");

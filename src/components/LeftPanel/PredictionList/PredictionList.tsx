@@ -122,7 +122,6 @@ export const PredictionList = (): JSX.Element => {
     const deviceId = getOrCreateDeviceId();
 
     for (const fileName of selectedFiles) {
-      setLoading(true);
       const file = fileData.find((file) => file.file_name === fileName);
       if (file) {
         const url = `${config.connection_address}/process_video/${fileName}?device_id=${deviceId}`;
@@ -132,8 +131,6 @@ export const PredictionList = (): JSX.Element => {
           console.log("Prediction response:", response.data);
         } catch (error) {
           console.error("Error predicting video:", error);
-        } finally {
-          setLoading(false);
         }
       }
     }
