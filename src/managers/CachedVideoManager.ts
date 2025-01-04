@@ -36,11 +36,24 @@ export class CachedVideoManager {
     if (serverData.message) {
       this.message = serverData.message;
     }
-
   }
 
   // Find a cached video by its file name
   public findCachedVideo(fileName: string): CachedVideo | undefined {
     return this.cachedVideos.find((video) => video.file_name === fileName);
+  }
+
+  // Update the status list of a specific video by file name
+  public updateStatusList(
+    fileName: string,
+    newStatusList: CachedVideo["status_list"]
+  ): void {
+    const video = this.findCachedVideo(fileName);
+    if (video) {
+      video.status_list = newStatusList; // Update the status list
+      console.log(`Updated status list for ${fileName}:`, newStatusList);
+    } else {
+      console.warn(`Video with fileName "${fileName}" not found.`);
+    }
   }
 }
