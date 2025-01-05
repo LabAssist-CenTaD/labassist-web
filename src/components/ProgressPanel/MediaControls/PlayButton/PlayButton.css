@@ -8,6 +8,7 @@
   border-radius: 8px;
   background: var(--Blue-1, #007aff);
   border: none;
+  transition: all 0.3s ease;
 }
 
 .play-button:hover {

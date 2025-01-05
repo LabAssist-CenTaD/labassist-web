@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useSelectedFileContext } from "../../../../../hooks/useSelectedFileContext";
 import { VideoBufferCache } from "../../../../../managers/VideoBufferCacheManager";
 import { useCachedVideoContext } from "../../../../../hooks/useCachedVideoContext";
+import { usePlaybackContext } from "../../../../../hooks/usePlaybackContext";
 
 interface VideoPlayerProps {
   videoUrlChanged: (url: string | null) => void;
@@ -14,6 +15,7 @@ export const VideoPlayer = ({
 }: VideoPlayerProps): JSX.Element => {
   const { selectedFile } = useSelectedFileContext();
   const { cachedVideos } = useCachedVideoContext();
+  const { isPlaying } = usePlaybackContext();
 
   const videoBufferCache = VideoBufferCache.getInstance();
   const videoPlayerRef = useRef<HTMLVideoElement | null>(null); // Ref to the video element
@@ -44,12 +46,6 @@ export const VideoPlayer = ({
         if (videoBlob) {
           // console.log(`Blob for ${selectedFile.fileName} found. Creating object URL...`);
 
-          // Ensure that the Blob is of the correct type (video/mp4)
-          // if (videoBlob.type !== "video/mp4") {
-          //   console.error("The cached blob is not of type video/mp4");
-          //   return;
-          // }
-
           const url = URL.createObjectURL(videoBlob);
           setVideoUrl(url);
           videoUrlChanged(url); // Notify parent about the new video URL
@@ -71,6 +67,16 @@ export const VideoPlayer = ({
     }
   }, [videoUrl]);
 
+  useEffect(() => {
+    if (videoPlayerRef.current) {
+      if (isPlaying) {
+        videoPlayerRef.current.play(); // Play video when isPlaying is true
+      } else {
+        videoPlayerRef.current.pause(); // Pause video when isPlaying is false
+      }
+    }
+  }, [isPlaying]); // Re-run effect when isPlaying changes
+
   // Revoke the object URL when the component is unmounted
   useEffect(() => {
     return () => {
@@ -88,7 +94,7 @@ export const VideoPlayer = ({
           ref={videoPlayerRef}
           className="video-player"
           controls
-          autoPlay // Autoplay the video when selected
+          // autoPlay // Autoplay the video when selected
           onError={(e) => console.error("Video playback error:", e)}
         >
           <>

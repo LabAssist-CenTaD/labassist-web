@@ -1,4 +1,5 @@
-import { createContext, useState, ReactNode } from "react";
+import { createContext, useState, ReactNode, useEffect } from "react";
+import { useSelectedFileContext } from "../hooks/useSelectedFileContext";
 
 // Define the context type
 interface PlaybackContextType {
@@ -11,6 +12,9 @@ interface PlaybackContextType {
     durationSeconds: number;
     isPlaying: boolean;
   }) => void;
+  play: () => void;
+  pause: () => void;
+  togglePlay: () => void;
 }
 
 // Create the context
@@ -18,16 +22,23 @@ const PlaybackContext = createContext<PlaybackContextType | null>(null);
 
 // Provider component
 export const PlaybackProvider = ({ children }: { children: ReactNode }) => {
+  const { selectedFile } = useSelectedFileContext(); // Access selected file from context
   const [currentSeconds, setCurrentSecondsState] = useState(0);
   const [durationSeconds, setDurationSeconds] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  // Function to update currentSeconds
+  // Reset playback when the selected video changes
+  useEffect(() => {
+    if (selectedFile.fileName) {
+      setCurrentSeconds(0);
+      setIsPlaying(false); // Optionally pause playback when changing files
+    }
+  }, [selectedFile]);
+
   const setCurrentSeconds = (newCurrentSeconds: number) => {
     setCurrentSecondsState(newCurrentSeconds);
   };
 
-  // Function to update playback state
   const setPlaybackState = ({
     currentSeconds,
     durationSeconds,
@@ -42,6 +53,21 @@ export const PlaybackProvider = ({ children }: { children: ReactNode }) => {
     setIsPlaying(isPlaying);
   };
 
+  // Play the video
+  const play = () => {
+    setIsPlaying(true);
+  };
+
+  // Pause the video
+  const pause = () => {
+    setIsPlaying(false);
+  };
+
+  // Toggle play/pause
+  const togglePlay = () => {
+    setIsPlaying((prev) => !prev);
+  };
+
   return (
     <PlaybackContext.Provider
       value={{
@@ -50,6 +76,9 @@ export const PlaybackProvider = ({ children }: { children: ReactNode }) => {
         isPlaying,
         setCurrentSeconds,
         setPlaybackState,
+        play,
+        pause,
+        togglePlay,
       }}
     >
       {children}
