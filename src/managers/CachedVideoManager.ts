@@ -76,10 +76,14 @@ export class CachedVideoManager {
       // Emit the patch to the backend
       if (this.socket) {
         this.socket.emit("patch_backend", {
+          patch: patchString,
           device_id: getOrCreateDeviceId(),
-          patchString,
         });
-        console.log("Patch emitted:", patchString);
+        // console.log("Patch emitted:", patchString);
+        // console.log({
+        //   patch: patchString,
+        //   device_id: getOrCreateDeviceId(),
+        // });
       } else {
         console.warn("Socket not initialised, patch not sent.");
       }
