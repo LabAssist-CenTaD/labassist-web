@@ -78,6 +78,7 @@ export const PredictButton = ({
 
         // Ensure "queued" replaces the first tag, even if it's not exactly "uploaded"
         cachedVideoManager.updateStatusList(fileName, updatedStatusList);
+        
         // console.log("Patch emitted for status update.");
 
         // Make the API request to process the video
