@@ -27,9 +27,12 @@ export const Filter = ({
     label: PredictionListFilterLabelName,
     isActive: boolean
   ) => {
-    setActiveLabels((prev) =>
-      isActive ? [...prev, label] : prev.filter((l) => l !== label)
-    );
+    setActiveLabels((prev) => {
+      if (prev.length === 6) {
+        return [label]; // Activate only the clicked label
+      }
+      return isActive ? [...prev, label] : prev.filter((l) => l !== label);
+    });
   };
 
   return (
