@@ -1,0 +1,15 @@
+.time-bar-duration {
+  display: flex;
+  height: 8px;
+  align-items: flex-start;
+  align-self: stretch;
+  width: 100%;
+  border-radius: 4px;
+  background: var(--Blue-2, #002139);
+}
+
+.time-bar-current {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--Blue-1, #007aff);
+}
