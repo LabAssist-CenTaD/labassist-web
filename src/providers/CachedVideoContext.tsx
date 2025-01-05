@@ -79,16 +79,16 @@ export const CachedVideoProvider: React.FC<{ children: React.ReactNode }> = ({
     socketInstance.on("update", (response) => {
       console.log("Server response to patch_backend:", response);
 
-      const parsedResponse =
-        typeof response === "string" ? JSON.parse(response) : response;
+      // const parsedResponse =
+      //   typeof response === "string" ? JSON.parse(response) : response;
 
-      // Update the manager with the server's response if necessary
-      if (parsedResponse?.data) {
-        cachedVideoManager.updateFromServerData({
-          cached_videos: parsedResponse.data,
-        });
-        setCachedVideos(parsedResponse.data);
-      }
+      // // Update the manager with the server's response if necessary
+      // if (parsedResponse?.data) {
+      //   cachedVideoManager.updateFromServerData({
+      //     cached_videos: parsedResponse.data,
+      //   });
+      //   setCachedVideos(parsedResponse.data);
+      // }
     });
 
     // Handle disconnect
