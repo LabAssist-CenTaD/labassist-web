@@ -1,0 +1,10 @@
+.annotation-bar {
+  display: flex;
+  height: 8px;
+  align-items: flex-start;
+  gap: 4px;
+  align-self: stretch;
+  width: 100%;
+  border-radius: 4px;
+  background: var(--Blue-2, #002139);
+}
