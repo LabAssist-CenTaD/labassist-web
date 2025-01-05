@@ -1,0 +1,11 @@
+.previous-next-button {
+  display: flex;
+  width: 32px;
+  height: 32px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  background: var(--Foreground, #c9e8ff);
+  border: none;
+}
