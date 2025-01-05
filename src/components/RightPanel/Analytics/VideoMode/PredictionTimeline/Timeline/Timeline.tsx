@@ -9,7 +9,7 @@ import { HorizontalSeperator } from "../../../../../HorizontalSeperator/Horizont
 import { useSelectedFileContext } from "../../../../../../hooks/useSelectedFileContext";
 import { useCachedVideoContext } from "../../../../../../hooks/useCachedVideoContext";
 import { Annotation } from "../../../../../../types/jsondata";
-import { formatTime } from "../../../../../../utils/timeUtils";
+import { formatTimeMMSS } from "../../../../../../utils/timeUtils";
 
 interface TimelineProps {
   activeLabels: string[]; // Receive active labels
@@ -55,7 +55,7 @@ export const Timeline = ({ activeLabels }: TimelineProps): JSX.Element => {
         <React.Fragment key={index}>
           <TimelineEntry
             type={entry.type}
-            timestamp={formatTime(entry.start_seconds)}
+            timestamp={formatTimeMMSS(entry.start_seconds)}
             message={entry.message}
           />
           {/* Add timeline separator for every entry except last one */}
