@@ -35,7 +35,7 @@ export const CachedVideoProvider: React.FC<{ children: React.ReactNode }> = ({
     const socketInstance = io(config.connection_address);
     setSocket(socketInstance);
     console.log(
-      `Socket initialised, attempting to connect...(${initialisedSocketCount++})`
+      `Socket initialised, attempting to connect to API...(${initialisedSocketCount++})`
     );
 
     // Pass the socket instance to the manager
@@ -43,7 +43,7 @@ export const CachedVideoProvider: React.FC<{ children: React.ReactNode }> = ({
 
     // On connect, authenticate
     socketInstance.on("connect", () => {
-      console.log("Connected to server.");
+      console.log("Connected to API.");
       socketInstance.emit(
         "authenticate",
         { device_id: getOrCreateDeviceId() },
@@ -93,7 +93,7 @@ export const CachedVideoProvider: React.FC<{ children: React.ReactNode }> = ({
 
     // Handle disconnect
     socketInstance.on("disconnect", () => {
-      console.log("Disconnected from server.");
+      console.log("Disconnected from API.");
     });
 
     return () => {
