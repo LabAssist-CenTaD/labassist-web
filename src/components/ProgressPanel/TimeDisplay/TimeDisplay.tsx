@@ -1,13 +1,19 @@
 import "./TimeDisplay.css";
 
+import { formatTimeHHMMSS } from "../../../utils/timeUtils";
+
 interface TimeDisplayProps {
-  currentTime: string;
-  duration: string;
+  currentSeconds: number;
+  durationSeconds: number;
 }
 
 export const TimeDisplay = ({
-  currentTime,
-  duration,
+  currentSeconds,
+  durationSeconds,
 }: TimeDisplayProps): JSX.Element => {
-  return <div className="time-display">{`${currentTime} / ${duration}`}</div>;
+  return (
+    <div className="time-display">{`${formatTimeHHMMSS(
+      currentSeconds
+    )} / ${formatTimeHHMMSS(durationSeconds)}`}</div>
+  );
 };
