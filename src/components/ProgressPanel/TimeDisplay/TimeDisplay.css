@@ -1,0 +1,17 @@
+.time-display {
+  display: flex;
+  height: 32px;
+  padding: 0px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  background: var(--Foreground, #c9e8ff);
+
+  color: var(--Background, #00171f);
+  font-family: Aeonik;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
