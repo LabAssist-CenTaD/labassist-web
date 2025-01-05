@@ -13,9 +13,9 @@ export const PreviousNextButton = ({
   return (
     <button className="previous-next-button">
       {type === "previous" ? (
-        <Backward size={16} variant="Bold" color={Colors.background}></Backward>
+        <Backward size={16} variant="Bold" color={Colors.background} />
       ) : (
-        <Forward size={16} variant="Bold" color={Colors.background}></Forward>
+        <Forward size={16} variant="Bold" color={Colors.background} />
       )}
     </button>
   );
