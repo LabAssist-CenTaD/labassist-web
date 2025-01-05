@@ -7,4 +7,19 @@
   width: 100%;
   border-radius: 4px;
   background: var(--Blue-2, #002139);
+  overflow: hidden;
+  max-width: 100%;
+}
+.annotation {
+  height: 8px;
+  position: relative;
+  border-radius: 4px;
+}
+
+.warning {
+  background-color: var(--Yellow); /* Warning colour */
+}
+
+.error {
+  background-color: var(--Red); /* Error colour */
 }

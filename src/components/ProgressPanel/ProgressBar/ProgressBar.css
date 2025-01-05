@@ -6,4 +6,5 @@
   gap: 8px;
   flex: 1 0 0;
   width: 100%;
+  max-width: 100%;
 }
