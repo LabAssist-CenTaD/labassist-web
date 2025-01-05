@@ -193,17 +193,15 @@ export const PredictionList = (): JSX.Element => {
         handleSelectModeToggle={handleSelectModeToggle}
         isInSelectMode={isInSelectMode}
       />
-      {isInSelectMode ? (
+      {isInSelectMode && (
         <SelectModeToolbar
           allFilesSelected={allFilesSelected}
           toggleSelectAllFiles={toggleSelectAllFiles}
           onPredict={handlePredict}
           onDelete={handleDelete}
         />
-      ) : (
-        <Filter activeLabels={activeLabels} setActiveLabels={setActiveLabels} />
       )}
-
+      <Filter activeLabels={activeLabels} setActiveLabels={setActiveLabels} />
       <CardWrapper
         fileList={filteredFileData}
         isInSelectMode={isInSelectMode}
