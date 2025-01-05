@@ -12,9 +12,6 @@ export const AnnotationBar = ({
   currentSeconds,
   durationSeconds,
 }: AnnotationBarProps): JSX.Element => {
-  // Log the annotations when the component renders
-  console.log("Rendering annotations:", annotations);
-
   // Calculate the position and width of each annotation
   const calculateStyle = (start: number, end: number): React.CSSProperties => {
     const left = (start / durationSeconds) * 100; // Percentage based on start time
@@ -32,11 +29,6 @@ export const AnnotationBar = ({
   const errors = annotations.filter(
     (annotation) => annotation.type === "error"
   );
-
-  // If there are no annotations, show a placeholder and log a message
-  if (annotations.length === 0) {
-    console.log("No annotations available.");
-  }
 
   return (
     <div className="annotation-bar">

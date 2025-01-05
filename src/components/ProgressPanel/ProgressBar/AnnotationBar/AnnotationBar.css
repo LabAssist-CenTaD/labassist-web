@@ -9,10 +9,11 @@
   background: var(--Blue-2, #002139);
   overflow: hidden;
   max-width: 100%;
+  position: relative;
 }
 .annotation {
   height: 8px;
-  position: relative;
+  position: absolute;
   border-radius: 4px;
 }
 

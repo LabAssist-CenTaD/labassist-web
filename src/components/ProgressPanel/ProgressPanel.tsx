@@ -33,7 +33,7 @@ export const ProgressPanel = (): JSX.Element => {
       <ProgressBar
         annotations={annotations}
         currentSeconds={200}
-        durationSeconds={600}
+        durationSeconds={1074}
       />
       <TimeDisplay currentSeconds={200} durationSeconds={600} />
     </div>
