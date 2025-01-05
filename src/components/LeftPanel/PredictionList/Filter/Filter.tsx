@@ -30,6 +30,15 @@ export const Filter = ({
     setActiveLabels((prev) => {
       if (prev.length === 6) {
         return [label]; // Activate only the clicked label
+      } else if (prev.length === 1 && prev.includes(label)) {
+        return [
+          "perfect",
+          "warnings-present",
+          "errors-present",
+          "complete",
+          "predicting",
+          "uploaded",
+        ]; // Activate all labels
       }
       return isActive ? [...prev, label] : prev.filter((l) => l !== label);
     });
