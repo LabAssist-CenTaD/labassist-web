@@ -94,7 +94,9 @@ export const PredictionList = (): JSX.Element => {
 
   // Handle file deletion
   const handleDelete = async () => {
+    setIsInSelectMode(false); // Exit select mode after clicking mass delete
     setLoading(true); // Set loading state before starting deletion
+
     const deviceId = getOrCreateDeviceId();
     const videoCache = VideoBufferCache.getInstance();
 
@@ -118,6 +120,8 @@ export const PredictionList = (): JSX.Element => {
 
   // Handle predict action
   const handlePredict = async () => {
+    setIsInSelectMode(false); // Exit select mode after clicking mass predict
+
     // Update the status list to "queued" for selected files first
     for (const fileName of selectedFiles) {
       const file = fileData.find((file) => file.file_name === fileName);
@@ -130,6 +134,7 @@ export const PredictionList = (): JSX.Element => {
     }
 
     setLoading(true);
+    
     const deviceId = getOrCreateDeviceId();
 
     for (const fileName of selectedFiles) {
