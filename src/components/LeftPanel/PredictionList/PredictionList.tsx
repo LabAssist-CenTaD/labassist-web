@@ -118,10 +118,19 @@ export const PredictionList = (): JSX.Element => {
 
   // Handle predict action
   const handlePredict = async () => {
+    // Update the status list to "queued" for selected files first
+    for (const fileName of selectedFiles) {
+      const file = fileData.find((file) => file.file_name === fileName);
+      if (file) {
+        const updatedStatusList = file.status_list.map((status, index) =>
+          index === 0 ? "queued" : status
+        );
+        cachedVideoManager.updateStatusList(fileName, updatedStatusList);
+      }
+    }
+
     setLoading(true);
     const deviceId = getOrCreateDeviceId();
-
-    // TODO - What if I loop through all the files and update all the status to queued first
 
     for (const fileName of selectedFiles) {
       const file = fileData.find((file) => file.file_name === fileName);
