@@ -71,19 +71,19 @@ export class CachedVideoManager {
 
       const patch = jsonpatch.compare(oldVideos, this.cachedVideos);
 
-      const patchString = JSON.stringify(patch);
+      // const patchString = JSON.stringify(patch);
+
+      const message = {
+        patch: patch, // Pass the patch object directly as JSON
+        device_id: getOrCreateDeviceId(), // Ensure this is a string
+      };
+
+      console.log(message);
 
       // Emit the patch to the backend
       if (this.socket) {
-        this.socket.emit("patch_backend", {
-          patch: patchString,
-          device_id: getOrCreateDeviceId(),
-        });
-        // console.log("Patch emitted:", patchString);
-        // console.log({
-        //   patch: patchString,
-        //   device_id: getOrCreateDeviceId(),
-        // });
+        this.socket.emit("patch_backend", message);
+        console.log("Patch emitted:", patch);
       } else {
         console.warn("Socket not initialised, patch not sent.");
       }
