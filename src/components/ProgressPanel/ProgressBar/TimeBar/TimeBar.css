@@ -12,4 +12,5 @@
   height: 8px;
   border-radius: 4px;
   background: var(--Blue-1, #007aff);
+  transition: width 0.3s ease ;
 }

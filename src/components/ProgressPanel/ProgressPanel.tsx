@@ -6,12 +6,14 @@ import { MediaControls } from "./MediaControls/MediaControls";
 import { TimeDisplay } from "./TimeDisplay/TimeDisplay";
 import { ProgressBar } from "./ProgressBar/ProgressBar";
 import { useCachedVideoContext } from "../../hooks/useCachedVideoContext";
+import { usePlaybackContext } from "../../hooks/usePlaybackContext";
 import { Annotation } from "../../types/jsondata";
 
 export const ProgressPanel = (): JSX.Element => {
   const { cachedVideos } = useCachedVideoContext();
   const { selectedFile } = useSelectedFileContext();
-  
+  const { currentSeconds, durationSeconds } = usePlaybackContext(); // Access playback state
+
   const [annotations, setAnnotations] = useState<Annotation[]>([]);
 
   useEffect(() => {
@@ -32,10 +34,13 @@ export const ProgressPanel = (): JSX.Element => {
       <MediaControls />
       <ProgressBar
         annotations={annotations}
-        currentSeconds={200}
-        durationSeconds={1074}
+        currentSeconds={Math.round(currentSeconds)} // Live current time from context
+        durationSeconds={Math.round(durationSeconds)} // Live duration from context
       />
-      <TimeDisplay currentSeconds={200} durationSeconds={600} />
+      <TimeDisplay
+        currentSeconds={Math.round(currentSeconds)} // Live current time from context
+        durationSeconds={Math.round(durationSeconds)} // Live duration from context
+      />
     </div>
   );
 };

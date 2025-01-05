@@ -15,7 +15,8 @@ export const VideoPlayer = ({
 }: VideoPlayerProps): JSX.Element => {
   const { selectedFile } = useSelectedFileContext();
   const { cachedVideos } = useCachedVideoContext();
-  const { isPlaying } = usePlaybackContext();
+  const { isPlaying, setCurrentSeconds, setPlaybackState } =
+    usePlaybackContext();
 
   const videoBufferCache = VideoBufferCache.getInstance();
   const videoPlayerRef = useRef<HTMLVideoElement | null>(null); // Ref to the video element
@@ -77,6 +78,34 @@ export const VideoPlayer = ({
     }
   }, [isPlaying]); // Re-run effect when isPlaying changes
 
+  // Update playback context with current seconds and duration
+  useEffect(() => {
+    const videoElement = videoPlayerRef.current;
+
+    if (videoElement) {
+      const updatePlaybackContext = () => {
+        setCurrentSeconds(videoElement.currentTime);
+        setPlaybackState({
+          currentSeconds: videoElement.currentTime,
+          durationSeconds: videoElement.duration || 0,
+          isPlaying: !videoElement.paused && !videoElement.ended,
+        });
+      };
+
+      videoElement.addEventListener("timeupdate", updatePlaybackContext);
+      videoElement.addEventListener("durationchange", updatePlaybackContext);
+
+      // Cleanup event listeners on unmount
+      return () => {
+        videoElement.removeEventListener("timeupdate", updatePlaybackContext);
+        videoElement.removeEventListener(
+          "durationchange",
+          updatePlaybackContext
+        );
+      };
+    }
+  }, [setCurrentSeconds, setPlaybackState]);
+
   // Revoke the object URL when the component is unmounted
   useEffect(() => {
     return () => {
@@ -94,7 +123,7 @@ export const VideoPlayer = ({
           ref={videoPlayerRef}
           className="video-player"
           controls
-          // autoPlay // Autoplay the video when selected
+          // autoPlay
           onError={(e) => console.error("Video playback error:", e)}
         >
           <>
@@ -105,7 +134,7 @@ export const VideoPlayer = ({
           Your browser does not support the video tag.
         </video>
       ) : (
-        <p className="no-video-selected">No video selected/avaliable.</p>
+        <p className="no-video-selected">No video selected/available.</p>
       )}
     </div>
   );
