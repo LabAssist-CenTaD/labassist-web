@@ -9,6 +9,9 @@ import { usePlaybackContext } from "../../../../../hooks/usePlaybackContext";
 import { config } from "../../../../../config/config";
 import { getOrCreateDeviceId } from "../../../../../utils/deviceIdUtils";
 import { Colors } from "../../../../../styles/colors";
+import { dotStream } from "ldrs";
+
+dotStream.register();
 
 interface VideoPlayerProps {
   videoUrlChanged: (url: string | null) => void;

@@ -62,6 +62,7 @@ export const ProgressPanel = (): JSX.Element => {
       <TimeDisplay
         currentSeconds={Math.round(currentSeconds)} // Show live or scrubbed time
         durationSeconds={Math.round(durationSeconds)}
+        isVideoLoading={isVideoLoading}
       />
     </div>;
   }
@@ -80,6 +81,7 @@ export const ProgressPanel = (): JSX.Element => {
       <TimeDisplay
         currentSeconds={Math.round(currentSeconds)} // Show live or scrubbed time
         durationSeconds={Math.round(durationSeconds)}
+        isVideoLoading={isVideoLoading}
       />
     </div>
   );

@@ -34,7 +34,7 @@ export const AnnotationBar = ({
     <div className="annotation-bar">
       {/* Render warnings */}
       {warnings.map((annotation) => (
-        <div
+        <button
           key={`warning-${annotation.start_seconds}-${annotation.end_seconds}`}
           className="annotation warning"
           style={calculateStyle(
@@ -46,7 +46,7 @@ export const AnnotationBar = ({
 
       {/* Render errors (which overlap on top of warnings) */}
       {errors.map((annotation) => (
-        <div
+        <button
           key={`error-${annotation.start_seconds}-${annotation.end_seconds}`}
           className="annotation error"
           style={calculateStyle(
