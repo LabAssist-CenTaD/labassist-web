@@ -15,11 +15,16 @@ export const VideoPlayer = ({
 }: VideoPlayerProps): JSX.Element => {
   const { selectedFile } = useSelectedFileContext();
   const { cachedVideos } = useCachedVideoContext();
-  const { isPlaying, setCurrentSeconds, setPlaybackState } =
-    usePlaybackContext();
+  const {
+    isPlaying,
+    isScrubbing,
+    scrubTargetSeconds,
+    setCurrentSeconds,
+    setPlaybackState,
+  } = usePlaybackContext();
 
   const videoBufferCache = VideoBufferCache.getInstance();
-  const videoPlayerRef = useRef<HTMLVideoElement | null>(null); // Ref to the video element
+  const videoPlayerRef = useRef<HTMLVideoElement | null>(null);
 
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
 
@@ -29,8 +34,8 @@ export const VideoPlayer = ({
       !selectedFile ||
       !cachedVideos.some((video) => video.file_name === selectedFile.fileName)
     ) {
-      setVideoUrl(null); // Clear the video URL if the file is not cached
-      videoUrlChanged(null); // Notify the parent that no video is available
+      setVideoUrl(null);
+      videoUrlChanged(null);
       return;
     }
 
@@ -46,7 +51,6 @@ export const VideoPlayer = ({
 
         if (videoBlob) {
           // console.log(`Blob for ${selectedFile.fileName} found. Creating object URL...`);
-
           const url = URL.createObjectURL(videoBlob);
           setVideoUrl(url);
           videoUrlChanged(url); // Notify parent about the new video URL
@@ -70,15 +74,14 @@ export const VideoPlayer = ({
 
   useEffect(() => {
     if (videoPlayerRef.current) {
-      if (isPlaying) {
-        videoPlayerRef.current.play(); // Play video when isPlaying is true
+      if (isPlaying && !isScrubbing) {
+        videoPlayerRef.current.play();
       } else {
-        videoPlayerRef.current.pause(); // Pause video when isPlaying is false
+        videoPlayerRef.current.pause();
       }
     }
-  }, [isPlaying]); // Re-run effect when isPlaying changes
+  }, [isPlaying, isScrubbing]);
 
-  // Update playback context with current seconds and duration
   useEffect(() => {
     const videoElement = videoPlayerRef.current;
 
@@ -95,7 +98,6 @@ export const VideoPlayer = ({
       videoElement.addEventListener("timeupdate", updatePlaybackContext);
       videoElement.addEventListener("durationchange", updatePlaybackContext);
 
-      // Cleanup event listeners on unmount
       return () => {
         videoElement.removeEventListener("timeupdate", updatePlaybackContext);
         videoElement.removeEventListener(
@@ -106,11 +108,15 @@ export const VideoPlayer = ({
     }
   }, [setCurrentSeconds, setPlaybackState]);
 
-  // Revoke the object URL when the component is unmounted
+  useEffect(() => {
+    if (isScrubbing && videoPlayerRef.current) {
+      videoPlayerRef.current.currentTime = scrubTargetSeconds || 0;
+    }
+  }, [isScrubbing, scrubTargetSeconds]);
+
   useEffect(() => {
     return () => {
       if (videoUrl) {
-        // console.log("Releasing object URL...");
         URL.revokeObjectURL(videoUrl);
       }
     };
@@ -123,8 +129,8 @@ export const VideoPlayer = ({
           ref={videoPlayerRef}
           className="video-player"
           controls
-          // autoPlay
           onError={(e) => console.error("Video playback error:", e)}
+          // autoPlay
         >
           <>
             <source src={videoUrl} type="video/mp4" />
