@@ -161,7 +161,9 @@ export const PredictionList = (): JSX.Element => {
   if (loading) {
     return (
       <div className="prediction-list">
-        <div className="prediction-list-header">Prediction List</div>
+        <div className="prediction-list-header">
+          {import.meta.env.VITE_API_ENDPOINT}
+        </div>
         <Toolbar
           onSearch={handleSearch}
           handleSelectModeToggle={handleSelectModeToggle}
@@ -191,7 +193,9 @@ export const PredictionList = (): JSX.Element => {
 
   return (
     <div className="prediction-list">
-      <div className="prediction-list-header">Prediction List</div>
+      <div className="prediction-list-header">
+        {import.meta.env.VITE_API_ENDPOINT}
+      </div>
       <Toolbar
         onSearch={handleSearch}
         handleSelectModeToggle={handleSelectModeToggle}
