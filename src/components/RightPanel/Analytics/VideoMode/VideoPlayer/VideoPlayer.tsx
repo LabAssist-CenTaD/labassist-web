@@ -111,6 +111,8 @@ export const VideoPlayer = ({
   useEffect(() => {
     if (isScrubbing && videoPlayerRef.current) {
       videoPlayerRef.current.currentTime = scrubTargetSeconds || 0;
+    } else if (!isScrubbing && videoPlayerRef.current) {
+      videoPlayerRef.current.play();
     }
   }, [isScrubbing, scrubTargetSeconds]);
 
