@@ -5,6 +5,7 @@ import { useSelectedFileContext } from "../../../../../hooks/useSelectedFileCont
 import { VideoBufferCache } from "../../../../../managers/VideoBufferCacheManager";
 import { useCachedVideoContext } from "../../../../../hooks/useCachedVideoContext";
 import { usePlaybackContext } from "../../../../../hooks/usePlaybackContext";
+import { config } from "../../../../../config/config";
 
 interface VideoPlayerProps {
   videoUrlChanged: (url: string | null) => void;
@@ -40,10 +41,12 @@ export const VideoPlayer = ({
     }
 
     if (selectedFile?.fileName) {
-      console.log(
-        `Checking if ${selectedFile.fileName} is cached:`,
-        videoBufferCache.isCached(selectedFile.fileName)
-      );
+      if (config.debug_level === 1) {
+        console.log(
+          `Checking if ${selectedFile.fileName} is cached:`,
+          videoBufferCache.isCached(selectedFile.fileName)
+        );
+      }
 
       if (videoBufferCache.isCached(selectedFile.fileName)) {
         const videoBlob = videoBufferCache.getVideo(selectedFile.fileName);

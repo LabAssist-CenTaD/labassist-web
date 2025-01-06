@@ -2,6 +2,7 @@ import "./SelectButton.css";
 
 import { TickCircle, LogoutCurve } from "iconsax-react"; // Import both icons
 import { Colors } from "../../../../../styles/colors";
+import { config } from "../../../../../config/config";
 
 interface SelectButtonProps {
   onToggle: () => void;
@@ -15,7 +16,9 @@ export const SelectButton = ({
   // Handle click event
   const handleClick = () => {
     onToggle(); // Call onToggle to update state in parent
-    console.log("Select button clicked, state is now: ", !isInSelectMode);
+    if (config.debug_level === 1) {
+      console.log("Select button clicked, state is now: ", !isInSelectMode);
+    }
   };
 
   return (

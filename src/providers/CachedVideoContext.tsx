@@ -34,21 +34,27 @@ export const CachedVideoProvider: React.FC<{ children: React.ReactNode }> = ({
     // Initialise socket
     const socketInstance = io(config.connection_address);
     setSocket(socketInstance);
-    console.log(
-      `Socket initialised, attempting to connect to API...(${initialisedSocketCount++})`
-    );
+    if (config.debug_level === 1) {
+      console.log(
+        `Socket initialised, attempting to connect to API...(${initialisedSocketCount++})`
+      );
+    }
 
     // Pass the socket instance to the manager
     cachedVideoManager["socket"] = socketInstance;
 
     // On connect, authenticate
     socketInstance.on("connect", () => {
-      console.log("Connected to API.");
+      if (config.debug_level === 1) {
+        console.log("Connected to API.");
+      }
       socketInstance.emit(
         "authenticate",
         { device_id: getOrCreateDeviceId() },
         (message: string, data: JsonData) => {
-          console.log("Authenticated:", message, data);
+          if (config.debug_level === 1) {
+            console.log("Authenticated:", message, data);
+          }
           cachedVideoManager.updateFromServerData(data); // Update the manager
           setCachedVideos(cachedVideoManager.getCachedVideos()); // Update the state
         }
@@ -57,7 +63,9 @@ export const CachedVideoProvider: React.FC<{ children: React.ReactNode }> = ({
 
     // Handle incoming patches
     socketInstance.on("patch_frontend", (data) => {
-      console.log("Patch data received:", data);
+      if (config.debug_level === 1) {
+        console.log("Patch data received:", data);
+      }
 
       const parsedData = typeof data === "string" ? JSON.parse(data) : data;
 
@@ -77,7 +85,9 @@ export const CachedVideoProvider: React.FC<{ children: React.ReactNode }> = ({
 
     // Listen for server responses to the `patch_backend` event
     socketInstance.on("update", (response) => {
-      console.log("Server response to patch_backend:", response);
+      if (config.debug_level === 2) {
+        console.log("Server response to patch_backend:", response);
+      }
 
       // const parsedResponse =
       //   typeof response === "string" ? JSON.parse(response) : response;
@@ -93,7 +103,9 @@ export const CachedVideoProvider: React.FC<{ children: React.ReactNode }> = ({
 
     // Handle disconnect
     socketInstance.on("disconnect", () => {
-      console.log("Disconnected from API.");
+      if (config.debug_level === 1) {
+        console.log("Disconnected from API.");
+      }
     });
 
     return () => {

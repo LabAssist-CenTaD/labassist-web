@@ -4,6 +4,7 @@ import jsonpatch from "fast-json-patch";
 import { CachedVideo } from "../types/jsondata";
 import { Socket } from "socket.io-client";
 import { getOrCreateDeviceId } from "../utils/deviceIdUtils";
+import { config } from "../config/config";
 
 export class CachedVideoManager {
   private cachedVideos: CachedVideo[];
@@ -78,12 +79,14 @@ export class CachedVideoManager {
         device_id: getOrCreateDeviceId(), // Ensure this is a string
       };
 
-      console.log(message);
+      // console.log("Patch message:", message);
 
       // Emit the patch to the backend
       if (this.socket) {
         this.socket.emit("patch_backend", message);
-        console.log("Patch emitted:", patch);
+        if (config.debug_level === 1) {
+          console.log("Patch emitted:", patch);
+        }
       } else {
         console.warn("Socket not initialised, patch not sent.");
       }
