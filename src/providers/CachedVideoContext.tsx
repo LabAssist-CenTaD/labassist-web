@@ -28,16 +28,12 @@ export const CachedVideoProvider: React.FC<{ children: React.ReactNode }> = ({
   const [, setSocket] = useState<Socket | null>(null);
   const [cachedVideos, setCachedVideos] = useState<CachedVideo[]>([]);
 
-  let initialisedSocketCount = 1;
-
   useEffect(() => {
     // Initialise socket
     const socketInstance = io(config.connection_address);
     setSocket(socketInstance);
     if (config.debug_level === 1)
-      console.log(
-        `Socket initialised, attempting to connect to API...(${initialisedSocketCount++})`
-      );
+      console.log("Socket initialised, attempting to connect to API...");
 
     // Pass the socket instance to the manager
     cachedVideoManager["socket"] = socketInstance;
@@ -105,7 +101,7 @@ export const CachedVideoProvider: React.FC<{ children: React.ReactNode }> = ({
       socketInstance.disconnect();
       setSocket(null);
     };
-  }, [cachedVideoManager, initialisedSocketCount]);
+  }, [cachedVideoManager]);
 
   return (
     <CachedVideoContext.Provider
