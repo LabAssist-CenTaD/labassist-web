@@ -16,7 +16,7 @@ export const FilePathDisplay = (): JSX.Element => {
 
   return (
     <div className="file-path-display">
-      <div className="file-path-header">Selected Video Path:</div>
+      <div className="file-path-header">Selected Video:</div>
       <div className="file-path">{fileName || "No file selected"}</div>
     </div>
   );
