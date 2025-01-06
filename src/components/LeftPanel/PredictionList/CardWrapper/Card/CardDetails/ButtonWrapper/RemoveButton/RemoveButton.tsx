@@ -21,11 +21,20 @@ export const RemoveButton = ({ fileName }: RemoveButtonProps): JSX.Element => {
 
     try {
       const response = await axios.get(url); // Send a GET request with axios
-      console.log("Delete video response:", response.data);
+      if (config.debug_level === 1) {
+        console.log("Delete video response:", response.data);
+      }
 
       if (response.data?.message === "Video deleted successfully") {
         videoCache.removeVideo(fileName);
-        // console.log(videoCache.isCached(fileName));
+
+        if (config.debug_level === 2) {
+          console.log(
+            `Checking if ${fileName} is cached: ${videoCache.isCached(
+              fileName
+            )}`
+          );
+        }
       }
     } catch (error) {
       console.error("Error removing video:", error);

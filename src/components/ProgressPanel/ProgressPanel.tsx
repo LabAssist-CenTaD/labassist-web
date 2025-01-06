@@ -8,6 +8,7 @@ import { ProgressBar } from "./ProgressBar/ProgressBar";
 import { useCachedVideoContext } from "../../hooks/useCachedVideoContext";
 import { usePlaybackContext } from "../../hooks/usePlaybackContext";
 import { Annotation } from "../../types/jsondata";
+import { config } from "../../config/config";
 
 export const ProgressPanel = (): JSX.Element => {
   const { cachedVideos } = useCachedVideoContext();
@@ -38,7 +39,9 @@ export const ProgressPanel = (): JSX.Element => {
   const handleScrubStart = () => startScrubbing();
   const handleScrub = (seconds: number) => {
     setScrubTargetSeconds(seconds);
-    // console.log(`PlaybackContext: Scrub target seconds = ${seconds}`);
+    if (config.debug_level === 2) {
+      console.log(`PlaybackContext: Scrub target seconds = ${seconds}`);
+    }
   };
   const handleScrubEnd = (seconds: number) => {
     setScrubTargetSeconds(seconds);

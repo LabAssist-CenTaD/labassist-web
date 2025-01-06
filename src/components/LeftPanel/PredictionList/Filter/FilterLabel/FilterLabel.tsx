@@ -3,6 +3,7 @@ import "./FilterLabel.css";
 import React from "react";
 import { PredictionListFilterLabelName } from "../../../../../types/filterlabel";
 import { toTitleCase } from "../../../../../utils/stringUtils";
+import { config } from "../../../../../config/config";
 
 interface FilterLabelProps {
   Icon: React.ElementType;
@@ -26,7 +27,14 @@ export const FilterLabel = ({
 }: FilterLabelProps): JSX.Element => {
   const handleClick = () => {
     onToggle(label, !isActive); // Call the parent's onToggle function
-    // console.log("Filter label (", label, ") clicked, state is now: ", !isActive);
+    if (config.debug_level === 2) {
+      console.log(
+        "Filter label (",
+        label,
+        ") clicked, state is now: ",
+        !isActive
+      );
+    }
   };
 
   return (

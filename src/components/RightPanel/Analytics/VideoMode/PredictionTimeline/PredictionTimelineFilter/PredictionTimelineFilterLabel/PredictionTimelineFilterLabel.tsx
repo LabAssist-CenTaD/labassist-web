@@ -2,6 +2,7 @@ import "./PredictionTimelineFilterLabel.css";
 
 import { PredictionTimelineFilterLabelName } from "../../../../../../../types/filterlabel";
 import { toTitleCase } from "../../../../../../../utils/stringUtils";
+import { config } from "../../../../../../../config/config";
 
 interface PredictionTimelineFilterLabelProps {
   Icon: React.ElementType;
@@ -29,7 +30,15 @@ export const PredictionTimelineFilterLabel = ({
   // Handle click event
   const handleClick = () => {
     onToggle(label, !isActive); // Call the parent's onToggle function
-    // console.log("Filter label (", label, ") clicked, state is now: ", !isActive);
+
+    if (config.debug_level === 2) {
+      console.log(
+        "Filter label (",
+        label,
+        ") clicked, state is now: ",
+        !isActive
+      );
+    }
   };
 
   return (

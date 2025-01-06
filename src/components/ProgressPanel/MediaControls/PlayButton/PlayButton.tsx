@@ -5,6 +5,7 @@ import { Pause } from "iconsax-react";
 import { Colors } from "../../../../styles/colors";
 import { usePlaybackContext } from "../../../../hooks/usePlaybackContext";
 import { useSelectedFileContext } from "../../../../hooks/useSelectedFileContext";
+import { config } from "../../../../config/config";
 
 export const PlayButton = (): JSX.Element => {
   const { isPlaying, togglePlay } = usePlaybackContext(); // Use context to access playback state
@@ -13,7 +14,11 @@ export const PlayButton = (): JSX.Element => {
   const handlePlay = () => {
     togglePlay(); // Toggle play/pause when clicked
   };
-  // console.log(selectedFile);
+  if (config.debug_level === 2) {
+    console.log(
+      `Selected file received by PlayButton: ${selectedFile.fileName}`
+    );
+  }
   return (
     <button
       className="play-button"

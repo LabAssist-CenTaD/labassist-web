@@ -1,7 +1,7 @@
 export const config: {
   connection_address: string;
   max_cache_size: number;
-  debug_level: 0 | 1 | 2;
+  debug_level: 0 | 1 | 2; // 0 = off
 } = {
   connection_address: "http://localhost:5000",
   max_cache_size: 5, // Default cache size set to 5

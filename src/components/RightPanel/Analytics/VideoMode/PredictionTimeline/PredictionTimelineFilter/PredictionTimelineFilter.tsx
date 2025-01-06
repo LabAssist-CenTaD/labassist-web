@@ -5,6 +5,7 @@ import { InfoCircle, Danger, CloseCircle } from "iconsax-react";
 import { PredictionTimelineFilterLabel } from "./PredictionTimelineFilterLabel/PredictionTimelineFilterLabel";
 import { Colors } from "../../../../../../styles/colors";
 import { PredictionTimelineFilterLabelName } from "../../../../../../types/filterlabel";
+import { config } from "../../../../../../config/config";
 
 interface PredictionTimelineFilterProps {
   activeLabels: PredictionTimelineFilterLabelName[];
@@ -31,8 +32,10 @@ export const PredictionTimelineFilter = ({
       }
     });
   };
-
-  // console.log("PredictionTimelineFilter activeLabels: ", activeLabels);
+  
+  if (config.debug_level === 2) {
+    console.log("PredictionTimelineFilter activeLabels: ", activeLabels);
+  }
 
   return (
     <div className="prediciton-filter">
