@@ -60,6 +60,7 @@ export const TimelineEntry = ({
       onClick={() => handleClick(start_seconds)}
       onMouseEnter={() => onMouseEnter()}
       onMouseLeave={() => onMouseLeave()}
+      title={`Click to seek to ${formatTimeMMSS(start_seconds)}`}
     >
       <TimestampLabel
         timestamp={formatTimeMMSS(start_seconds)}
