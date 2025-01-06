@@ -45,7 +45,7 @@ export const CardWrapper = ({
       className="card-wrapper"
       style={{ paddingRight: hasScrollbar ? "16px" : "0px" }}
     >
-      {fileList.map((file) => {
+      {fileList.map((file, index) => {
         const isSelectedInSelectMode =
           isInSelectMode && selectedFiles.includes(file.file_name);
         const isSelectedInSingleMode =
@@ -58,7 +58,7 @@ export const CardWrapper = ({
 
         return (
           <Card
-            key={file.file_path}
+            key={`${file.file_path}-${index}`}
             status_list={file.status_list}
             status_counts={file.status_counts}
             fileName={file.file_name}
