@@ -144,25 +144,38 @@ export const VideoPlayer = ({
 
   useEffect(() => {
     if (videoPlayerRef.current) {
-      if (isPlaying && !isScrubbing) {
-        videoPlayerRef.current.play();
-      } else {
+      if (isScrubbing) {
         videoPlayerRef.current.pause();
+        if (config.debug_level === 1)
+          console.log(
+            "Video Player: Scrubbing to",
+            scrubTargetSeconds,
+            "seconds"
+          );
+        videoPlayerRef.current.currentTime = scrubTargetSeconds || 0;
+      } else {
+        if (isPlaying) {
+          videoPlayerRef.current.play();
+        } else {
+          videoPlayerRef.current.pause();
+        }
       }
     }
-  }, [isPlaying, isScrubbing]);
+  }, [isPlaying, isScrubbing, scrubTargetSeconds]);
 
   useEffect(() => {
     const videoElement = videoPlayerRef.current;
 
     if (videoElement) {
       const updatePlaybackContext = () => {
-        setCurrentSeconds(videoElement.currentTime);
-        setPlaybackState({
-          currentSeconds: videoElement.currentTime,
-          durationSeconds: videoElement.duration || 0,
-          isPlaying: !videoElement.paused && !videoElement.ended,
-        });
+        if (!isScrubbing) {
+          setCurrentSeconds(videoElement.currentTime);
+          setPlaybackState({
+            currentSeconds: videoElement.currentTime,
+            durationSeconds: videoElement.duration || 0,
+            isPlaying: !videoElement.paused && !videoElement.ended,
+          });
+        }
       };
 
       videoElement.addEventListener("timeupdate", updatePlaybackContext);
@@ -176,15 +189,7 @@ export const VideoPlayer = ({
         );
       };
     }
-  }, [setCurrentSeconds, setPlaybackState]);
-
-  useEffect(() => {
-    if (isScrubbing && videoPlayerRef.current) {
-      videoPlayerRef.current.currentTime = scrubTargetSeconds || 0;
-    } else if (!isScrubbing && videoPlayerRef.current) {
-      videoPlayerRef.current.play();
-    }
-  }, [isScrubbing, scrubTargetSeconds]);
+  }, [isScrubbing, setCurrentSeconds, setPlaybackState]);
 
   useEffect(() => {
     return () => {

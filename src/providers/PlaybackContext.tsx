@@ -1,5 +1,6 @@
 import { createContext, useState, ReactNode, useEffect } from "react";
 import { useSelectedFileContext } from "../hooks/useSelectedFileContext";
+import { config } from "../config/config";
 
 // Define the context type
 interface PlaybackContextType {
@@ -83,16 +84,20 @@ export const PlaybackProvider = ({ children }: { children: ReactNode }) => {
   // Start scrubbing
   const startScrubbing = () => {
     setIsScrubbing(true);
+    if (config.debug_level === 1) console.log("Scrubbing started");
   };
 
   // Stop scrubbing
   const stopScrubbing = () => {
     setIsScrubbing(false);
+    if (config.debug_level === 1) console.log("Scrubbing stopped");
     setScrubTargetSecondsState(null); // Reset scrub target when scrubbing ends
   };
 
   // Update the scrub target seconds
   const setScrubTargetSeconds = (seconds: number) => {
+    if (config.debug_level === 2)
+      console.log(`PlaybackContext: scrubbing to ${seconds} seconds`);
     setScrubTargetSecondsState(seconds);
   };
 
