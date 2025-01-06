@@ -64,6 +64,8 @@ export const VideoPlayer = ({
 
         // If the request is successful, handle the video blob
         const videoBlob = response.data;
+        videoBufferCache.addVideo(fileName, videoBlob); // Cache the video
+        
         if (config.debug_level === 1)
           console.log("Video retrieved successfully:", videoBlob);
 
@@ -148,7 +150,7 @@ export const VideoPlayer = ({
   useEffect(() => {
     if (videoPlayerRef.current) {
       if (config.debug_level === 2)
-      console.log("Seeking to", seekSeconds, "seconds");
+        console.log("Seeking to", seekSeconds, "seconds");
       if (seekSeconds) {
         videoPlayerRef.current.currentTime = seekSeconds;
         setSeekSeconds(null);
