@@ -50,7 +50,7 @@ export const VideoPlayer = ({
         }/video/${fileName}?device_id=${getOrCreateDeviceId()}`;
 
         if (config.debug_level === 1)
-           console.log("Attemping to retrieve file from server, URL:", url);
+          console.log("Attemping to retrieve file from server, URL:", url);
 
         setLoading(true);
         setIsVideoLoading(true);
@@ -74,7 +74,7 @@ export const VideoPlayer = ({
 
         return newBlobUrl;
       } catch (error) {
-        console.error("Error fetching video:", error);
+        if (config.debug_errors) console.error("Error fetching video:", error);
       }
     };
 
