@@ -8,6 +8,7 @@ interface PlaybackContextType {
   isPlaying: boolean;
   isScrubbing: boolean;
   scrubTargetSeconds: number | null;
+  isVideoLoading: boolean;
   setCurrentSeconds: (currentSeconds: number) => void;
   setPlaybackState: (state: {
     currentSeconds: number;
@@ -20,6 +21,7 @@ interface PlaybackContextType {
   startScrubbing: () => void;
   stopScrubbing: () => void;
   setScrubTargetSeconds: (seconds: number) => void;
+  setIsVideoLoading: (isLoading: boolean) => void;
 }
 
 // Create the context
@@ -35,6 +37,7 @@ export const PlaybackProvider = ({ children }: { children: ReactNode }) => {
   const [scrubTargetSeconds, setScrubTargetSecondsState] = useState<
     number | null
   >(null); // Target time during scrubbing
+  const [isVideoLoading, setIsVideoLoading] = useState(false); // Tracks video loading state
 
   // Reset playback when the selected video changes
   useEffect(() => {
@@ -101,6 +104,7 @@ export const PlaybackProvider = ({ children }: { children: ReactNode }) => {
         isPlaying,
         isScrubbing,
         scrubTargetSeconds,
+        isVideoLoading,
         setCurrentSeconds,
         setPlaybackState,
         play,
@@ -109,6 +113,7 @@ export const PlaybackProvider = ({ children }: { children: ReactNode }) => {
         startScrubbing,
         stopScrubbing,
         setScrubTargetSeconds,
+        setIsVideoLoading,
       }}
     >
       {children}

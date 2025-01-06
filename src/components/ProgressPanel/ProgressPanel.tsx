@@ -16,6 +16,7 @@ export const ProgressPanel = (): JSX.Element => {
   const {
     currentSeconds,
     durationSeconds,
+    isVideoLoading,
     startScrubbing,
     stopScrubbing,
     setScrubTargetSeconds,
@@ -46,6 +47,24 @@ export const ProgressPanel = (): JSX.Element => {
     setScrubTargetSeconds(seconds);
     stopScrubbing();
   };
+
+  if (isVideoLoading) {
+    <div className="progress-panel">
+      <MediaControls />
+      <ProgressBar
+        annotations={[]}
+        currentSeconds={0}
+        durationSeconds={0}
+        onScrubStart={handleScrubStart}
+        onScrub={handleScrub}
+        onScrubEnd={handleScrubEnd}
+      />
+      <TimeDisplay
+        currentSeconds={Math.round(currentSeconds)} // Show live or scrubbed time
+        durationSeconds={Math.round(durationSeconds)}
+      />
+    </div>;
+  }
 
   return (
     <div className="progress-panel">

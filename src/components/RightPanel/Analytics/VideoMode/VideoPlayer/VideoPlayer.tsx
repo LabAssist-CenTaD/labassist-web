@@ -27,6 +27,7 @@ export const VideoPlayer = ({
     scrubTargetSeconds,
     setCurrentSeconds,
     setPlaybackState,
+    setIsVideoLoading,
   } = usePlaybackContext();
 
   const videoBufferCache = VideoBufferCache.getInstance();
@@ -46,11 +47,13 @@ export const VideoPlayer = ({
         console.log("Attemping to retrieve file from server, URL:", url);
 
         setLoading(true);
+        setIsVideoLoading(true);
         setVideoPresent(false);
 
         const response = await axios.get(url, { responseType: "blob" });
 
         setLoading(false);
+        setIsVideoLoading(false);
         setVideoPresent(true);
 
         // If the request is successful, handle the video blob
@@ -124,6 +127,7 @@ export const VideoPlayer = ({
     videoUrlChanged,
     cachedVideos,
     setVideoPresent,
+    setIsVideoLoading,
   ]);
 
   // Reload the video player when a new video is selected
