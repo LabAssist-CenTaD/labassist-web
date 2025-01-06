@@ -25,3 +25,22 @@
   line-height: normal;
   margin: auto;
 }
+
+.loading-container {
+  margin: auto;
+  display: flex;
+  gap: 4px;
+}
+
+l-dot-stream {
+  padding-top: 12px;
+}
+
+.loading-text {
+  color: var(--Foreground);
+  font-family: Aeonik;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}

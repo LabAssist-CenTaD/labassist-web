@@ -8,13 +8,16 @@ import { useCachedVideoContext } from "../../../../../hooks/useCachedVideoContex
 import { usePlaybackContext } from "../../../../../hooks/usePlaybackContext";
 import { config } from "../../../../../config/config";
 import { getOrCreateDeviceId } from "../../../../../utils/deviceIdUtils";
+import { Colors } from "../../../../../styles/colors";
 
 interface VideoPlayerProps {
   videoUrlChanged: (url: string | null) => void;
+  setVideoPresent: (isPresent: boolean) => void;
 }
 
 export const VideoPlayer = ({
   videoUrlChanged,
+  setVideoPresent,
 }: VideoPlayerProps): JSX.Element => {
   const { selectedFile } = useSelectedFileContext();
   const { cachedVideos } = useCachedVideoContext();
@@ -30,35 +33,42 @@ export const VideoPlayer = ({
   const videoPlayerRef = useRef<HTMLVideoElement | null>(null);
 
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
-
-  const fetchVideo = async (fileName: string) => {
-    try {
-      // Construct the URL for the GET request
-      const url = `${
-        config.connection_address
-      }/video/${fileName}?device_id=${getOrCreateDeviceId()}`;
-
-      console.log("Attemping to retrieve file from server, URL:", url);
-
-      const response = await axios.get(url, { responseType: "blob" });
-
-      // If the request is successful, handle the video blob
-      const videoBlob = response.data;
-      if (config.debug_level === 1)
-        console.log("Video retrieved successfully:", videoBlob);
-
-      // Optionally, create a URL for the video and display it in an HTML element
-      const newBlobUrl = URL.createObjectURL(videoBlob);
-
-      if (config.debug_level === 2) console.log("Video URL:", newBlobUrl);
-
-      return newBlobUrl;
-    } catch (error) {
-      console.error("Error fetching video:", error);
-    }
-  };
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    const fetchVideo = async (fileName: string) => {
+      try {
+        // Construct the URL for the GET request
+        const url = `${
+          config.connection_address
+        }/video/${fileName}?device_id=${getOrCreateDeviceId()}`;
+
+        console.log("Attemping to retrieve file from server, URL:", url);
+
+        setLoading(true);
+        setVideoPresent(false);
+
+        const response = await axios.get(url, { responseType: "blob" });
+
+        setLoading(false);
+        setVideoPresent(true);
+
+        // If the request is successful, handle the video blob
+        const videoBlob = response.data;
+        if (config.debug_level === 1)
+          console.log("Video retrieved successfully:", videoBlob);
+
+        // Optionally, create a URL for the video and display it in an HTML element
+        const newBlobUrl = URL.createObjectURL(videoBlob);
+
+        if (config.debug_level === 2) console.log("Video URL:", newBlobUrl);
+
+        return newBlobUrl;
+      } catch (error) {
+        console.error("Error fetching video:", error);
+      }
+    };
+
     // If there is no selected file or the video is not in the cachedVideos, reset the videoUrl
     if (
       !selectedFile ||
@@ -108,7 +118,13 @@ export const VideoPlayer = ({
       setVideoUrl("");
       videoUrlChanged(null); // Notify parent that no video is present
     }
-  }, [selectedFile, videoBufferCache, videoUrlChanged, cachedVideos]);
+  }, [
+    selectedFile,
+    videoBufferCache,
+    videoUrlChanged,
+    cachedVideos,
+    setVideoPresent,
+  ]);
 
   // Reload the video player when a new video is selected
   useEffect(() => {
@@ -170,6 +186,17 @@ export const VideoPlayer = ({
       }
     };
   }, [videoUrl]);
+
+  if (loading) {
+    return (
+      <div className="video-player-container">
+        <div className="loading-container">
+          <p className="loading-text">Loading video</p>
+          <l-dot-stream size="32" speed="2.5" color={Colors.foreground} />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="video-player-container">

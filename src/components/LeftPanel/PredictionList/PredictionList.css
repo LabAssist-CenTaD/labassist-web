@@ -25,9 +25,7 @@
   line-height: normal;
   color: var(--Foreground, #c9e8ff);
   height: 36px;
-}
-
-.prediction-list .loading {
+  
   display: flex;
   align-items: center;
   flex-direction: row;
