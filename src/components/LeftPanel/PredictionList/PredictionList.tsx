@@ -58,9 +58,9 @@ export const PredictionList = (): JSX.Element => {
 
   const filteredFileData = fileData.filter((file) => {
     const isQueued = file.status_list.includes("queued");
-    const matchesLabels =
-      activeLabels.length === 0 ||
-      activeLabels.some((label) => file.status_list.includes(label));
+    const matchesLabels = activeLabels.some((label) =>
+      file.status_list.includes(label)
+    );
     const fileNameWithoutExtension = file.file_name
       .replace(/\.(mp4|mov|avi)$/, "")
       .toLowerCase();

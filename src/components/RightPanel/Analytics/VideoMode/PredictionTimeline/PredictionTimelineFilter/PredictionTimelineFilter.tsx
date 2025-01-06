@@ -23,13 +23,12 @@ export const PredictionTimelineFilter = ({
     isActive: boolean
   ) => {
     setActiveLabels((prev) => {
-      if (isActive) {
-        // Add the label to the active list if it's not already there
-        return [...prev, label];
-      } else {
-        // Remove the label from the active list
-        return prev.filter((l) => l !== label);
+      if (prev.length === 3) {
+        return [label];
+      } else if (prev.length === 1 && prev.includes(label)) {
+        return ["info", "warning", "error"];
       }
+      return isActive ? [...prev, label] : prev.filter((l) => l !== label);
     });
   };
 
