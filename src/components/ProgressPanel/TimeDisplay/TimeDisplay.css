@@ -7,6 +7,7 @@
   gap: 8px;
   border-radius: 8px;
   background: var(--Foreground, #c9e8ff);
+  width: 144px;
 
   color: var(--Background, #00171f);
   font-family: Aeonik;
