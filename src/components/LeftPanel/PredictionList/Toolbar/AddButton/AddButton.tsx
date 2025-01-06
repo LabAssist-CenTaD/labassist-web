@@ -45,9 +45,8 @@ export const AddButton = (): JSX.Element => {
             `${config.connection_address}/upload`,
             formData
           );
-          if (config.debug_level === 1) {
+          if (config.debug_level === 1)
             console.log(`Response for ${file.name}:`, response.data.message);
-          }
 
           if (response.data.message === "Video uploaded successfully") {
             // Add the video to the cache
@@ -57,9 +56,8 @@ export const AddButton = (): JSX.Element => {
               .replace(/[()]/g, "");
             videoBufferCache.addVideo(fileName, videoBlob);
 
-            if (config.debug_level === 1) {
+            if (config.debug_level === 1)
               console.log(`Video ${fileName} added to VBCache.`);
-            }
           }
         } catch (error) {
           if (config.debug_errors)

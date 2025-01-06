@@ -16,9 +16,8 @@ export const SelectButton = ({
   // Handle click event
   const handleClick = () => {
     onToggle(); // Call onToggle to update state in parent
-    if (config.debug_level === 1) {
+    if (config.debug_level === 1)
       console.log("Select button clicked, state is now: ", !isInSelectMode);
-    }
   };
 
   return (

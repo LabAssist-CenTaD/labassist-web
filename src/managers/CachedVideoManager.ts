@@ -27,9 +27,9 @@ export class CachedVideoManager {
 
   // Get the current list of cached videos
   public getCachedVideos(): CachedVideo[] {
-    if (config.debug_level === 2) {
+    if (config.debug_level === 2) 
       console.log("GET cached videos:", this.cachedVideos);
-    }
+    
     return this.cachedVideos;
   }
 
@@ -41,9 +41,9 @@ export class CachedVideoManager {
   }): void {
     // Use a new array reference to trigger re-rendering
     this.cachedVideos = [...serverData.cached_videos]; // Ensure it's a new reference
-    if (config.debug_level === 2) {
+    if (config.debug_level === 2) 
       console.log("UPDATE cached videos:", this.cachedVideos);
-    }
+    
 
     if (serverData.message) {
       this.message = serverData.message;
@@ -83,16 +83,16 @@ export class CachedVideoManager {
         device_id: getOrCreateDeviceId(), // Ensure this is a string
       };
 
-      if (config.debug_level === 2) {
+      if (config.debug_level === 2) 
         console.log("Message sent:", message);
-      }
+      
 
       // Emit the patch to the backend
       if (this.socket) {
         this.socket.emit("patch_backend", message);
-        if (config.debug_level === 1) {
+        if (config.debug_level === 1) 
           console.log("Patch emitted:", patch);
-        }
+        
       } else {
         if (config.debug_warnings)
           console.warn("Socket not initialised, patch not sent.");

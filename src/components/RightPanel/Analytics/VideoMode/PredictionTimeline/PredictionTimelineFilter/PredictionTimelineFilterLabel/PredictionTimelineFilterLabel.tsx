@@ -31,14 +31,13 @@ export const PredictionTimelineFilterLabel = ({
   const handleClick = () => {
     onToggle(label, !isActive); // Call the parent's onToggle function
 
-    if (config.debug_level === 2) {
+    if (config.debug_level === 2)
       console.log(
         "Filter label (",
         label,
         ") clicked, state is now: ",
         !isActive
       );
-    }
   };
 
   return (

@@ -41,34 +41,33 @@ export const VideoPlayer = ({
     }
 
     if (selectedFile?.fileName) {
-      if (config.debug_level === 1) {
+      if (config.debug_level === 1)
         console.log(
           `Checking if ${selectedFile.fileName} is cached:`,
           videoBufferCache.isCached(selectedFile.fileName)
         );
-      }
 
       if (videoBufferCache.isCached(selectedFile.fileName)) {
         const videoBlob = videoBufferCache.getVideo(selectedFile.fileName);
-        if (config.debug_level === 2) {
+        if (config.debug_level === 2) 
           console.log(`Video ${selectedFile.fileName} found in the VBCache.`);
-        }
+        
 
         if (videoBlob) {
-          if (config.debug_level === 2) {
+          if (config.debug_level === 2) 
             console.log(
               `Blob for ${selectedFile.fileName} found. Creating object URL...`
             );
-          }
+          
           const url = URL.createObjectURL(videoBlob);
           setVideoUrl(url);
           videoUrlChanged(url); // Notify parent about the new video URL
         }
       } else {
         // If the video is not cached, clear the videoUrl
-        if (config.debug_level === 2) {
+        if (config.debug_level === 2) 
           console.log(`${selectedFile.fileName} not cached yet.`);
-        }
+        
         setVideoUrl("");
         videoUrlChanged(null); // Notify parent that no video is present
       }
@@ -78,9 +77,9 @@ export const VideoPlayer = ({
   // Reload the video player when a new video is selected
   useEffect(() => {
     if (videoPlayerRef.current && videoUrl) {
-      if (config.debug_level === 2) {
+      if (config.debug_level === 2) 
         console.log("Reloading video player...");
-      }
+      
       videoPlayerRef.current.load();
     }
   }, [videoUrl]);

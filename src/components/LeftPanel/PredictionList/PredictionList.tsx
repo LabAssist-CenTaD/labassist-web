@@ -107,7 +107,8 @@ export const PredictionList = (): JSX.Element => {
 
         if (response.data?.message === "Video deleted successfully") {
           videoCache.removeVideo(fileName);
-          console.log(`Video ${fileName} deleted from cache.`);
+          if (config.debug_level === 1)
+            console.log(`Video ${fileName} deleted from cache.`);
         }
       } catch (error) {
         if (config.debug_errors) console.error("Error deleting video:", error);
@@ -142,9 +143,11 @@ export const PredictionList = (): JSX.Element => {
       if (file) {
         const url = `${config.connection_address}/process_video/${fileName}?device_id=${deviceId}`;
         try {
-          console.log(`Processing video: ${fileName}`);
+          if (config.debug_level === 1)
+            console.log(`Processing video: ${fileName}`);
           const response = await axios.get(url);
-          console.log("Prediction response:", response.data);
+          if (config.debug_level === 1)
+            console.log("Prediction response:", response.data);
         } catch (error) {
           if (config.debug_errors)
             console.error("Error predicting video:", error);

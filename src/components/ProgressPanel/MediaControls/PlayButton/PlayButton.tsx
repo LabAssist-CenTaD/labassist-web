@@ -14,11 +14,11 @@ export const PlayButton = (): JSX.Element => {
   const handlePlay = () => {
     togglePlay(); // Toggle play/pause when clicked
   };
-  if (config.debug_level === 2) {
+  if (config.debug_level === 2)
     console.log(
       `Selected file received by PlayButton: ${selectedFile.fileName}`
     );
-  }
+
   return (
     <button
       className="play-button"

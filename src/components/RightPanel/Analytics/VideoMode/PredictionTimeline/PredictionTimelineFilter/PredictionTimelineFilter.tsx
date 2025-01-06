@@ -32,10 +32,9 @@ export const PredictionTimelineFilter = ({
       }
     });
   };
-  
-  if (config.debug_level === 2) {
+
+  if (config.debug_level === 2)
     console.log("PredictionTimelineFilter activeLabels: ", activeLabels);
-  }
 
   return (
     <div className="prediciton-filter">

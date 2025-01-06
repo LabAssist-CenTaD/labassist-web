@@ -15,26 +15,25 @@ export const RemoveButton = ({ fileName }: RemoveButtonProps): JSX.Element => {
   const videoCache = VideoBufferCache.getInstance();
 
   const handleClick = async () => {
-    console.log("Remove button clicked, removing ", fileName);
+    if (config.debug_level === 1)
+      console.log("Remove button clicked, removing ", fileName);
 
     const url = `${config.connection_address}/delete/${fileName}?device_id=${deviceId}`;
 
     try {
       const response = await axios.get(url); // Send a GET request with axios
-      if (config.debug_level === 1) {
+      if (config.debug_level === 1)
         console.log("Delete video response:", response.data);
-      }
 
       if (response.data?.message === "Video deleted successfully") {
         videoCache.removeVideo(fileName);
 
-        if (config.debug_level === 2) {
+        if (config.debug_level === 2)
           console.log(
             `Checking if ${fileName} is cached: ${videoCache.isCached(
               fileName
             )}`
           );
-        }
       }
     } catch (error) {
       if (config.debug_errors) console.error("Error removing video:", error);

@@ -39,9 +39,8 @@ export const ProgressPanel = (): JSX.Element => {
   const handleScrubStart = () => startScrubbing();
   const handleScrub = (seconds: number) => {
     setScrubTargetSeconds(seconds);
-    if (config.debug_level === 2) {
+    if (config.debug_level === 2)
       console.log(`PlaybackContext: Scrub target seconds = ${seconds}`);
-    }
   };
   const handleScrubEnd = (seconds: number) => {
     setScrubTargetSeconds(seconds);
