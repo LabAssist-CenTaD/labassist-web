@@ -28,9 +28,11 @@ export const VideoPlayer = ({
     isPlaying,
     isScrubbing,
     scrubTargetSeconds,
+    seekSeconds,
     setCurrentSeconds,
     setPlaybackState,
     setIsVideoLoading,
+    setSeekSeconds,
   } = usePlaybackContext();
 
   const videoBufferCache = VideoBufferCache.getInstance();
@@ -141,6 +143,17 @@ export const VideoPlayer = ({
       videoPlayerRef.current.load();
     }
   }, [videoUrl]);
+
+  useEffect(() => {
+    if (videoPlayerRef.current) {
+      if (config.debug_level === 1)
+        console.log("Seeking to", seekSeconds, "seconds");
+      if (seekSeconds) {
+        videoPlayerRef.current.currentTime = seekSeconds;
+        setSeekSeconds(null);
+      }
+    }
+  }, [seekSeconds, setSeekSeconds]);
 
   useEffect(() => {
     if (videoPlayerRef.current) {

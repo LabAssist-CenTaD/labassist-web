@@ -10,6 +10,7 @@ interface PlaybackContextType {
   isScrubbing: boolean;
   scrubTargetSeconds: number | null;
   isVideoLoading: boolean;
+  seekSeconds: number | null;
   setCurrentSeconds: (currentSeconds: number) => void;
   setPlaybackState: (state: {
     currentSeconds: number;
@@ -23,6 +24,7 @@ interface PlaybackContextType {
   stopScrubbing: () => void;
   setScrubTargetSeconds: (seconds: number) => void;
   setIsVideoLoading: (isLoading: boolean) => void;
+  setSeekSeconds: (seconds: number | null) => void;
 }
 
 // Create the context
@@ -31,20 +33,28 @@ const PlaybackContext = createContext<PlaybackContextType | null>(null);
 // Provider component
 export const PlaybackProvider = ({ children }: { children: ReactNode }) => {
   const { selectedFile } = useSelectedFileContext(); // Access selected file from context
+
+  const [isVideoLoading, setIsVideoLoading] = useState(false);
+
   const [currentSeconds, setCurrentSecondsState] = useState(0);
   const [durationSeconds, setDurationSeconds] = useState(0);
+
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isScrubbing, setIsScrubbing] = useState(false); // Tracks if the user is scrubbing
+
+  const [isScrubbing, setIsScrubbing] = useState(false);
   const [scrubTargetSeconds, setScrubTargetSecondsState] = useState<
     number | null
   >(null); // Target time during scrubbing
-  const [isVideoLoading, setIsVideoLoading] = useState(false); // Tracks video loading state
+
+  const [seekSeconds, setSeekSeconds] = useState<number | null>(0);
 
   // Reset playback when the selected video changes
   useEffect(() => {
     if (selectedFile.fileName) {
-      setCurrentSeconds(0);
-      setIsPlaying(false); // Optionally pause playback when changing files
+      // setDurationSeconds(0);
+      // setCurrentSeconds(0);
+      setIsPlaying(false);
+      setSeekSeconds(0);
     }
   }, [selectedFile]);
 
@@ -110,6 +120,7 @@ export const PlaybackProvider = ({ children }: { children: ReactNode }) => {
         isScrubbing,
         scrubTargetSeconds,
         isVideoLoading,
+        seekSeconds,
         setCurrentSeconds,
         setPlaybackState,
         play,
@@ -119,6 +130,7 @@ export const PlaybackProvider = ({ children }: { children: ReactNode }) => {
         stopScrubbing,
         setScrubTargetSeconds,
         setIsVideoLoading,
+        setSeekSeconds,
       }}
     >
       {children}

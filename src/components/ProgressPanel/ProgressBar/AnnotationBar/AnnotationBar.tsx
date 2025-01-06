@@ -1,6 +1,7 @@
 import "./AnnotationBar.css";
 import { Annotation } from "../../../../types/jsondata";
 import { formatTimeMMSS } from "../../../../utils/timeUtils";
+import { usePlaybackContext } from "../../../../hooks/usePlaybackContext";
 
 interface AnnotationBarProps {
   annotations: Annotation[];
@@ -13,6 +14,8 @@ export const AnnotationBar = ({
   currentSeconds,
   durationSeconds,
 }: AnnotationBarProps): JSX.Element => {
+  const { setSeekSeconds } = usePlaybackContext();
+
   // Calculate the position and width of each annotation
   const calculateStyle = (start: number, end: number): React.CSSProperties => {
     const left = (start / durationSeconds) * 100; // Percentage based on start time
@@ -31,6 +34,9 @@ export const AnnotationBar = ({
     (annotation) => annotation.type === "error"
   );
 
+  const handleClick = (seconds: number) => {
+    setSeekSeconds(seconds);
+  };
   return (
     <div className="annotation-bar">
       <div
@@ -52,6 +58,7 @@ export const AnnotationBar = ({
           )} - ${formatTimeMMSS(annotation.end_seconds)}: ${
             annotation.message
           }`}
+          onClick={() => handleClick(annotation.start_seconds)}
         />
       ))}
 
@@ -69,6 +76,7 @@ export const AnnotationBar = ({
           )} - ${formatTimeMMSS(annotation.end_seconds)}: ${
             annotation.message
           }`}
+          onClick={() => handleClick(annotation.start_seconds)}
         />
       ))}
     </div>
