@@ -6,6 +6,8 @@ interface PlaybackContextType {
   currentSeconds: number;
   durationSeconds: number;
   isPlaying: boolean;
+  isScrubbing: boolean;
+  scrubTargetSeconds: number | null;
   setCurrentSeconds: (currentSeconds: number) => void;
   setPlaybackState: (state: {
     currentSeconds: number;
@@ -15,6 +17,9 @@ interface PlaybackContextType {
   play: () => void;
   pause: () => void;
   togglePlay: () => void;
+  startScrubbing: () => void;
+  stopScrubbing: () => void;
+  setScrubTargetSeconds: (seconds: number) => void;
 }
 
 // Create the context
@@ -26,6 +31,10 @@ export const PlaybackProvider = ({ children }: { children: ReactNode }) => {
   const [currentSeconds, setCurrentSecondsState] = useState(0);
   const [durationSeconds, setDurationSeconds] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isScrubbing, setIsScrubbing] = useState(false); // Tracks if the user is scrubbing
+  const [scrubTargetSeconds, setScrubTargetSecondsState] = useState<
+    number | null
+  >(null); // Target time during scrubbing
 
   // Reset playback when the selected video changes
   useEffect(() => {
@@ -68,17 +77,38 @@ export const PlaybackProvider = ({ children }: { children: ReactNode }) => {
     setIsPlaying((prev) => !prev);
   };
 
+  // Start scrubbing
+  const startScrubbing = () => {
+    setIsScrubbing(true);
+  };
+
+  // Stop scrubbing
+  const stopScrubbing = () => {
+    setIsScrubbing(false);
+    setScrubTargetSecondsState(null); // Reset scrub target when scrubbing ends
+  };
+
+  // Update the scrub target seconds
+  const setScrubTargetSeconds = (seconds: number) => {
+    setScrubTargetSecondsState(seconds);
+  };
+
   return (
     <PlaybackContext.Provider
       value={{
         currentSeconds,
         durationSeconds,
         isPlaying,
+        isScrubbing,
+        scrubTargetSeconds,
         setCurrentSeconds,
         setPlaybackState,
         play,
         pause,
         togglePlay,
+        startScrubbing,
+        stopScrubbing,
+        setScrubTargetSeconds,
       }}
     >
       {children}
