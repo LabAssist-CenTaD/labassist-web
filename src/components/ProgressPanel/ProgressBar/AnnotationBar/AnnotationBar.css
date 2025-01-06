@@ -19,6 +19,17 @@
   transition: all 0.3s;
 }
 
+.progress-filter {
+  height: 8px;
+  position: absolute;
+  background-color: var(--Foreground, #003b4d);
+  opacity: 0.1;
+  border-radius: 4px;
+  transition: all 0.3s;
+  z-index: 1;
+  pointer-events: none;
+}
+
 .annotation:hover {
   cursor: pointer;
   filter: brightness(0.85);

@@ -33,6 +33,11 @@ export const AnnotationBar = ({
 
   return (
     <div className="annotation-bar">
+      <div
+        className="progress-filter"
+        style={{ width: `${(currentSeconds / durationSeconds) * 100}%` }}
+      ></div>
+
       {/* Render warnings */}
       {warnings.map((annotation) => (
         <button
