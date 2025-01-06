@@ -3,6 +3,7 @@ import "./TimelineEntry.css";
 import { Annotation } from "../../../../../../../types/jsondata";
 import { TimestampLabel } from "./TimestampLabel/TimestampLabel";
 import { formatTimeMMSS } from "../../../../../../../utils/timeUtils";
+import { usePlaybackContext } from "../../../../../../../hooks/usePlaybackContext";
 
 interface TimelineEntryProps {
   type: "info" | "warning" | "error";
@@ -23,6 +24,12 @@ export const TimelineEntry = ({
   highlighted,
   highlightedTimelineAnnotation,
 }: TimelineEntryProps) => {
+  const { setSeekSeconds, isVideoLoading } = usePlaybackContext();
+
+  const handleClick = (seconds: number) => {
+    if (!isVideoLoading) setSeekSeconds(seconds);
+  };
+
   const generateHighlightClassOnHover = () => {
     if (highlightedTimelineAnnotation) {
       if (highlighted) {
@@ -44,7 +51,10 @@ export const TimelineEntry = ({
   };
 
   return (
-    <div className={`timeline-entry ${generateHighlightClassOnHover()}`}>
+    <div
+      className={`timeline-entry ${generateHighlightClassOnHover()}`}
+      onClick={() => handleClick(start_seconds)}
+    >
       <TimestampLabel
         timestamp={formatTimeMMSS(start_seconds)}
         type={type}

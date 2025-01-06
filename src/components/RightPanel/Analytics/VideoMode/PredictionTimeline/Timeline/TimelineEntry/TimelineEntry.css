@@ -6,6 +6,7 @@
   height: fit-content;
   max-width: 100%;
   transition: all 0.3s;
+  cursor: pointer;
 }
 
 .timeline-entry.hover-dimmed {
