@@ -19,6 +19,7 @@ export const AnnotationBar = ({
   const { setSeekSeconds } = usePlaybackContext();
   const { highlightedBarAnnotation, setHighlightedTimelineAnnotation } =
     useAnnotationHighlightContext();
+  const { isVideoLoading } = usePlaybackContext();
 
   // Calculate the position and width of each annotation
   const calculateStyle = (start: number, end: number): React.CSSProperties => {
@@ -43,7 +44,6 @@ export const AnnotationBar = ({
   };
 
   const generateHighlightClassOnHover = (annotation: Annotation) => {
-    console.log(annotation === highlightedBarAnnotation);
     if (highlightedBarAnnotation) {
       if (annotation === highlightedBarAnnotation) {
         return "";
@@ -55,13 +55,17 @@ export const AnnotationBar = ({
     }
   };
 
+  if (isVideoLoading) {
+    return <div className="annotation-bar" />;
+  }
+
   return (
     <div className="annotation-bar">
       <div
         className="progress-filter"
         style={{ width: `${(currentSeconds / durationSeconds) * 100}%` }}
       ></div>
-
+      
       {/* Render warnings */}
       {warnings.map((annotation) => (
         <button
@@ -79,7 +83,9 @@ export const AnnotationBar = ({
             annotation.message
           }`}
           onClick={() => handleClick(annotation.start_seconds)}
-          onMouseEnter={() => {setHighlightedTimelineAnnotation(annotation)}}
+          onMouseEnter={() => {
+            setHighlightedTimelineAnnotation(annotation);
+          }}
           onMouseLeave={() => setHighlightedTimelineAnnotation(null)}
         />
       ))}
