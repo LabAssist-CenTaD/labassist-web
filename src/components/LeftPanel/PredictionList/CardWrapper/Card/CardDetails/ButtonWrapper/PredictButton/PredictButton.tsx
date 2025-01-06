@@ -78,7 +78,7 @@ export const PredictButton = ({
 
         // Ensure "queued" replaces the first tag, even if it's not exactly "uploaded"
         cachedVideoManager.updateStatusList(fileName, updatedStatusList);
-        
+
         if (config.debug_level === 2) {
           console.log("Patch emitted for status update.");
         }
@@ -88,7 +88,8 @@ export const PredictButton = ({
         const response = await axios.get(url);
         console.log("Process video response:", response.data);
       } catch (error) {
-        console.error("Error processing video or updating status:", error);
+        if (config.debug_errors)
+          console.error("Error processing video or updating status:", error);
       } finally {
         setLoading(false);
       }

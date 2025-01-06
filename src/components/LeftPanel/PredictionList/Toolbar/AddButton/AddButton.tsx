@@ -56,13 +56,14 @@ export const AddButton = (): JSX.Element => {
               .replace(/\s+/g, "_")
               .replace(/[()]/g, "");
             videoBufferCache.addVideo(fileName, videoBlob);
-            
+
             if (config.debug_level === 1) {
               console.log(`Video ${fileName} added to VBCache.`);
             }
           }
         } catch (error) {
-          console.error(`Error uploading ${file.name}:`, error);
+          if (config.debug_errors)
+            console.error(`Error uploading ${file.name}:`, error);
           alert(`Error uploading ${file.name}. Please try again.`);
         }
 

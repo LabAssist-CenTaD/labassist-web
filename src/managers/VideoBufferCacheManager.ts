@@ -20,7 +20,7 @@ export class VideoBufferCache {
   // Add a video to the cache
   public addVideo(fileName: string, videoBlob: Blob): void {
     if (!fileName || !videoBlob) {
-      console.error("Invalid file name or video blob");
+      if (config.debug_errors) console.error("Invalid file name or video blob");
       return;
     }
 
@@ -40,7 +40,8 @@ export class VideoBufferCache {
           );
         }
       } else {
-        console.error("Failed to get the oldest key in the VBCache.");
+        if (config.debug_errors)
+          console.error("Failed to get the oldest key in the VBCache.");
       }
     } else {
       if (config.debug_level === 1) {
@@ -58,7 +59,8 @@ export class VideoBufferCache {
     if (this.cache.has(fileName)) {
       return this.cache.get(fileName) || null;
     } else {
-      console.warn(`Video ${fileName} not found in the VBCache.`);
+      if (config.debug_warnings)
+        console.warn(`Video ${fileName} not found in the VBCache.`);
       return null;
     }
   }
@@ -76,9 +78,10 @@ export class VideoBufferCache {
         console.log(`Video ${fileName} removed from the VBCache.`);
       }
     } else {
-      console.warn(
-        `Attempted to remove ${fileName}, but it does not exist in the VBCache.`
-      );
+      if (config.debug_warnings)
+        console.warn(
+          `Attempted to remove ${fileName}, but it does not exist in the VBCache.`
+        );
     }
   }
 }

@@ -94,10 +94,12 @@ export class CachedVideoManager {
           console.log("Patch emitted:", patch);
         }
       } else {
-        console.warn("Socket not initialised, patch not sent.");
+        if (config.debug_warnings)
+          console.warn("Socket not initialised, patch not sent.");
       }
     } else {
-      console.warn(`Video with fileName "${fileName}" not found.`);
+      if (config.debug_warnings)
+        console.warn(`Video with fileName "${fileName}" not found.`);
     }
   }
 }

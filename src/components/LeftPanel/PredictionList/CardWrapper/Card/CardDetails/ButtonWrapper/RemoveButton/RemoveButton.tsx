@@ -37,7 +37,7 @@ export const RemoveButton = ({ fileName }: RemoveButtonProps): JSX.Element => {
         }
       }
     } catch (error) {
-      console.error("Error removing video:", error);
+      if (config.debug_errors) console.error("Error removing video:", error);
     }
   };
 

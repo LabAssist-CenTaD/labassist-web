@@ -110,7 +110,7 @@ export const PredictionList = (): JSX.Element => {
           console.log(`Video ${fileName} deleted from cache.`);
         }
       } catch (error) {
-        console.error("Error deleting video:", error);
+        if (config.debug_errors) console.error("Error deleting video:", error);
       }
     }
 
@@ -146,7 +146,8 @@ export const PredictionList = (): JSX.Element => {
           const response = await axios.get(url);
           console.log("Prediction response:", response.data);
         } catch (error) {
-          console.error("Error predicting video:", error);
+          if (config.debug_errors)
+            console.error("Error predicting video:", error);
         }
       }
     }

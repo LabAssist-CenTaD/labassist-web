@@ -144,7 +144,9 @@ export const VideoPlayer = ({
           ref={videoPlayerRef}
           className="video-player"
           controls
-          onError={(e) => console.error("Video playback error:", e)}
+          onError={(e) => {
+            if (config.debug_errors) console.error("Video playback error:", e);
+          }}
           // autoPlay
         >
           <>
