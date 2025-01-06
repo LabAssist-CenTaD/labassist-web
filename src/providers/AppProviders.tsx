@@ -3,6 +3,7 @@ import { CachedVideoProvider } from "./CachedVideoContext";
 import { SelectedFileProvider } from "./SelectedFileContext";
 import { SelectedFilesProvider } from "./SelectedFilesContext";
 import { PlaybackProvider } from "./PlaybackContext";
+import { AnnotationHighlightProvider } from "./AnnotationHighlightContext";
 
 interface AppProvidersProps {
   children: ReactNode;
@@ -13,7 +14,11 @@ const AppProviders = ({ children }: AppProvidersProps): JSX.Element => {
     <CachedVideoProvider>
       <SelectedFileProvider>
         <SelectedFilesProvider>
-          <PlaybackProvider>{children}</PlaybackProvider>
+          <PlaybackProvider>
+            <AnnotationHighlightProvider>
+              {children}
+            </AnnotationHighlightProvider>
+          </PlaybackProvider>
         </SelectedFilesProvider>
       </SelectedFileProvider>
     </CachedVideoProvider>

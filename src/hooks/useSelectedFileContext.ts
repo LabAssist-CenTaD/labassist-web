@@ -6,7 +6,7 @@ export const useSelectedFileContext = () => {
   const context = useContext(SelectedFileContext);
   if (!context) {
     throw new Error(
-      "useSelectedFile must be used within a SelectedFileProvider"
+      "useSelectedFileContext must be used within a SelectedFileProvider"
     );
   }
   return context;
