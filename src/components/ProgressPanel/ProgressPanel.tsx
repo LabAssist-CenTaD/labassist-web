@@ -51,7 +51,10 @@ export const ProgressPanel = (): JSX.Element => {
 
   if (isVideoLoading) {
     <div className="progress-panel">
-      <MediaControls />
+      <MediaControls
+        annotations={annotations}
+        currentSeconds={Math.round(currentSeconds)}
+      />
       <ProgressBar
         annotations={[]}
         currentSeconds={0}
@@ -70,7 +73,10 @@ export const ProgressPanel = (): JSX.Element => {
 
   return (
     <div className="progress-panel">
-      <MediaControls />
+      <MediaControls
+        annotations={annotations}
+        currentSeconds={Math.round(currentSeconds)}
+      />
       <ProgressBar
         annotations={annotations}
         currentSeconds={Math.round(currentSeconds)} // Live current time from context
