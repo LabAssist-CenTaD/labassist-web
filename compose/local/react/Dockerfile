@@ -1,5 +1,9 @@
 FROM node:18-alpine
 
+ARG VITE_API_ENDPOINT
+
+ENV VITE_API_ENDPOINT=${VITE_API_ENDPOINT}
+
 WORKDIR /app
 
 COPY package.json .
