@@ -6,11 +6,16 @@
   width: 100%;
   border-radius: 4px;
   background: var(--Blue-2, #002139);
+  cursor: pointer;
 }
 
 .time-bar-current {
   height: 8px;
   border-radius: 4px;
   background: var(--Blue-1, #007aff);
-  transition: width 0.3s ease ;
+  transition: width 0.3s ease;
+}
+
+.time-bar-duration.scrubbing {
+  cursor: grabbing;
 }

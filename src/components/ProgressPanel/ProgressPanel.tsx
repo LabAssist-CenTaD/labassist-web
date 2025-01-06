@@ -12,7 +12,13 @@ import { Annotation } from "../../types/jsondata";
 export const ProgressPanel = (): JSX.Element => {
   const { cachedVideos } = useCachedVideoContext();
   const { selectedFile } = useSelectedFileContext();
-  const { currentSeconds, durationSeconds } = usePlaybackContext(); // Access playback state
+  const {
+    currentSeconds,
+    durationSeconds,
+    startScrubbing,
+    stopScrubbing,
+    setScrubTargetSeconds,
+  } = usePlaybackContext(); // Access playback state
 
   const [annotations, setAnnotations] = useState<Annotation[]>([]);
 
@@ -29,6 +35,16 @@ export const ProgressPanel = (): JSX.Element => {
     }
   }, [selectedFile, cachedVideos]); // Dependency array ensures update when these values change
 
+  const handleScrubStart = () => startScrubbing();
+  const handleScrub = (seconds: number) => {
+    setScrubTargetSeconds(seconds);
+    console.log(`PlaybackContext: Scrub target seconds = ${seconds}`);
+  };
+  const handleScrubEnd = (seconds: number) => {
+    setScrubTargetSeconds(seconds);
+    stopScrubbing();
+  };
+
   return (
     <div className="progress-panel">
       <MediaControls />
@@ -36,10 +52,13 @@ export const ProgressPanel = (): JSX.Element => {
         annotations={annotations}
         currentSeconds={Math.round(currentSeconds)} // Live current time from context
         durationSeconds={Math.round(durationSeconds)} // Live duration from context
+        onScrubStart={handleScrubStart}
+        onScrub={handleScrub}
+        onScrubEnd={handleScrubEnd}
       />
       <TimeDisplay
-        currentSeconds={Math.round(currentSeconds)} // Live current time from context
-        durationSeconds={Math.round(durationSeconds)} // Live duration from context
+        currentSeconds={Math.round(currentSeconds)} // Show live or scrubbed time
+        durationSeconds={Math.round(durationSeconds)}
       />
     </div>
   );

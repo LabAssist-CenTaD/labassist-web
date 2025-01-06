@@ -13,7 +13,7 @@ export const PlayButton = (): JSX.Element => {
   const handlePlay = () => {
     togglePlay(); // Toggle play/pause when clicked
   };
-  console.log(selectedFile);
+  // console.log(selectedFile);
   return (
     <button
       className="play-button"
