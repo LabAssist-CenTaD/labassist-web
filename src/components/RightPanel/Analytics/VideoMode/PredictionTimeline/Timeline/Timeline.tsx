@@ -10,6 +10,7 @@ import { useSelectedFileContext } from "../../../../../../hooks/useSelectedFileC
 import { useCachedVideoContext } from "../../../../../../hooks/useCachedVideoContext";
 import { Annotation } from "../../../../../../types/jsondata";
 import { formatTimeMMSS } from "../../../../../../utils/timeUtils";
+import { useAnnotationHighlightContext } from "../../../../../../hooks/useAnnotationHighlightContext";
 
 interface TimelineProps {
   activeLabels: string[]; // Receive active labels
@@ -18,6 +19,7 @@ interface TimelineProps {
 export const Timeline = ({ activeLabels }: TimelineProps): JSX.Element => {
   const { selectedFile } = useSelectedFileContext();
   const { cachedVideos } = useCachedVideoContext(); // Access cached video data
+  const { highlightedTimelineAnnotation } = useAnnotationHighlightContext();
 
   const [annotations, setAnnotations] = useState<Annotation[]>([]);
 
@@ -57,6 +59,8 @@ export const Timeline = ({ activeLabels }: TimelineProps): JSX.Element => {
             type={entry.type}
             timestamp={formatTimeMMSS(entry.start_seconds)}
             message={entry.message}
+            highlighted={highlightedTimelineAnnotation === entry}
+            highlightedTimelineAnnotation={highlightedTimelineAnnotation}
           />
           {/* Add timeline separator for every entry except last one */}
           {index < filteredAnnotations.length - 1 && (

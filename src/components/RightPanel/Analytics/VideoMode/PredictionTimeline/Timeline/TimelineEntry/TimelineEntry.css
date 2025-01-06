@@ -5,6 +5,11 @@
   align-self: stretch;
   height: fit-content;
   max-width: 100%;
+  transition: all 0.3s;
+}
+
+.dimmed {
+  opacity: 0.3;
 }
 
 .timeline-entry .message {

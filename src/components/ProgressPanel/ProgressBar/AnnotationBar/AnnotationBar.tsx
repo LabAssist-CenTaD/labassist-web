@@ -2,6 +2,7 @@ import "./AnnotationBar.css";
 import { Annotation } from "../../../../types/jsondata";
 import { formatTimeMMSS } from "../../../../utils/timeUtils";
 import { usePlaybackContext } from "../../../../hooks/usePlaybackContext";
+import { useAnnotationHighlightContext } from "../../../../hooks/useAnnotationHighlightContext";
 
 interface AnnotationBarProps {
   annotations: Annotation[];
@@ -15,6 +16,7 @@ export const AnnotationBar = ({
   durationSeconds,
 }: AnnotationBarProps): JSX.Element => {
   const { setSeekSeconds } = usePlaybackContext();
+  const { setHighlightedTimelineAnnotation } = useAnnotationHighlightContext();
 
   // Calculate the position and width of each annotation
   const calculateStyle = (start: number, end: number): React.CSSProperties => {
@@ -59,6 +61,8 @@ export const AnnotationBar = ({
             annotation.message
           }`}
           onClick={() => handleClick(annotation.start_seconds)}
+          onMouseEnter={() => setHighlightedTimelineAnnotation(annotation)}
+          onMouseLeave={() => setHighlightedTimelineAnnotation(null)}
         />
       ))}
 
@@ -77,6 +81,8 @@ export const AnnotationBar = ({
             annotation.message
           }`}
           onClick={() => handleClick(annotation.start_seconds)}
+          onMouseEnter={() => setHighlightedTimelineAnnotation(annotation)}
+          onMouseLeave={() => setHighlightedTimelineAnnotation(null)}
         />
       ))}
     </div>

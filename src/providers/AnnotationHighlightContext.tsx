@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useState } from "react";
 import { Annotation } from "../types/jsondata";
+import { config } from "../config/config";
 
 interface AnnotationHighlightContextType {
   highlightedTimelineAnnotation: Annotation | null;
@@ -21,6 +22,11 @@ export const AnnotationHighlightProvider = ({
     useState<Annotation | null>(null);
   const [highlightedBarAnnotation, setHighlightedBarAnnotation] =
     useState<Annotation | null>(null);
+
+  if (config.debug_level === 2) {
+    console.log("highlightedTimelineAnnotation", highlightedTimelineAnnotation);
+    console.log("highlightedBarAnnotation", highlightedBarAnnotation);
+  }
 
   return (
     <AnnotationHighlightContext.Provider
