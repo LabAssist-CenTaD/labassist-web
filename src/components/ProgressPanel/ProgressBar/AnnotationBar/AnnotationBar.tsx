@@ -1,4 +1,5 @@
 import "./AnnotationBar.css";
+
 import { Annotation } from "../../../../types/jsondata";
 import { formatTimeMMSS } from "../../../../utils/timeUtils";
 import { usePlaybackContext } from "../../../../hooks/usePlaybackContext";
@@ -16,7 +17,8 @@ export const AnnotationBar = ({
   durationSeconds,
 }: AnnotationBarProps): JSX.Element => {
   const { setSeekSeconds } = usePlaybackContext();
-  const { setHighlightedTimelineAnnotation } = useAnnotationHighlightContext();
+  const { highlightedBarAnnotation, setHighlightedTimelineAnnotation } =
+    useAnnotationHighlightContext();
 
   // Calculate the position and width of each annotation
   const calculateStyle = (start: number, end: number): React.CSSProperties => {
@@ -39,6 +41,20 @@ export const AnnotationBar = ({
   const handleClick = (seconds: number) => {
     setSeekSeconds(seconds);
   };
+
+  const generateHighlightClassOnHover = (annotation: Annotation) => {
+    console.log(annotation === highlightedBarAnnotation);
+    if (highlightedBarAnnotation) {
+      if (annotation === highlightedBarAnnotation) {
+        return "";
+      } else {
+        return "hover-dimmed";
+      }
+    } else {
+      return "";
+    }
+  };
+
   return (
     <div className="annotation-bar">
       <div
@@ -50,7 +66,9 @@ export const AnnotationBar = ({
       {warnings.map((annotation) => (
         <button
           key={`warning-${annotation.start_seconds}-${annotation.end_seconds}`}
-          className="annotation warning"
+          className={`annotation warning ${generateHighlightClassOnHover(
+            annotation
+          )}`}
           style={calculateStyle(
             annotation.start_seconds,
             annotation.end_seconds
@@ -61,7 +79,7 @@ export const AnnotationBar = ({
             annotation.message
           }`}
           onClick={() => handleClick(annotation.start_seconds)}
-          onMouseEnter={() => setHighlightedTimelineAnnotation(annotation)}
+          onMouseEnter={() => {setHighlightedTimelineAnnotation(annotation)}}
           onMouseLeave={() => setHighlightedTimelineAnnotation(null)}
         />
       ))}
@@ -70,7 +88,9 @@ export const AnnotationBar = ({
       {errors.map((annotation) => (
         <button
           key={`error-${annotation.start_seconds}-${annotation.end_seconds}`}
-          className="annotation error"
+          className={`annotation error ${generateHighlightClassOnHover(
+            annotation
+          )}`}
           style={calculateStyle(
             annotation.start_seconds,
             annotation.end_seconds

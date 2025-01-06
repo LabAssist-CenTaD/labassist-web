@@ -20,7 +20,8 @@ export const Timeline = ({ activeLabels }: TimelineProps): JSX.Element => {
   const { selectedFile } = useSelectedFileContext();
   const { cachedVideos } = useCachedVideoContext(); // Access cached video data
   const { currentSeconds } = usePlaybackContext();
-  const { highlightedTimelineAnnotation } = useAnnotationHighlightContext();
+  const { highlightedTimelineAnnotation, setHighlightedBarAnnotation } =
+    useAnnotationHighlightContext();
 
   const [annotations, setAnnotations] = useState<Annotation[]>([]);
 
@@ -64,6 +65,8 @@ export const Timeline = ({ activeLabels }: TimelineProps): JSX.Element => {
             highlighted={highlightedTimelineAnnotation === annotation}
             highlightedTimelineAnnotation={highlightedTimelineAnnotation}
             currentSeconds={currentSeconds}
+            onMouseEnter={() => setHighlightedBarAnnotation(annotation)}
+            onMouseLeave={() => setHighlightedBarAnnotation(null)}
           />
           {/* Add timeline separator for every entry except last one */}
           {index < filteredAnnotations.length - 1 && (

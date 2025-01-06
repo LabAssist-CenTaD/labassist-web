@@ -147,8 +147,8 @@ export const VideoPlayer = ({
 
   useEffect(() => {
     if (videoPlayerRef.current) {
-      if (config.debug_level === 1)
-        console.log("Seeking to", seekSeconds, "seconds");
+      if (config.debug_level === 2)
+      console.log("Seeking to", seekSeconds, "seconds");
       if (seekSeconds) {
         videoPlayerRef.current.currentTime = seekSeconds;
         setSeekSeconds(null);

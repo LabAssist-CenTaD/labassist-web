@@ -19,6 +19,10 @@
   transition: all 0.3s;
 }
 
+.hover-dimmed {
+  opacity: 0.3;
+}
+
 .progress-filter {
   height: 8px;
   position: absolute;

@@ -7,6 +7,7 @@
   gap: 4px;
   border-radius: 4px;
   background-color: var(--bg-color);
+  transition: all 0.3s ease;
 }
 
 .timestamp-label .timestamp {

@@ -13,6 +13,8 @@ interface TimelineEntryProps {
   message: string;
   highlighted: boolean;
   highlightedTimelineAnnotation: Annotation | null;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
 }
 
 export const TimelineEntry = ({
@@ -23,6 +25,8 @@ export const TimelineEntry = ({
   message,
   highlighted,
   highlightedTimelineAnnotation,
+  onMouseEnter,
+  onMouseLeave,
 }: TimelineEntryProps) => {
   const { setSeekSeconds, isVideoLoading } = usePlaybackContext();
 
@@ -54,6 +58,8 @@ export const TimelineEntry = ({
     <div
       className={`timeline-entry ${generateHighlightClassOnHover()}`}
       onClick={() => handleClick(start_seconds)}
+      onMouseEnter={() => onMouseEnter()}
+      onMouseLeave={() => onMouseLeave()}
     >
       <TimestampLabel
         timestamp={formatTimeMMSS(start_seconds)}
