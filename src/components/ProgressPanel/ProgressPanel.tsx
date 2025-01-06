@@ -54,6 +54,7 @@ export const ProgressPanel = (): JSX.Element => {
       <MediaControls
         annotations={annotations}
         currentSeconds={Math.round(currentSeconds)}
+        durationSeconds={Math.round(durationSeconds)}
       />
       <ProgressBar
         annotations={[]}
@@ -76,6 +77,7 @@ export const ProgressPanel = (): JSX.Element => {
       <MediaControls
         annotations={annotations}
         currentSeconds={Math.round(currentSeconds)}
+        durationSeconds={Math.round(durationSeconds)}
       />
       <ProgressBar
         annotations={annotations}

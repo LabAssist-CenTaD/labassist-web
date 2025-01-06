@@ -7,11 +7,13 @@ import { PreviousNextButton } from "./PreviousNextButton/PreviousNextButton";
 interface MediaControlsProps {
   annotations: Annotation[];
   currentSeconds: number;
+  durationSeconds: number;
 }
 
 export const MediaControls = ({
   annotations,
   currentSeconds,
+  durationSeconds,
 }: MediaControlsProps): JSX.Element => {
   return (
     <div className="media-controls">
@@ -19,12 +21,14 @@ export const MediaControls = ({
         type="previous"
         annotations={annotations}
         currentSeconds={currentSeconds}
+        durationSeconds={durationSeconds}
       />
       <PlayButton />
       <PreviousNextButton
         type="next"
         annotations={annotations}
         currentSeconds={currentSeconds}
+        durationSeconds={durationSeconds}
       />
     </div>
   );
