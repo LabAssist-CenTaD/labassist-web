@@ -9,8 +9,8 @@ import { HorizontalSeperator } from "../../../../../HorizontalSeperator/Horizont
 import { useSelectedFileContext } from "../../../../../../hooks/useSelectedFileContext";
 import { useCachedVideoContext } from "../../../../../../hooks/useCachedVideoContext";
 import { Annotation } from "../../../../../../types/jsondata";
-import { formatTimeMMSS } from "../../../../../../utils/timeUtils";
 import { useAnnotationHighlightContext } from "../../../../../../hooks/useAnnotationHighlightContext";
+import { usePlaybackContext } from "../../../../../../hooks/usePlaybackContext";
 
 interface TimelineProps {
   activeLabels: string[]; // Receive active labels
@@ -19,6 +19,7 @@ interface TimelineProps {
 export const Timeline = ({ activeLabels }: TimelineProps): JSX.Element => {
   const { selectedFile } = useSelectedFileContext();
   const { cachedVideos } = useCachedVideoContext(); // Access cached video data
+  const { currentSeconds } = usePlaybackContext();
   const { highlightedTimelineAnnotation } = useAnnotationHighlightContext();
 
   const [annotations, setAnnotations] = useState<Annotation[]>([]);
@@ -53,14 +54,16 @@ export const Timeline = ({ activeLabels }: TimelineProps): JSX.Element => {
 
   return (
     <div className="timeline">
-      {filteredAnnotations.map((entry, index) => (
+      {filteredAnnotations.map((annotation, index) => (
         <React.Fragment key={index}>
           <TimelineEntry
-            type={entry.type}
-            timestamp={formatTimeMMSS(entry.start_seconds)}
-            message={entry.message}
-            highlighted={highlightedTimelineAnnotation === entry}
+            type={annotation.type}
+            start_seconds={annotation.start_seconds}
+            end_seconds={annotation.end_seconds}
+            message={annotation.message}
+            highlighted={highlightedTimelineAnnotation === annotation}
             highlightedTimelineAnnotation={highlightedTimelineAnnotation}
+            currentSeconds={currentSeconds}
           />
           {/* Add timeline separator for every entry except last one */}
           {index < filteredAnnotations.length - 1 && (

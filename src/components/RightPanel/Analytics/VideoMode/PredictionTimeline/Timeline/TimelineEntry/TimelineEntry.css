@@ -8,8 +8,12 @@
   transition: all 0.3s;
 }
 
-.dimmed {
+.timeline-entry.hover-dimmed {
   opacity: 0.3;
+}
+
+.timeline-entry.playback-dimmed {
+  opacity: 0.7;
 }
 
 .timeline-entry .message {
