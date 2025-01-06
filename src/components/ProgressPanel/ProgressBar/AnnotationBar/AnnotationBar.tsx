@@ -1,5 +1,6 @@
 import "./AnnotationBar.css";
 import { Annotation } from "../../../../types/jsondata";
+import { formatTimeMMSS } from "../../../../utils/timeUtils";
 
 interface AnnotationBarProps {
   annotations: Annotation[];
@@ -41,6 +42,11 @@ export const AnnotationBar = ({
             annotation.start_seconds,
             annotation.end_seconds
           )}
+          title={`${formatTimeMMSS(
+            annotation.start_seconds
+          )} - ${formatTimeMMSS(annotation.end_seconds)}: ${
+            annotation.message
+          }`}
         />
       ))}
 
@@ -53,6 +59,11 @@ export const AnnotationBar = ({
             annotation.start_seconds,
             annotation.end_seconds
           )}
+          title={`${formatTimeMMSS(
+            annotation.start_seconds
+          )} - ${formatTimeMMSS(annotation.end_seconds)}: ${
+            annotation.message
+          }`}
         />
       ))}
     </div>
