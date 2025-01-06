@@ -49,7 +49,8 @@ export const VideoPlayer = ({
           config.connection_address
         }/video/${fileName}?device_id=${getOrCreateDeviceId()}`;
 
-        console.log("Attemping to retrieve file from server, URL:", url);
+        if (config.debug_level === 1)
+           console.log("Attemping to retrieve file from server, URL:", url);
 
         setLoading(true);
         setIsVideoLoading(true);
