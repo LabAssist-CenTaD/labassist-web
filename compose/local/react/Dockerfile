@@ -1,11 +1,8 @@
-FROM node:18-alpine
+# Step 1: Build the React app
+FROM node:18-alpine AS build
 
 ARG VITE_API_ENDPOINT
-
 ENV VITE_API_ENDPOINT=${VITE_API_ENDPOINT}
-
-# print the value of the VITE_API_ENDPOINT
-RUN echo "VITE_API_ENDPOINT: $VITE_API_ENDPOINT"
 
 WORKDIR /app
 
@@ -13,12 +10,31 @@ COPY package.json .
 
 RUN npm install
 
-RUN npm i -g serve
+RUN npm list engine.io-client
 
 COPY . .
 
 RUN npm run build
 
-EXPOSE 3000
+# Step 2: Serve the built files with Nginx
+FROM nginx:latest
 
-CMD [ "serve", "-s", "dist" ]
+# Copy the built files from the previous step
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Copy a custom Nginx configuration if needed
+COPY ./compose/local/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+
+# Expose the port where Nginx will be listening
+EXPOSE 80
+
+# Copy .env file and shell script to container
+WORKDIR /usr/share/nginx/html
+COPY ./compose/local/react/env.sh .
+COPY .env .
+
+# Make our shell script executable
+RUN chmod +x env.sh
+
+# Start Nginx server
+CMD ["/bin/sh", "-c", "/usr/share/nginx/html/env.sh && nginx -g \"daemon off;\""]
