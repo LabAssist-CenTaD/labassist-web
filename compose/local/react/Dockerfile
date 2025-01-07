@@ -4,10 +4,6 @@ FROM node:18-alpine AS build
 ARG VITE_API_ENDPOINT
 ENV VITE_API_ENDPOINT=${VITE_API_ENDPOINT}
 
-ARG VITE_API_ENDPOINT
-
-ENV VITE_API_ENDPOINT=${VITE_API_ENDPOINT}
-
 WORKDIR /app
 
 COPY package.json .
@@ -36,6 +32,9 @@ EXPOSE 80
 WORKDIR /usr/share/nginx/html
 COPY ./compose/local/react/env.sh .
 COPY .env .
+
+# Ensure fonts are available
+RUN chmod 644 /usr/share/nginx/html/assets/Aeonik-Regular-CE8GIAc9.woff2
 
 # Make our shell script executable
 RUN chmod +x env.sh
