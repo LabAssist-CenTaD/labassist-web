@@ -1,9 +1,11 @@
 // src/utils/deviceIdUtil.ts
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
+
 // Function to get a cookie value by name
 const getCookie = (name: string): string | null => {
   const value = document.cookie;
   const parts = value.split(`${name}=`);
+  
   if (parts.length === 2) return parts.pop()!.split(";").shift() || null;
   return null;
 };
