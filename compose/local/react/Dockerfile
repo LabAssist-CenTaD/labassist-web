@@ -1,5 +1,12 @@
 FROM node:18-alpine
 
+ARG VITE_API_ENDPOINT
+
+ENV VITE_API_ENDPOINT=${VITE_API_ENDPOINT}
+
+# print the value of the VITE_API_ENDPOINT
+RUN echo "VITE_API_ENDPOINT: $VITE_API_ENDPOINT"
+
 WORKDIR /app
 
 COPY package.json .
