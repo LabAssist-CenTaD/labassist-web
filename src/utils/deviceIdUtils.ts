@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 const getCookie = (name: string): string | null => {
   const value = document.cookie;
   const parts = value.split(`${name}=`);
-  
+
   if (parts.length === 2) return parts.pop()!.split(";").shift() || null;
   return null;
 };
@@ -24,5 +24,6 @@ export const getOrCreateDeviceId = (): string => {
     deviceId = uuidv4(); // Generate a new UUID
     setCookie("device_id", deviceId, 365); // Set it to expire in 1 year
   }
+  
   return deviceId;
 };
