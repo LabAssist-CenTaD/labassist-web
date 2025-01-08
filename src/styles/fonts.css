@@ -1,6 +1,6 @@
 /* @font-face rules for Aeonik font family */
 @font-face {
-  src: url("../assets/fonts/Aeonik-Bold.woff2") format("woff2"),
+  src: url("../assets/fonts/Aeonik-Regular.woff2") format("woff2"),
     url("../assets/fonts/Aeonik-Regular.woff") format("woff");
   font-family: "Aeonik-Regular";
   font-style: normal;
