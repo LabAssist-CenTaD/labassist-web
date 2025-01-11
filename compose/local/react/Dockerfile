@@ -34,7 +34,12 @@ COPY ./compose/local/react/env.sh .
 COPY .env .
 
 # Ensure fonts are available
-RUN chmod 644 /usr/share/nginx/html/assets/Aeonik-Regular-CE8GIAc9.woff2
+RUN chmod 644 /usr/share/nginx/html/assets/Aeonik-Bold-Bh_Gu146.woff2
+RUN chmod 644 /usr/share/nginx/html/assets/Aeonik-Bold-CrpFnyaT.woff
+RUN chmod 644 /usr/share/nginx/html/assets/Aeonik-Medium-BFiAAUd_.woff
+RUN chmod 644 /usr/share/nginx/html/assets/Aeonik-Medium-DjpuO4UM.woff2
+RUN chmod 644 /usr/share/nginx/html/assets/Aeonik-Regular-CFAwapjY.woff
+RUN chmod 644 /usr/share/nginx/html/assets/Aeonik-Regular-DGVXp3Ks.woff2
 
 # Make our shell script executable
 RUN chmod +x env.sh
