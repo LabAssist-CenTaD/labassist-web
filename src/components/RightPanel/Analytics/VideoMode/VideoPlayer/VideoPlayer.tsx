@@ -14,13 +14,15 @@ import { dotStream } from "ldrs";
 dotStream.register();
 
 interface VideoPlayerProps {
+  isVideoPresent: boolean;
+  setIsVideoPresent: (isPresent: boolean) => void;
   videoUrlChanged: (url: string | null) => void;
-  setVideoPresent: (isPresent: boolean) => void;
 }
 
 export const VideoPlayer = ({
+  isVideoPresent,
+  setIsVideoPresent,
   videoUrlChanged,
-  setVideoPresent,
 }: VideoPlayerProps): JSX.Element => {
   const { selectedFile } = useSelectedFileContext();
   const { cachedVideos } = useCachedVideoContext();
@@ -54,18 +56,18 @@ export const VideoPlayer = ({
 
         setLoading(true);
         setIsVideoLoading(true);
-        setVideoPresent(false);
+        setIsVideoPresent(false);
 
         const response = await axios.get(url, { responseType: "blob" });
 
         setLoading(false);
         setIsVideoLoading(false);
-        setVideoPresent(true);
+        // setIsVideoPresent(true);
 
         // If the request is successful, handle the video blob
         const videoBlob = response.data;
         videoBufferCache.addVideo(fileName, videoBlob); // Cache the video
-        
+
         if (config.debug_level === 1)
           console.log("Video retrieved successfully:", videoBlob);
 
@@ -134,7 +136,7 @@ export const VideoPlayer = ({
     videoBufferCache,
     videoUrlChanged,
     cachedVideos,
-    setVideoPresent,
+    setIsVideoPresent,
     setIsVideoLoading,
   ]);
 
@@ -194,18 +196,44 @@ export const VideoPlayer = ({
         }
       };
 
+      const handleMetadataLoaded = () => {
+        if (videoElement) {
+          setPlaybackState({
+            currentSeconds: 0,
+            durationSeconds: videoElement.duration || 0,
+            isPlaying: false,
+          });
+
+          setIsVideoPresent(true);
+        }
+      };
+
       videoElement.addEventListener("timeupdate", updatePlaybackContext);
       videoElement.addEventListener("durationchange", updatePlaybackContext);
+      videoElement.addEventListener("loadedmetadata", handleMetadataLoaded);
 
+      // Cleanup listeners on unmount
       return () => {
         videoElement.removeEventListener("timeupdate", updatePlaybackContext);
         videoElement.removeEventListener(
           "durationchange",
           updatePlaybackContext
         );
+        videoElement.removeEventListener(
+          "loadedmetadata",
+          handleMetadataLoaded
+        );
       };
     }
-  }, [isScrubbing, setCurrentSeconds, setPlaybackState]);
+  }, [
+    setCurrentSeconds,
+    setPlaybackState,
+    setIsVideoPresent,
+    isScrubbing,
+    videoUrl,
+    selectedFile,
+    isVideoPresent,
+  ]);
 
   useEffect(() => {
     return () => {

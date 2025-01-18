@@ -16,8 +16,9 @@ export const VideoMode = (): JSX.Element => {
       }`}
     >
       <VideoPlayer
+        isVideoPresent={isVideoPresent}
+        setIsVideoPresent={setIsVideoPresent}
         videoUrlChanged={setVideoUrl}
-        setVideoPresent={setIsVideoPresent}
       />
       <PredictionTimeline />
     </div>

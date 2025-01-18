@@ -3,6 +3,7 @@ import "./ProgressBar.css";
 import { AnnotationBar } from "./AnnotationBar/AnnotationBar";
 import { TimeBar } from "./TimeBar/TimeBar";
 import { Annotation } from "../../../types/jsondata";
+import { config } from "../../../config/config";
 
 interface ProgressBarProps {
   annotations: Annotation[];
@@ -21,7 +22,7 @@ export const ProgressBar = ({
   onScrub,
   onScrubEnd,
 }: ProgressBarProps): JSX.Element => {
-  console.log("durationSeconds", durationSeconds);
+  if (config.debug_level === 2) console.log("durationSeconds", durationSeconds);
 
   return (
     <div className="progress-bar">
