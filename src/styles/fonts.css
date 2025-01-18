@@ -1,23 +1,20 @@
 /* @font-face rules for Aeonik font family */
 @font-face {
-  src: url("../assets/fonts/Aeonik-Bold.woff2") format("woff2"),
-    url("../assets/fonts/Aeonik-Regular.woff") format("woff");
+  src: url("../assets/fonts/Aeonik-Regular.woff2") format("woff2");
   font-family: "Aeonik-Regular";
   font-style: normal;
   font-weight: 400; /* Regular */
 }
 
 @font-face {
-  src: url("../assets/fonts/Aeonik-Medium.woff2") format("woff2"),
-    url("../assets/fonts/Aeonik-Medium.woff") format("woff");
+  src: url("../assets/fonts/Aeonik-Medium.woff2") format("woff2");
   font-family: "Aeonik-Medium";
   font-style: normal;
   font-weight: 500; /* Medium */
 }
 
 @font-face {
-  src: url("../assets/fonts/Aeonik-Bold.woff2") format("woff2"),
-    url("../assets/fonts/Aeonik-Bold.woff") format("woff");
+  src: url("../assets/fonts/Aeonik-Bold.woff2") format("woff2");
   font-family: "Aeonik-Bold";
   font-style: normal;
   font-weight: 700; /* Bold */

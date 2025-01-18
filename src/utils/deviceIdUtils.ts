@@ -1,11 +1,9 @@
 // src/utils/deviceIdUtil.ts
-import { v4 as uuidv4 } from "uuid";
 
 // Function to get a cookie value by name
 const getCookie = (name: string): string | null => {
   const value = document.cookie;
   const parts = value.split(`${name}=`);
-
   if (parts.length === 2) return parts.pop()!.split(";").shift() || null;
   return null;
 };
@@ -21,9 +19,8 @@ const setCookie = (name: string, value: string, days: number): void => {
 export const getOrCreateDeviceId = (): string => {
   let deviceId = getCookie("device_id");
   if (!deviceId) {
-    deviceId = uuidv4(); // Generate a new UUID
+    deviceId = crypto.randomUUID(); // Generate a new UUID
     setCookie("device_id", deviceId, 365); // Set it to expire in 1 year
   }
-  
   return deviceId;
 };
