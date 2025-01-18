@@ -56,7 +56,7 @@ export const PreviousNextButton = ({
     ) {
       setSeekSeconds(targetAnnotation);
     } else {
-      setSeekSeconds(currentSeconds); // Stay at current position if out of range
+      setSeekSeconds(null); // Stay at current position if out of range
     }
   };
 
