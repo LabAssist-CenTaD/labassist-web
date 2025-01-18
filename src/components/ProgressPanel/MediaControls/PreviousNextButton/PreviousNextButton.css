@@ -8,4 +8,9 @@
   border-radius: 8px;
   background: var(--Foreground, #c9e8ff);
   border: none;
+  transition: all 0.3s;
+}
+
+.previous-next-button:hover {
+  filter: brightness(.85);
 }
