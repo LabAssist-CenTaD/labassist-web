@@ -21,6 +21,8 @@ export const ProgressBar = ({
   onScrub,
   onScrubEnd,
 }: ProgressBarProps): JSX.Element => {
+  console.log("durationSeconds", durationSeconds);
+
   return (
     <div className="progress-bar">
       <AnnotationBar

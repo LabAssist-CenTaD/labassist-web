@@ -10,6 +10,7 @@ interface PlaybackContextType {
   isScrubbing: boolean;
   scrubTargetSeconds: number | null;
   isVideoLoading: boolean;
+  isVideoPresent: boolean;
   seekSeconds: number | null;
   setCurrentSeconds: (currentSeconds: number) => void;
   setPlaybackState: (state: {
@@ -24,6 +25,7 @@ interface PlaybackContextType {
   stopScrubbing: () => void;
   setScrubTargetSeconds: (seconds: number) => void;
   setIsVideoLoading: (isLoading: boolean) => void;
+  setIsVideoPresent: (isPresent: boolean) => void;
   setSeekSeconds: (seconds: number | null) => void;
 }
 
@@ -35,6 +37,7 @@ export const PlaybackProvider = ({ children }: { children: ReactNode }) => {
   const { selectedFile } = useSelectedFileContext(); // Access selected file from context
 
   const [isVideoLoading, setIsVideoLoading] = useState(false);
+  const [isVideoPresent, setIsVideoPresent] = useState(false);
 
   const [currentSeconds, setCurrentSecondsState] = useState(0);
   const [durationSeconds, setDurationSeconds] = useState(0);
@@ -120,6 +123,7 @@ export const PlaybackProvider = ({ children }: { children: ReactNode }) => {
         isScrubbing,
         scrubTargetSeconds,
         isVideoLoading,
+        isVideoPresent,
         seekSeconds,
         setCurrentSeconds,
         setPlaybackState,
@@ -130,6 +134,7 @@ export const PlaybackProvider = ({ children }: { children: ReactNode }) => {
         stopScrubbing,
         setScrubTargetSeconds,
         setIsVideoLoading,
+        setIsVideoPresent,
         setSeekSeconds,
       }}
     >

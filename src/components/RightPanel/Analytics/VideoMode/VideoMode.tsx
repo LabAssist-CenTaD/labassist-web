@@ -3,20 +3,21 @@ import "./VideoMode.css";
 import { useState } from "react";
 import { VideoPlayer } from "./VideoPlayer/VideoPlayer";
 import { PredictionTimeline } from "./PredictionTimeline/PredictionTimeline";
+import { usePlaybackContext } from "../../../../hooks/usePlaybackContext";
 
 export const VideoMode = (): JSX.Element => {
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
-  const [videoPresent, setVideoPresent] = useState<boolean>(false);
+  const { isVideoPresent, setIsVideoPresent } = usePlaybackContext();
 
   return (
     <div
       className={`video-mode ${
-        videoUrl && videoPresent ? "video-present" : ""
+        videoUrl && isVideoPresent ? "video-present" : ""
       }`}
     >
       <VideoPlayer
         videoUrlChanged={setVideoUrl}
-        setVideoPresent={setVideoPresent}
+        setVideoPresent={setIsVideoPresent}
       />
       <PredictionTimeline />
     </div>
